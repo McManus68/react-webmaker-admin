@@ -5,12 +5,15 @@ import {
   FETCH_SITE_SUCCESS,
   FETCH_SITE_REQUEST,
   FETCH_SITE_FAILURE,
+  SAVE_SITE_SUCCESS,
+  SAVE_SITE_REQUEST,
+  SAVE_SITE_FAILURE,
 } from './siteTypes'
 
 const initialState = {
   loading: false,
   sites: [],
-  site: {},
+  site: null,
   error: '',
 }
 
@@ -57,6 +60,26 @@ const siteReducer = (state = initialState, action) => {
         site: {},
         error: action.payload,
       }
+
+    // SAVE SITE
+    case SAVE_SITE_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      }
+    case SAVE_SITE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: '',
+      }
+    case SAVE_SITE_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      }
+
     default:
       return state
   }

@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-
-import { fetchSites, fetchSite } from '../redux'
+import { fetchSites, fetchSite, setEditorSite } from '../redux'
 
 import './menu.scss'
 
@@ -13,7 +12,6 @@ const Menu = () => {
     dispatch(fetchSites())
   }, [])
 
-  console.log(fetchSite)
   return (
     <div className='menu'>
       <ul>

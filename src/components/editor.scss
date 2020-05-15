@@ -1,4 +1,52 @@
-.editor {
-  background-color: #b1c026;
+.editor-container {
+  display: flex;
+  background-color: #fafafa;
   flex-grow: 1;
+
+  form {
+    width: 100%;
+  }
+}
+
+.editor-content {
+  display: flex;
+  flex-direction: row;
+}
+
+.editor-pages-content {
+  flex-grow: 1;
+}
+
+.editor-right-menu {
+  padding: 2rem 0.6rem;
+  background-color: #fafafa;
+  border-left: 1px solid black;
+  width: 200px;
+  flex-grow: 0;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  padding-right: 3rem;
+  width: calc(100% - 180px);
+  height: 80px;
+  background-color: lightgrey;
+  position: fixed;
+  bottom: 0;
+
+  .button-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  button {
+    margin-right: 0.3rem;
+  }
+}
+
+.right-menu {
+  background-color: red;
+  width: 100px;
 }
