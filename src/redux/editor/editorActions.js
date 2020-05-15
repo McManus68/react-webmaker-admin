@@ -1,4 +1,8 @@
-import { SAVE_EDITOR_PAGE, SET_EDITOR_SITE } from './editorTypes'
+import {
+  SAVE_EDITOR_PAGE,
+  SET_EDITOR_SITE,
+  SET_EDITOR_PAGE_INDEX,
+} from './editorTypes'
 
 export const saveEditorPage = (page, pageIndex) => {
   return {
@@ -14,5 +18,12 @@ export const setEditorSite = site => {
   return {
     type: SET_EDITOR_SITE,
     payload: site,
+  }
+}
+
+export const setEditorPageIndex = index => {
+  return {
+    type: SET_EDITOR_PAGE_INDEX,
+    payload: index,
   }
 }

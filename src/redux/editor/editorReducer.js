@@ -1,8 +1,13 @@
-import { SAVE_EDITOR_PAGE, SET_EDITOR_SITE } from './editorTypes'
+import {
+  SAVE_EDITOR_PAGE,
+  SET_EDITOR_SITE,
+  SET_EDITOR_PAGE_INDEX,
+} from './editorTypes'
 
 const initialState = {
   site: null,
   page: null,
+  pageIndex: 0,
 }
 
 const editorReducer = (state = initialState, action) => {
@@ -19,6 +24,12 @@ const editorReducer = (state = initialState, action) => {
       return {
         ...state,
         site: action.payload,
+      }
+
+    case SET_EDITOR_PAGE_INDEX:
+      return {
+        ...state,
+        pageIndex: action.payload,
       }
 
     default:

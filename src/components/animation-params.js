@@ -20,9 +20,7 @@ const AnimationParams = ({ animation, path }) => {
     animation = {}
   }
 
-  //console.log('animation = ', animation)
-
-  console.log('ERRORS = ', errors)
+  console.log('animation = ', animation)
   return (
     <div>
       <table>

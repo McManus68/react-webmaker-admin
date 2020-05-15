@@ -5,7 +5,7 @@ import { get } from 'lodash'
 
 import { useFormContext } from 'react-hook-form'
 
-function PageParams({ page, path }) {
+function PageParams({ page }) {
   const { register, errors } = useFormContext()
   const params = ['title', 'slug', 'description']
 
@@ -21,13 +21,13 @@ function PageParams({ page, path }) {
               </th>
               <td>
                 <input
-                  name={`${path}.${param}`}
+                  name={param}
                   type='text'
                   defaultValue={page[param]}
                   ref={register}
                 />
-                {get(errors, `${path}.${param}.message`) && (
-                  <p>{get(errors, `${path}.${param}.message`)}</p>
+                {get(errors, `${param}.message`) && (
+                  <p>{get(errors, `${param}.message`)}</p>
                 )}
               </td>
             </tr>
