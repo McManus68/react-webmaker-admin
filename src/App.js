@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useForm, FormContext, useFormContext } from 'react-hook-form'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchConfig, setEditorSite } from './redux'
-
+import { schema } from './utils/schema.js'
 import Header from './components/header'
 import Menu from './components/menu'
 import Editor from './components/editor'
@@ -22,7 +22,9 @@ function App() {
     dispatch(setEditorSite(site))
   }, [site])
 
-  const methods = useForm()
+  const methods = useForm({
+    validationSchema: schema,
+  })
 
   return (
     <div className='App'>

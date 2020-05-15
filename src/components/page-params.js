@@ -1,10 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import { get } from 'lodash'
+
 import { useFormContext } from 'react-hook-form'
 
 function PageParams({ page, path }) {
-  const { register } = useFormContext()
+  const { register, errors } = useFormContext()
   const params = ['title', 'slug', 'description']
 
   return (
@@ -24,6 +26,9 @@ function PageParams({ page, path }) {
                   defaultValue={page[param]}
                   ref={register}
                 />
+                {get(errors, `${path}.${param}.message`) && (
+                  <p>{get(errors, `${path}.${param}.message`)}</p>
+                )}
               </td>
             </tr>
           )

@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-import './page-editor.scss'
 import PageParams from './page-params'
 import ResponsiveParams from './responsive-params'
 import AnimationParams from './animation-params'
 import Params from './params'
+
+import './page-editor.scss'
 
 function PageEditor({ page, currentPage, pageIndex }) {
   return (

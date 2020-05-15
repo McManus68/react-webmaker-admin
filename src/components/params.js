@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 import { useFormContext } from 'react-hook-form'
 
-const DynamicParams = ({ component, path, configType }) => {
+const Params = ({ component, path, configType }) => {
   const { register } = useFormContext()
   const globalConfig = useSelector(state => state.config.config)
   const config = globalConfig[configType][component.type]
@@ -77,4 +77,4 @@ const DynamicParams = ({ component, path, configType }) => {
   )
 }
 
-export default DynamicParams
+export default Params

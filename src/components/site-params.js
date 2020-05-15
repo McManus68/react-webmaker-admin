@@ -4,9 +4,9 @@ import PropTypes from 'prop-types'
 import { useFormContext } from 'react-hook-form'
 
 function SiteParams({ site }) {
-  const { register } = useFormContext()
+  const { register, errors } = useFormContext()
   const params = ['name', 'title', 'description']
-
+  console.log(errors)
   return (
     <table>
       <thead></thead>
@@ -19,6 +19,7 @@ function SiteParams({ site }) {
               </th>
               <td>
                 <input name={param} defaultValue={site[param]} ref={register} />
+                {errors[param] && <p>{errors[param].message}</p>}
               </td>
             </tr>
           )

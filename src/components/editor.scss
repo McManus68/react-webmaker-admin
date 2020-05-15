@@ -11,9 +11,6 @@
 .editor-content {
   display: flex;
   flex-direction: row;
-}
-
-.editor-pages-content {
   flex-grow: 1;
 }
 
@@ -44,9 +41,4 @@
   button {
     margin-right: 0.3rem;
   }
-}
-
-.right-menu {
-  background-color: red;
-  width: 100px;
 }

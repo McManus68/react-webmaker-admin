@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { useSelector, useDispatch } from 'react-redux'
-import { useFormContext, useFieldArray } from 'react-hook-form'
-import { saveEditorPage, setEditorSite, saveSite } from '../redux'
+import { useDispatch } from 'react-redux'
+import { useFormContext } from 'react-hook-form'
+import { saveEditorPage } from '../redux'
 
 import AppBar from '@material-ui/core/AppBar'
 import Tabs from '@material-ui/core/Tabs'
@@ -18,21 +18,9 @@ const Editor = ({ site }) => {
 
   const dispatch = useDispatch()
 
-  const { register, control, handleSubmit, reset } = useFormContext({
+  const { register, handleSubmit, reset } = useFormContext({
     defaultValues: site,
   })
-
-  const { fields, append, prepend, remove } = useFieldArray({
-    control,
-    name: 'pages',
-  })
-
-  function a11yProps(index) {
-    return {
-      id: `simple-tab-${index}`,
-      'aria-controls': `simple-tabpanel-${index}`,
-    }
-  }
 
   const onChangeTab = (e, value) => {
     setCurrentPageIndex(value)
@@ -40,11 +28,10 @@ const Editor = ({ site }) => {
   }
 
   const onSubmitSite = data => {
-    dispatch(saveSite(site))
+    //dispatch(saveSite(site))
   }
 
   const onSubmitPage = data => {
-    console.log('PAGE COURANTE', data, currentPageIndex)
     dispatch(saveEditorPage(data.pages[currentPageIndex], currentPageIndex))
   }
 
@@ -58,23 +45,21 @@ const Editor = ({ site }) => {
             aria-label='simple tabs example'
           >
             {site.pages.map((page, i) => (
-              <Tab key={i} label={page.title} {...a11yProps(i)} />
+              <Tab key={i} label={page.title} />
             ))}
           </Tabs>
         </AppBar>
 
         <div className='editor-content'>
-          <div className='editor-pages-content'>
-            {site.pages.map((page, pageIndex) => (
-              <PageEditor
-                page={page}
-                key={pageIndex}
-                currentPage={currentPageIndex}
-                pageIndex={pageIndex}
-                register={register}
-              />
-            ))}
-          </div>
+          {site.pages.map((page, pageIndex) => (
+            <PageEditor
+              page={page}
+              key={pageIndex}
+              currentPage={currentPageIndex}
+              pageIndex={pageIndex}
+              register={register}
+            />
+          ))}
           <div className='editor-right-menu'>
             {site.pages.length > 0 && (
               <div className='editor-right-menu-content'>

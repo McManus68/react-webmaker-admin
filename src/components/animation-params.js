@@ -3,78 +3,95 @@ import PropTypes from 'prop-types'
 
 import { useFormContext } from 'react-hook-form'
 
+import './animation-params.scss'
+
 const AnimationParams = ({ animation, path }) => {
-  const { register } = useFormContext()
+  const { register, setValue, getValues, errors } = useFormContext()
   const directions = ['left', 'right', 'top', 'bottom']
-  const [active, setActive] = useState(animation ? true : false)
+  const [active, setActive] = useState(animation && animation.active)
 
-  const toggleChecked = () => {
-    setActive(!active)
-    animation = active ? {} : null
+  const toggleChecked = e => {
+    setActive(e.target.checked)
 
-    console.log('STATUS', animation, active)
+    //console.log('CACACA', getValues(`${path}.active`))
   }
 
+  if (animation === null) {
+    animation = {}
+  }
+
+  //console.log('animation = ', animation)
+
+  console.log('ERRORS = ', errors)
   return (
     <div>
-      <label htmlFor='active'>Animate?</label>
-      <input
-        name={`${path}`}
-        type='checkbox'
-        ref={register}
-        onClick={toggleChecked}
-        defaultValue={active}
-      />
+      <table>
+        <thead></thead>
+        <tbody>
+          <tr>
+            <th>
+              <label htmlFor='active'>Animate?</label>
+            </th>
+            <td>
+              <input
+                name={`${path}.active`}
+                ref={register}
+                defaultChecked={active}
+                onClick={toggleChecked}
+                type='checkbox'
+              />
+            </td>
+          </tr>
 
-      {active && (
-        <table>
-          <thead></thead>
-          <tbody>
-            <tr>
-              <th>
-                <label htmlFor='type'>Type</label>
-              </th>
-              <td>
-                <input
-                  name={`${path}.type`}
-                  ref={register}
-                  defaultValue={animation.type}
-                />
-              </td>
-            </tr>
-            <tr>
-              <th>
-                <label htmlFor='delay'>Delay</label>
-              </th>
-              <td>
-                <input
-                  name={`${path}.delay`}
-                  type='number'
-                  ref={register}
-                  defaultValue={animation.delay}
-                />
-              </td>
-            </tr>
-            {directions.map((direction, i) => {
-              return (
-                <tr key={i}>
-                  <th>
-                    <label htmlFor={direction}>{direction}</label>
-                  </th>
-                  <td>
-                    <input
-                      name={`${path}.${direction}`}
-                      type='text'
-                      defaultValue={animation[direction]}
-                      ref={register}
-                    />
-                  </td>
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
-      )}
+          <tr>
+            <th>
+              <label htmlFor='type'>Type</label>
+            </th>
+            <td>
+              <input
+                name={`${path}.type`}
+                ref={register}
+                defaultValue={animation.type}
+                disabled={!active}
+              />
+            </td>
+          </tr>
+
+          <tr>
+            <th>
+              <label htmlFor='delay'>Delay</label>
+            </th>
+            <td>
+              <input
+                name={`${path}.delay`}
+                type='number'
+                ref={register}
+                defaultValue={animation.delay || 0}
+                disabled={!active}
+              />
+            </td>
+          </tr>
+
+          {directions.map((direction, i) => {
+            return (
+              <tr key={i}>
+                <th>
+                  <label htmlFor={direction}>{direction}</label>
+                </th>
+                <td>
+                  <input
+                    name={`${path}.${direction}`}
+                    type='checkbox'
+                    defaultChecked={animation[direction]}
+                    ref={register}
+                    disabled={!active}
+                  />
+                </td>
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
     </div>
   )
 }
