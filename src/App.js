@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchConfig, setEditorSite } from './redux'
+import { fetchConfig, fetchSites, setEditorSite } from './redux'
 import Header from './components/header'
 import Menu from './components/menu'
 import Editor from './components/editor'
@@ -15,10 +15,12 @@ function App() {
 
   useEffect(() => {
     dispatch(fetchConfig())
+    dispatch(fetchSites())
   }, [])
 
   useEffect(() => {
     dispatch(setEditorSite(site))
+    console.log('setEditorSite')
   }, [site])
 
   return (

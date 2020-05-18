@@ -18,7 +18,11 @@ function SiteParams({ site }) {
                 <label htmlFor={param}>{param}</label>
               </th>
               <td>
-                <input name={param} defaultValue={site[param]} ref={register} />
+                <input
+                  name={param}
+                  defaultValue={site[param]}
+                  ref={register()}
+                />
                 {errors[param] && <p>{errors[param].message}</p>}
               </td>
             </tr>

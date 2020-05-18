@@ -1,7 +1,7 @@
 .menu {
-  width: 20%;
   min-width: 180px;
   min-width: 250px;
+  flex-grow: 0;
   min-height: calc(100vh - 60px);
   background-color: #3f51b5;
 }

@@ -24,7 +24,7 @@ function PageParams({ page }) {
                   name={param}
                   type='text'
                   defaultValue={page[param]}
-                  ref={register}
+                  ref={register()}
                 />
                 {get(errors, `${param}.message`) && (
                   <p>{get(errors, `${param}.message`)}</p>

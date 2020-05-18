@@ -6,7 +6,6 @@ import { useFormContext } from 'react-hook-form'
 const ResponsiveParams = ({ responsive, path }) => {
   const { register } = useFormContext()
   const breakpoints = ['sm', 'md', 'lg', 'xl']
-
   return (
     <table>
       <thead></thead>
@@ -22,7 +21,7 @@ const ResponsiveParams = ({ responsive, path }) => {
                   name={`${path}.${breakpoint}`}
                   type='number'
                   defaultValue={responsive[breakpoint]}
-                  ref={register}
+                  ref={register()}
                 />
               </td>
             </tr>

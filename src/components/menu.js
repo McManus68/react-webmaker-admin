@@ -8,10 +8,6 @@ const Menu = () => {
   const sites = useSelector(state => state.site.sites)
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    dispatch(fetchSites())
-  }, [])
-
   return (
     <div className='menu'>
       <ul>

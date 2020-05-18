@@ -19,33 +19,50 @@ export const schema = yup.object().shape({
               subtitle: yup.string(),
               buttonText: yup.string(),
               images: yup.array().of(yup.string()),
-              responsive: yup.object().shape({
-                sm: yup.number().min(1).max(12),
-                md: yup.number().min(1).max(12),
-                lg: yup
-                  .number()
-                  .min(1)
-                  .max(12)
-                  .nullable()
-                  .transform((value, originalValue) =>
-                    originalValue.trim() === '' ? null : value
-                  ),
-                xl: yup
-                  .number()
-                  .min(1)
-                  .max(12)
-                  .nullable()
-                  .transform((value, originalValue) =>
-                    originalValue.trim() === '' ? null : value
-                  ),
-              }),
-              animation: yup.object().shape({
-                type: yup.string(),
-                delay: yup.number(),
-                left: yup.bool(),
-                right: yup.bool(),
-                top: yup.bool(),
-                bottom: yup.bool(),
+              responsive: yup
+                .object()
+                .nullable()
+                .shape({
+                  sm: yup
+                    .number()
+                    .min(1)
+                    .max(12)
+                    .nullable()
+                    .transform((value, originalValue) =>
+                      originalValue.trim() === '' ? null : value
+                    ),
+                  md: yup
+                    .number()
+                    .min(1)
+                    .max(12)
+                    .nullable()
+                    .transform((value, originalValue) =>
+                      originalValue.trim() === '' ? null : value
+                    ),
+                  lg: yup
+                    .number()
+                    .min(1)
+                    .max(12)
+                    .nullable()
+                    .transform((value, originalValue) =>
+                      originalValue.trim() === '' ? null : value
+                    ),
+                  xl: yup
+                    .number()
+                    .min(1)
+                    .max(12)
+                    .nullable()
+                    .transform((value, originalValue) =>
+                      originalValue.trim() === '' ? null : value
+                    ),
+                }),
+              animation: yup.object().nullable().shape({
+                type: yup.string().nullable(),
+                delay: yup.number().nullable(),
+                left: yup.bool().nullable(),
+                right: yup.bool().nullable(),
+                top: yup.bool().nullable(),
+                bottom: yup.bool().nullable(),
               }),
             })
           ),
