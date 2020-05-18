@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchSites, fetchSite, setEditorSite } from '../redux'
+import { fetchSites, fetchSite, setEditingSite } from '../redux'
 
 import './menu.scss'
 

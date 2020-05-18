@@ -6,7 +6,6 @@ import { useFormContext } from 'react-hook-form'
 function SiteParams({ site }) {
   const { register, errors } = useFormContext()
   const params = ['name', 'title', 'description']
-  console.log(errors)
   return (
     <table>
       <thead></thead>

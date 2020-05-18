@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchConfig, fetchSites, setEditorSite } from './redux'
+import { fetchConfig, fetchSites, setEditingSite } from './redux'
 import Header from './components/header'
 import Menu from './components/menu'
-import Editor from './components/editor'
+import SiteEditor from './components/site-editor'
 
 import './App.scss'
 
@@ -19,8 +19,8 @@ function App() {
   }, [])
 
   useEffect(() => {
-    dispatch(setEditorSite(site))
-    console.log('setEditorSite')
+    dispatch(setEditingSite(site))
+    console.log('setEditingSite')
   }, [site])
 
   return (
@@ -29,7 +29,7 @@ function App() {
 
       <main className='main'>
         <Menu />
-        {site ? <Editor site={site} /> : null}
+        {site ? <SiteEditor site={site} /> : null}
       </main>
 
       <footer>

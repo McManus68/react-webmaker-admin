@@ -15,7 +15,7 @@ import Button from '@material-ui/core/Button'
 import { FaTrashAlt, FaPlusCircle } from 'react-icons/fa'
 
 import { schema } from '../utils/schema-page.js'
-import { saveEditorPage } from '../redux'
+import { saveCurrentPage } from '../redux'
 
 import SectionsEditor from './sections-editor'
 
@@ -28,16 +28,13 @@ function PageEditor({ page, currentPage, pageIndex }) {
   })
 
   useEffect(() => {
-    //methods.reset(page)
-    console.log('REDRAW PAGE', page)
-    console.log('ERRORS', methods.errors)
+    methods.reset(page)
   }, [page])
 
   const dispatch = useDispatch()
 
   const onSavePage = data => {
-    console.log(data)
-    dispatch(saveEditorPage(data, pageIndex))
+    dispatch(saveCurrentPage(data, pageIndex))
   }
 
   return (

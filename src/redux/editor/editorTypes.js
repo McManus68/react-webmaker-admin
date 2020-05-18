@@ -1,2 +1,3 @@
-export const SAVE_EDITOR_PAGE = 'SAVE_EDITOR_PAGE'
-export const SET_EDITOR_SITE = 'SET_EDITOR_SITE'
+export const SAVE_CURRENT_PAGE = 'SAVE_CURRENT_PAGE'
+export const SET_EDITING_SITE = 'SET_EDITING_SITE'
+export const ADD_PAGE = 'ADD_PAGE'

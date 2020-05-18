@@ -15,7 +15,7 @@ import Button from '@material-ui/core/Button'
 import { FaTrashAlt, FaPlusCircle } from 'react-icons/fa'
 
 import { schema } from '../utils/schema-page.js'
-import { saveEditorPage } from '../redux'
+import { saveCurrentPage } from '../redux'
 
 import RowsEditor from './rows-editor'
 

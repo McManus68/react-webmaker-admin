@@ -1,3 +1,7 @@
 export { fetchSites, fetchSite, saveSite } from './site/siteActions'
 export { fetchConfig } from './config/configActions'
-export { saveEditorPage, setEditorSite } from './editor/editorActions'
+export {
+  saveCurrentPage,
+  setEditingSite,
+  addPage,
+} from './editor/editorActions'
