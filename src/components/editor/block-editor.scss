@@ -3,3 +3,7 @@
 .section-editor .row-editor .block-editor {
   @include container-editor(var(--block-color));
 }
+
+.block-editor-content {
+  display: flex;
+}

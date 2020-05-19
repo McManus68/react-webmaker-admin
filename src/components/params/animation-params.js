@@ -12,6 +12,13 @@ const AnimationParams = ({ animation, path }) => {
 
   const onActive = e => {
     setActive(e.target.checked)
+    if (e.target.checked === false) {
+      unregister(`${path}.type`)
+      unregister(`${path}.delay`)
+      directions.map(direction => {
+        unregister(`${path}.${direction}`)
+      })
+    }
   }
 
   if (animation == null) {
@@ -20,13 +27,20 @@ const AnimationParams = ({ animation, path }) => {
 
   return (
     <div>
-      <label htmlFor='active'>Animate?</label>
-
-      <input defaultChecked={active} onClick={onActive} type='checkbox' />
-
-      {active && (
-        <table>
-          <thead></thead>
+      <table>
+        <thead>
+          <tr>
+            <th colSpan='2'>
+              <label htmlFor='active'>Animate?</label>
+              <input
+                defaultChecked={active}
+                onClick={onActive}
+                type='checkbox'
+              />
+            </th>
+          </tr>
+        </thead>
+        {active ? (
           <tbody>
             <tr>
               <th>
@@ -35,13 +49,12 @@ const AnimationParams = ({ animation, path }) => {
               <td>
                 <input
                   name={`${path}.type`}
-                  ref={register()}
+                  ref={register}
                   defaultValue={animation.type}
                   disabled={!active}
                 />
               </td>
             </tr>
-
             <tr>
               <th>
                 <label htmlFor='delay'>Delay</label>
@@ -50,13 +63,12 @@ const AnimationParams = ({ animation, path }) => {
                 <input
                   name={`${path}.delay`}
                   type='number'
-                  ref={register()}
+                  ref={register}
                   defaultValue={animation.delay}
                   disabled={!active}
                 />
               </td>
             </tr>
-
             {directions.map((direction, i) => {
               return (
                 <tr key={i}>
@@ -68,7 +80,7 @@ const AnimationParams = ({ animation, path }) => {
                       name={`${path}.${direction}`}
                       type='checkbox'
                       defaultChecked={animation[direction]}
-                      ref={register()}
+                      ref={register}
                       disabled={!active}
                     />
                   </td>
@@ -76,8 +88,8 @@ const AnimationParams = ({ animation, path }) => {
               )
             })}
           </tbody>
-        </table>
-      )}
+        ) : null}
+      </table>
     </div>
   )
 }

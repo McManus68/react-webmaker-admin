@@ -8,7 +8,11 @@ const ResponsiveParams = ({ responsive, path }) => {
   const breakpoints = ['sm', 'md', 'lg', 'xl']
   return (
     <table>
-      <thead></thead>
+      <thead>
+        <tr>
+          <th colSpan='2'>Responsive</th>
+        </tr>
+      </thead>
       <tbody>
         {breakpoints.map((breakpoint, i) => {
           return (

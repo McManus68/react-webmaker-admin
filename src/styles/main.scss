@@ -41,8 +41,20 @@ code {
 }
 
 table {
+  margin: 0.4rem 0.9rem;
   tr {
     text-align: left;
     text-transform: capitalize;
+    font-size: 0.8rem;
+  }
+  td {
+    padding: 0.2rem 0.8rem;
+  }
+  thead {
+    tr th {
+      padding: 1rem 0;
+      background-color: var(--bg-color);
+      text-align: center;
+    }
   }
 }

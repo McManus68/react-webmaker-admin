@@ -6,14 +6,17 @@ export const schema = yup.object().shape({
   description: yup.string(),
   sections: yup.array().of(
     yup.object().shape({
+      type: yup.string(),
       title: yup.string(),
       subtitle: yup.string(),
       image: yup.string(),
       overlay: yup.string(),
       rows: yup.array().of(
         yup.object().shape({
+          type: yup.string(),
           blocks: yup.array().of(
             yup.object().shape({
+              type: yup.string(),
               classes: yup.string(),
               title: yup.string(),
               subtitle: yup.string(),

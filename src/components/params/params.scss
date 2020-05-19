@@ -1,9 +1,12 @@
+.params {
+  svg {
+    font-size: 0.8rem;
+    cursor: pointer;
+  }
+}
+
 .params-array-item {
   display: flex;
   flex-direction: row;
   align-items: center;
-
-  svg {
-    font-size: 0.8rem;
-  }
 }

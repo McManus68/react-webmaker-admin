@@ -28,14 +28,13 @@ const Params = ({ component, path, configType }) => {
   }
 
   const onAddParam = name => {
-    console.log('add', name)
     var newParams = { ...params }
     newParams[name].push('')
     setParams(newParams)
   }
 
   return (
-    <div>
+    <div className='params'>
       <input
         name={`${path}.type`}
         type='hidden'
@@ -44,6 +43,11 @@ const Params = ({ component, path, configType }) => {
       />
 
       <table>
+        <thead>
+          <tr>
+            <th colSpan='2'>Parameters</th>
+          </tr>
+        </thead>
         <tbody>
           {configType === 'BLOCK' ? (
             <tr>
