@@ -6,9 +6,9 @@ import PageParams from '../params/page-params'
 
 import { schema } from '../../utils/schema-page.js'
 
-import SectionsEditor from './sections-editor'
+import SectionEditor from './section-editor'
 
-import style from './page-editor.scss'
+import './page-editor.scss'
 
 const PageEditor = ({ page, currentPage, pageIndex }) => {
   // Each page has its own form - Like other pages are not in the DOM it's easier to handle this way
@@ -41,9 +41,9 @@ const PageEditor = ({ page, currentPage, pageIndex }) => {
     currentPage === pageIndex && (
       <FormContext {...methods}>
         <form>
-          <div className='page-editor-container container'>
+          <div className='page-editor container'>
             <PageParams page={page} />
-            <SectionsEditor page={page} path='sections' />
+            <SectionEditor page={page} path='sections' />
           </div>
         </form>
       </FormContext>

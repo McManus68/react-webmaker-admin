@@ -7,7 +7,9 @@ import Params from '../params/params'
 
 import { FaTrashAlt, FaPlusCircle } from 'react-icons/fa'
 
-const BlocksEditor = ({ path }) => {
+import './block-editor.scss'
+
+const BlockEditor = ({ path }) => {
   const { control } = useFormContext()
   const { fields, append, prepend, remove, swap, move, insert } = useFieldArray(
     {
@@ -22,14 +24,15 @@ const BlocksEditor = ({ path }) => {
 
   return (
     <div>
-      <FaPlusCircle onClick={() => prepend(newBlock())} />
-
       {fields &&
         fields.map((field, i) => (
           <div key={field.id}>
-            <div className='page-editor-block-container'>
+            <div className='block-editor'>
+              <div className='add-before'>
+                <FaPlusCircle onClick={() => insert(i, newBlock())} />
+              </div>
               <h4>{field.type}</h4>
-              <div className='page-editor-block-content'>
+              <div className='block-editor-content'>
                 <Params
                   component={field}
                   configType='BLOCK'
@@ -45,13 +48,17 @@ const BlocksEditor = ({ path }) => {
                   path={`${path}[${i}].animation`}
                 />
               </div>
-              <FaTrashAlt onClick={() => remove(i)} />
+              <div className='remove'>
+                <FaTrashAlt onClick={() => remove(i)} />
+              </div>
+              <div className='add-after'>
+                <FaPlusCircle onClick={() => insert(i + 1, newBlock())} />
+              </div>
             </div>
-            <FaPlusCircle onClick={() => insert(i + 1, newBlock())} />
           </div>
         ))}
     </div>
   )
 }
 
-export default BlocksEditor
+export default BlockEditor

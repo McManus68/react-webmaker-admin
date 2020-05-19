@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import PropTypes from 'prop-types'
-
 import { useSelector } from 'react-redux'
 import { useFormContext, useFieldArray } from 'react-hook-form'
 
@@ -37,78 +35,76 @@ const Params = ({ component, path, configType }) => {
   }
 
   return (
-    <table>
-      <thead></thead>
-      <tbody>
-        <tr>
-          <td>
-            <input
-              name={`${path}.type`}
-              type='hidden'
-              ref={register()}
-              defaultValue={component.type}
-            />
-          </td>
-        </tr>
-        {configType === 'BLOCK' ? (
-          <tr>
-            <th>
-              <label htmlFor={component.classes}>Classes CSS</label>
-            </th>
-            <td>
-              <input
-                name={`${path}.classes`}
-                type='text'
-                ref={register()}
-                defaultValue={component.classes}
-              />
-            </td>
-          </tr>
-        ) : null}
-        {config &&
-          config.map((c, i) => {
-            return (
-              <tr key={i}>
-                <th>
-                  <label htmlFor={c.name}>{c.name}</label>
-                </th>
-                <td>
-                  {!c.isArray ? (
-                    <input
-                      name={`${path}.params.${c.name}`}
-                      type={c.type === 'INT' ? 'number' : 'text'}
-                      defaultValue={params[c.name]}
-                      ref={register()}
-                    />
-                  ) : null}
+    <div>
+      <input
+        name={`${path}.type`}
+        type='hidden'
+        ref={register()}
+        defaultValue={component.type}
+      />
 
-                  {c.isArray
-                    ? params[c.name] &&
-                      params[c.name].map((value, i) => {
-                        return (
-                          <div className='params-array-item' key={i}>
-                            <input
-                              name={`${path}.params.${c.name}[${i}]`}
-                              type={c.type === 'INT' ? 'number' : 'text'}
-                              defaultValue={value}
-                              ref={register()}
-                            />
-                            <FaTrashAlt
-                              onClick={() => onDeleteParam(c.name, i)}
-                            />
-                          </div>
-                        )
-                      })
-                    : null}
-                  {c.isArray && (
-                    <FaPlusCircle onClick={() => onAddParam(c.name)} />
-                  )}
-                </td>
-              </tr>
-            )
-          })}
-      </tbody>
-    </table>
+      <table>
+        <tbody>
+          {configType === 'BLOCK' ? (
+            <tr>
+              <th>
+                <label htmlFor={component.classes}>Classes CSS</label>
+              </th>
+              <td>
+                <input
+                  name={`${path}.classes`}
+                  type='text'
+                  ref={register()}
+                  defaultValue={component.classes}
+                />
+              </td>
+            </tr>
+          ) : null}
+          {config &&
+            config.map((c, i) => {
+              return (
+                <tr key={i}>
+                  <th>
+                    <label htmlFor={c.name}>{c.name}</label>
+                  </th>
+                  <td>
+                    {!c.isArray ? (
+                      <input
+                        name={`${path}.params.${c.name}`}
+                        type={c.type === 'INT' ? 'number' : 'text'}
+                        defaultValue={params[c.name]}
+                        ref={register()}
+                      />
+                    ) : null}
+
+                    {c.isArray
+                      ? params[c.name] &&
+                        params[c.name].map((value, i) => {
+                          return (
+                            <div className='params-array-item' key={i}>
+                              <input
+                                name={`${path}.params.${c.name}[${i}]`}
+                                type={c.type === 'INT' ? 'number' : 'text'}
+                                defaultValue={value}
+                                ref={register()}
+                              />
+                              <FaTrashAlt
+                                onClick={() => onDeleteParam(c.name, i)}
+                              />
+                            </div>
+                          )
+                        })
+                      : null}
+                    {c.isArray && (
+                      <FaPlusCircle onClick={() => onAddParam(c.name)} />
+                    )}
+                  </td>
+                </tr>
+              )
+            })}
+        </tbody>
+      </table>
+    </div>
   )
 }
 

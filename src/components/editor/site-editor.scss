@@ -1,16 +1,21 @@
-.editor-container {
-  background-color: #fafafa;
+.site-editor {
   display: flex;
   flex-grow: 1;
 }
 
-.editor-container-content {
+.site-editor-content {
   flex-grow: 1;
+
+  .MuiAppBar-colorPrimary {
+    background-color: var(--bg-color);
+    color: var(--primary-color);
+    box-shadow: none;
+  }
 }
 
-.editor-right-menu {
+.site-editor-menu {
   padding: 2rem 0.6rem;
-  background-color: #fafafa;
+  border-left: 1px solid lightgrey;
   flex-grow: 0;
 }
 

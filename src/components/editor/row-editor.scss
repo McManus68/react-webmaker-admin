@@ -1,0 +1,5 @@
+@import '../../styles/common';
+
+.section-editor .row-editor {
+  @include container-editor(var(--row-color));
+}

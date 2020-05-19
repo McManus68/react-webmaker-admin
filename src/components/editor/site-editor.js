@@ -56,8 +56,8 @@ const SiteEditor = () => {
   }
 
   return (
-    <div className='editor-container'>
-      <div className='editor-container-content'>
+    <div className='site-editor'>
+      <div className='site-editor-content'>
         <AppBar position='static'>
           <Tabs
             value={currentPageIndex}
@@ -80,11 +80,11 @@ const SiteEditor = () => {
           ))}
       </div>
 
-      <div className='editor-right-menu'>
+      <div className='site-editor-menu'>
         <FormContext {...methods}>
           <form onSubmit={methods.handleSubmit(onSaveSite)}>
             {site && (
-              <div className='editor-right-menu-content'>
+              <div>
                 <div className='button-container'>
                   <SiteParams site={site} />
                   <Button

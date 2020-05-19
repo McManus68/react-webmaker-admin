@@ -5,12 +5,14 @@ import { get } from 'lodash'
 
 import { useFormContext } from 'react-hook-form'
 
+import './page-params.scss'
+
 const PageParams = ({ page }) => {
   const { register, errors } = useFormContext()
   const params = ['title', 'slug', 'description']
 
   return (
-    <table>
+    <table className='page-params'>
       <thead></thead>
       <tbody>
         {params.map((param, i) => {

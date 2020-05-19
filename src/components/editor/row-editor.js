@@ -1,11 +1,13 @@
 import React from 'react'
 import { useFormContext, useFieldArray } from 'react-hook-form'
 
-import BlocksEditor from './blocks-editor'
+import BlockEditor from './block-editor'
 
 import { FaTrashAlt, FaPlusCircle } from 'react-icons/fa'
 
-const RowsEditor = ({ path }) => {
+import './row-editor.scss'
+
+const RowEditor = ({ path }) => {
   const { control, register } = useFormContext()
 
   const { fields, append, prepend, remove, swap, move, insert } = useFieldArray(
@@ -24,11 +26,14 @@ const RowsEditor = ({ path }) => {
 
   return (
     <div>
-      <FaPlusCircle onClick={() => prepend(newRow())} />
       {fields &&
         fields.map((field, i) => (
           <div key={field.id}>
-            <div className='page-editor-row-container'>
+            <div className='row-editor'>
+              <div className='add-before'>
+                <FaPlusCircle onClick={() => insert(i, newRow())} />
+              </div>
+
               <input
                 name={`${path}[${i}].type`}
                 type='hidden'
@@ -36,14 +41,18 @@ const RowsEditor = ({ path }) => {
                 defaultValue={field.type}
               />
               <h3>{field.type}</h3>
-              <BlocksEditor path={`${path}[${i}].blocks`} />
-              <FaTrashAlt onClick={() => remove(i)} />
+              <BlockEditor path={`${path}[${i}].blocks`} />
+              <div className='remove'>
+                <FaTrashAlt onClick={() => remove(i)} />
+              </div>
+              <div className='add-after'>
+                <FaPlusCircle onClick={() => insert(i + 1, newRow())} />
+              </div>
             </div>
-            <FaPlusCircle onClick={() => insert(i + 1, newRow())} />
           </div>
         ))}
     </div>
   )
 }
 
-export default RowsEditor
+export default RowEditor
