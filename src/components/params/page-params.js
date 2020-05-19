@@ -5,7 +5,7 @@ import { get } from 'lodash'
 
 import { useFormContext } from 'react-hook-form'
 
-function PageParams({ page }) {
+const PageParams = ({ page }) => {
   const { register, errors } = useFormContext()
   const params = ['title', 'slug', 'description']
 

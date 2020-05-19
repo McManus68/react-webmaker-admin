@@ -1,28 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import PropTypes from 'prop-types'
-import { useSelector, useDispatch } from 'react-redux'
-import {
-  useForm,
-  FormContext,
-  useFormContext,
-  useFieldArray,
-} from 'react-hook-form'
+import React from 'react'
+import { useFormContext, useFieldArray } from 'react-hook-form'
 
-import PageParams from './page-params'
-import Params from './params'
-import Button from '@material-ui/core/Button'
+import Params from '../params/params'
 
 import { FaTrashAlt, FaPlusCircle } from 'react-icons/fa'
-
-import { schema } from '../utils/schema-page.js'
-import { saveCurrentPage } from '../redux'
-
 import RowsEditor from './rows-editor'
 
-import './page-editor.scss'
-
-function SectionsEditor({ path }) {
-  const { control, register, getValues } = useFormContext()
+const SectionsEditor = ({ path }) => {
+  const { control } = useFormContext()
 
   const { fields, append, prepend, remove, swap, move, insert } = useFieldArray(
     {

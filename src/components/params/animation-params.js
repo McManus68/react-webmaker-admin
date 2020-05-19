@@ -10,7 +10,7 @@ const AnimationParams = ({ animation, path }) => {
   const directions = ['left', 'right', 'top', 'bottom']
   const [active, setActive] = useState(animation && animation.type)
 
-  const toggleChecked = e => {
+  const onActive = e => {
     setActive(e.target.checked)
   }
 
@@ -22,7 +22,7 @@ const AnimationParams = ({ animation, path }) => {
     <div>
       <label htmlFor='active'>Animate?</label>
 
-      <input defaultChecked={active} onClick={toggleChecked} type='checkbox' />
+      <input defaultChecked={active} onClick={onActive} type='checkbox' />
 
       {active && (
         <table>

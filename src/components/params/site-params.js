@@ -1,9 +1,7 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-
 import { useFormContext } from 'react-hook-form'
 
-function SiteParams({ site }) {
+const SiteParams = ({ site }) => {
   const { register, errors } = useFormContext()
   const params = ['name', 'title', 'description']
   return (
@@ -33,5 +31,3 @@ function SiteParams({ site }) {
 }
 
 export default SiteParams
-
-SiteParams.propTypes = {}

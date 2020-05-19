@@ -1,7 +1,14 @@
-import { SAVE_CURRENT_PAGE, SET_EDITING_SITE, ADD_PAGE } from './editorTypes'
+import {
+  SAVE_CURRENT_PAGE,
+  SET_EDITING_SITE,
+  ADD_PAGE,
+  SAVE_PAGE_REQUEST,
+} from './editorTypes'
 
 const initialState = {
   site: { pages: [] },
+  previousPageIndex: -1,
+  isCurrentPageSaved: false,
 }
 
 const editorReducer = (state = initialState, action) => {
@@ -12,6 +19,7 @@ const editorReducer = (state = initialState, action) => {
       return {
         ...state,
         site: newSite,
+        isCurrentPageSaved: true,
       }
 
     case SET_EDITING_SITE:
@@ -26,6 +34,13 @@ const editorReducer = (state = initialState, action) => {
       return {
         ...state,
         site: newSite,
+      }
+
+    case SAVE_PAGE_REQUEST:
+      return {
+        ...state,
+        previousPageIndex: action.payload,
+        isCurrentPageSaved: false,
       }
 
     default:

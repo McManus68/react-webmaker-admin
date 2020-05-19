@@ -4,4 +4,5 @@ export {
   saveCurrentPage,
   setEditingSite,
   addPage,
+  saveCurrentPageRequest,
 } from './editor/editorActions'

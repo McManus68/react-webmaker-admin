@@ -1,21 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import PropTypes from 'prop-types'
-import {
-  useForm,
-  FormContext,
-  useFormContext,
-  useFieldArray,
-} from 'react-hook-form'
-
-import ResponsiveParams from './responsive-params'
-import AnimationParams from './animation-params'
-import Params from './params'
+import React from 'react'
+import { useFormContext, useFieldArray } from 'react-hook-form'
 
 import BlocksEditor from './blocks-editor'
 
 import { FaTrashAlt, FaPlusCircle } from 'react-icons/fa'
 
-function RowsEditor({ path }) {
+const RowsEditor = ({ path }) => {
   const { control, register } = useFormContext()
 
   const { fields, append, prepend, remove, swap, move, insert } = useFieldArray(

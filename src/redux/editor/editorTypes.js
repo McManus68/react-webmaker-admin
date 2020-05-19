@@ -1,3 +1,4 @@
 export const SAVE_CURRENT_PAGE = 'SAVE_CURRENT_PAGE'
 export const SET_EDITING_SITE = 'SET_EDITING_SITE'
+export const SAVE_PAGE_REQUEST = 'SAVE_PAGE_REQUEST'
 export const ADD_PAGE = 'ADD_PAGE'
