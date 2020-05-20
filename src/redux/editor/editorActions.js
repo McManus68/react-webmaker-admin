@@ -3,6 +3,7 @@ import {
   SET_EDITING_SITE,
   ADD_PAGE,
   SAVE_PAGE_REQUEST,
+  SET_CURRENT_PAGE_INDEX,
 } from './editorTypes'
 
 export const saveCurrentPage = (page, pageIndex) => {
@@ -32,6 +33,13 @@ export const addPage = name => {
 export const saveCurrentPageRequest = index => {
   return {
     type: SAVE_PAGE_REQUEST,
+    payload: index,
+  }
+}
+
+export const setCurrentPageIndex = index => {
+  return {
+    type: SET_CURRENT_PAGE_INDEX,
     payload: index,
   }
 }

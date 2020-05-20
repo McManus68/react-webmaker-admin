@@ -19,11 +19,16 @@ const BlockEditor = ({ path }) => {
   )
 
   const newBlock = () => {
-    return { type: 'BLOCK', responsive: {}, params: {} }
+    return { type: 'BLOCK_SIMPLE_CONTENT', responsive: {}, params: {} }
   }
 
   return (
     <div>
+      <div className='prepend-block'>
+        {!fields.length ? (
+          <FaPlusCircle onClick={() => prepend(newBlock())} />
+        ) : null}
+      </div>
       {fields &&
         fields.map((field, i) => (
           <div key={field.id}>

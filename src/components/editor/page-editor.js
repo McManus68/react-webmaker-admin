@@ -23,13 +23,13 @@ const PageEditor = ({ page, currentPage, pageIndex }) => {
   }, [page])
 
   // If we change the a new page, we save the current page into the Redux store
-  const previousPageIndex = useSelector(state => state.editor.previousPageIndex)
+  const pageIndexToSave = useSelector(state => state.editor.pageIndexToSave)
 
   useEffect(() => {
-    if (previousPageIndex === pageIndex) {
+    if (pageIndexToSave === pageIndex) {
       methods.handleSubmit(onSavePage)()
     }
-  }, [previousPageIndex])
+  }, [pageIndexToSave])
 
   const dispatch = useDispatch()
 

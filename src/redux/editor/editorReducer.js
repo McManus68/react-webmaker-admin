@@ -3,12 +3,15 @@ import {
   SET_EDITING_SITE,
   ADD_PAGE,
   SAVE_PAGE_REQUEST,
+  SET_CURRENT_PAGE_INDEX,
 } from './editorTypes'
 
 const initialState = {
   site: { pages: [] },
-  previousPageIndex: -1,
-  isCurrentPageSaved: false,
+  pageIndexToSave: -1,
+  flagSaved: false,
+  currentSiteId: '',
+  currentPageIndex: 0,
 }
 
 const editorReducer = (state = initialState, action) => {
@@ -19,13 +22,21 @@ const editorReducer = (state = initialState, action) => {
       return {
         ...state,
         site: newSite,
-        isCurrentPageSaved: true,
+        flagSaved: !state.flagSaved,
       }
 
     case SET_EDITING_SITE:
       return {
         ...state,
         site: action.payload,
+        currentSiteId: action.payload && action.payload.id,
+        currentPageIndex: 0,
+      }
+
+    case SET_CURRENT_PAGE_INDEX:
+      return {
+        ...state,
+        currentPageIndex: action.payload,
       }
 
     case ADD_PAGE:
@@ -39,8 +50,8 @@ const editorReducer = (state = initialState, action) => {
     case SAVE_PAGE_REQUEST:
       return {
         ...state,
-        previousPageIndex: action.payload,
-        isCurrentPageSaved: false,
+        pageIndexToSave: action.payload,
+        flagSaved: !state.flagSaved,
       }
 
     default:

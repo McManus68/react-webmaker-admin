@@ -3,3 +3,11 @@
 .section-editor .row-editor {
   @include container-editor(var(--row-color));
 }
+
+.prepend-row {
+  cursor: pointer;
+  text-align: center;
+  color: var(--row-color);
+  padding: 2px;
+  background-color: #fff;
+}

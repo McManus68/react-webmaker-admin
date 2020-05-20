@@ -3,3 +3,11 @@
 .section-editor {
   @include container-editor(var(--section-color));
 }
+
+.prepend-section {
+  cursor: pointer;
+  text-align: center;
+  color: var(--section-color);
+  padding: 2px;
+  background-color: #fff;
+}

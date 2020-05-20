@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 
 import { useDispatch } from 'react-redux'
-import { fetchConfig, fetchSites } from './redux'
+import { fetchConfigSection, fetchConfigBlock, fetchSites } from './redux'
 import Header from './components/header'
 import Menu from './components/menu'
 import SiteEditor from './components/editor/site-editor'
@@ -12,7 +12,8 @@ function App() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(fetchConfig())
+    dispatch(fetchConfigSection())
+    dispatch(fetchConfigBlock())
     dispatch(fetchSites())
   }, [])
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useFormContext, useFieldArray } from 'react-hook-form'
-
+import { useSelector } from 'react-redux'
 import Params from '../params/params'
 
 import { FaTrashAlt, FaPlusCircle } from 'react-icons/fa'
@@ -18,6 +18,11 @@ const SectionEditor = ({ path }) => {
     }
   )
 
+  const config = useSelector(state => state.config.section)
+
+  const isStandAlone = section =>
+    config.find(item => item.type === section.type).standalone
+
   const newSection = () => {
     return {
       type: 'SECTION_CUSTOM',
@@ -28,6 +33,12 @@ const SectionEditor = ({ path }) => {
 
   return (
     <div>
+      <div className='prepend-section'>
+        {!fields.length ? (
+          <FaPlusCircle onClick={() => prepend(newSection())} />
+        ) : null}
+      </div>
+
       {fields &&
         fields.map((field, i) => (
           <div key={field.id} className='section-editor'>
@@ -42,16 +53,16 @@ const SectionEditor = ({ path }) => {
             />
 
             <h2>{field.type}</h2>
-            {field.type !== 'SECTION_CUSTOM' && (
+            {isStandAlone(field) ? (
               <Params
                 component={field}
                 configType='SECTION'
                 path={`${path}[${i}]`}
               />
-            )}
-            {field.type === 'SECTION_CUSTOM' && (
+            ) : (
               <RowEditor path={`${path}[${i}].rows`} />
             )}
+
             <div className='remove'>
               <FaTrashAlt onClick={() => remove(i)} />
             </div>

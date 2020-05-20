@@ -26,6 +26,11 @@ const RowEditor = ({ path }) => {
 
   return (
     <div>
+      <div className='prepend-row'>
+        {!fields.length ? (
+          <FaPlusCircle onClick={() => prepend(newRow())} />
+        ) : null}
+      </div>
       {fields &&
         fields.map((field, i) => (
           <div key={field.id}>

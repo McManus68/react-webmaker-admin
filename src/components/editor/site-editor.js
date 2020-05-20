@@ -3,7 +3,12 @@ import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import { useForm, FormContext } from 'react-hook-form'
 
-import { saveSite, addPage, saveCurrentPageRequest } from '../../redux'
+import {
+  saveSite,
+  addPage,
+  saveCurrentPageRequest,
+  setCurrentPageIndex,
+} from '../../redux'
 
 import AppBar from '@material-ui/core/AppBar'
 import Tabs from '@material-ui/core/Tabs'
@@ -21,35 +26,53 @@ const SiteEditor = () => {
   const methods = useForm({
     validationSchema: schema,
   })
+  // Pending actions
+  const [pendingAction, setPendingAction] = useState('')
   // Store the current page index
-  const [currentPageIndex, setCurrentPageIndex] = useState(0)
+  const currentPageIndex = useSelector(state => state.editor.currentPageIndex)
   // When we request a page change, we ask to the page to save it's data before we proceed
   const [newPageIndex, setNewPageIndex] = useState(-1)
   // Currently editing site
   const site = useSelector(state => state.editor.site)
+  // Is new Site on the Editor
+  const currentSiteId = useSelector(state => state.editor.currentSiteId)
   // Listen the page saved event, after that we chan really change page
-  const isCurrentPageSaved = useSelector(
-    state => state.editor.isCurrentPageSaved
-  )
-
-  useEffect(() => {
-    methods.reset(site)
-    setCurrentPageIndex(0)
-  }, [site])
-
-  useEffect(() => {
-    if (isCurrentPageSaved) setCurrentPageIndex(newPageIndex)
-  }, [isCurrentPageSaved])
+  const flagSaved = useSelector(state => state.editor.flagSaved)
 
   // If the site changes, we reset the form with the new site
   const dispatch = useDispatch()
 
+  useEffect(() => {
+    setPendingAction('')
+    setNewPageIndex(-1)
+    methods.reset(site)
+  }, [currentSiteId])
+
+  useEffect(() => {
+    switch (pendingAction) {
+      case 'CHANGE-PAGE':
+        dispatch(setCurrentPageIndex(newPageIndex))
+        break
+      case 'SAVE-SITE':
+        methods.handleSubmit(onSaveSite)()
+        break
+      default:
+        break
+    }
+  }, [flagSaved])
+
   // Page change request
   const onChangePageRequest = (e, value) => {
+    setPendingAction('CHANGE-PAGE')
     setNewPageIndex(value)
     dispatch(saveCurrentPageRequest(currentPageIndex))
   }
 
+  // Request for saving the entire - First we save the current page
+  const onSaveSiteRequest = () => {
+    setPendingAction('SAVE-SITE')
+    dispatch(saveCurrentPageRequest(currentPageIndex))
+  }
   // Save the entire site
   const onSaveSite = siteMetadata => {
     dispatch(saveSite({ ...site, ...siteMetadata }))
@@ -82,7 +105,7 @@ const SiteEditor = () => {
 
       <div className='site-editor-menu'>
         <FormContext {...methods}>
-          <form onSubmit={methods.handleSubmit(onSaveSite)}>
+          <form>
             {site && (
               <div>
                 <div className='button-container'>
@@ -97,8 +120,7 @@ const SiteEditor = () => {
                   <Button
                     variant='contained'
                     color='secondary'
-                    type='submit'
-                    onClick={saveSite}
+                    onClick={onSaveSiteRequest}
                   >
                     Save
                   </Button>

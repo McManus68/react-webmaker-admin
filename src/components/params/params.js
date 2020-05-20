@@ -7,9 +7,14 @@ import { FaTrashAlt, FaPlusCircle } from 'react-icons/fa'
 import './params.scss'
 
 const Params = ({ component, path, configType }) => {
-  const { register, unregister, getValues, setValue } = useFormContext()
-  const globalConfig = useSelector(state => state.config.config)
-  const config = globalConfig[configType][component.type]
+  const { register, setValue } = useFormContext()
+  const configSection = useSelector(state => state.config.section)
+  const configBlock = useSelector(state => state.config.block)
+
+  const config =
+    configType === 'SECTION'
+      ? configSection.find(item => item.type === component.type)
+      : configBlock.find(item => item.type === component.type)
 
   const [params, setParams] = useState(component.params)
 
@@ -64,48 +69,47 @@ const Params = ({ component, path, configType }) => {
               </td>
             </tr>
           ) : null}
-          {config &&
-            config.map((c, i) => {
-              return (
-                <tr key={i}>
-                  <th>
-                    <label htmlFor={c.name}>{c.name}</label>
-                  </th>
-                  <td>
-                    {!c.isArray ? (
-                      <input
-                        name={`${path}.params.${c.name}`}
-                        type={c.type === 'INT' ? 'number' : 'text'}
-                        defaultValue={params[c.name]}
-                        ref={register()}
-                      />
-                    ) : null}
+          {config.params.map((c, i) => {
+            return (
+              <tr key={i}>
+                <th>
+                  <label htmlFor={c.name}>{c.name}</label>
+                </th>
+                <td>
+                  {!c.isArray ? (
+                    <input
+                      name={`${path}.params.${c.name}`}
+                      type={c.type === 'INT' ? 'number' : 'text'}
+                      defaultValue={params[c.name]}
+                      ref={register()}
+                    />
+                  ) : null}
 
-                    {c.isArray
-                      ? params[c.name] &&
-                        params[c.name].map((value, i) => {
-                          return (
-                            <div className='params-array-item' key={i}>
-                              <input
-                                name={`${path}.params.${c.name}[${i}]`}
-                                type={c.type === 'INT' ? 'number' : 'text'}
-                                defaultValue={value}
-                                ref={register()}
-                              />
-                              <FaTrashAlt
-                                onClick={() => onDeleteParam(c.name, i)}
-                              />
-                            </div>
-                          )
-                        })
-                      : null}
-                    {c.isArray && (
-                      <FaPlusCircle onClick={() => onAddParam(c.name)} />
-                    )}
-                  </td>
-                </tr>
-              )
-            })}
+                  {c.isArray
+                    ? params[c.name] &&
+                      params[c.name].map((value, i) => {
+                        return (
+                          <div className='params-array-item' key={i}>
+                            <input
+                              name={`${path}.params.${c.name}[${i}]`}
+                              type={c.type === 'INT' ? 'number' : 'text'}
+                              defaultValue={value}
+                              ref={register()}
+                            />
+                            <FaTrashAlt
+                              onClick={() => onDeleteParam(c.name, i)}
+                            />
+                          </div>
+                        )
+                      })
+                    : null}
+                  {c.isArray && (
+                    <FaPlusCircle onClick={() => onAddParam(c.name)} />
+                  )}
+                </td>
+              </tr>
+            )
+          })}
         </tbody>
       </table>
     </div>
