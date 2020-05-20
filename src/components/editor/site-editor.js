@@ -75,6 +75,7 @@ const SiteEditor = () => {
   }
   // Save the entire site
   const onSaveSite = siteMetadata => {
+    console.log('SAVE SITE')
     dispatch(saveSite({ ...site, ...siteMetadata }))
   }
 

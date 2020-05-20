@@ -34,6 +34,7 @@ const PageEditor = ({ page, currentPage, pageIndex }) => {
   const dispatch = useDispatch()
 
   const onSavePage = data => {
+    console.log('PAGE SAVED', data)
     dispatch(saveCurrentPage(data, pageIndex))
   }
 

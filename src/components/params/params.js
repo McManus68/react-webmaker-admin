@@ -40,13 +40,6 @@ const Params = ({ component, path, configType }) => {
 
   return (
     <div className='params'>
-      <input
-        name={`${path}.type`}
-        type='hidden'
-        ref={register()}
-        defaultValue={component.type}
-      />
-
       <table>
         <thead>
           <tr>

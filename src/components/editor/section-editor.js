@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useFormContext, useFieldArray } from 'react-hook-form'
 import { useSelector } from 'react-redux'
 import Params from '../params/params'
@@ -9,7 +9,7 @@ import RowEditor from './row-editor'
 import './section-editor.scss'
 
 const SectionEditor = ({ path }) => {
-  const { control, register } = useFormContext()
+  const { control, register, setValue } = useFormContext()
 
   const { fields, append, prepend, remove, swap, move, insert } = useFieldArray(
     {
@@ -18,10 +18,19 @@ const SectionEditor = ({ path }) => {
     }
   )
 
+  const [state, setState] = useState(false)
+
   const config = useSelector(state => state.config.section)
 
   const isStandAlone = section =>
     config.find(item => item.type === section.type).standalone
+
+  const sectionTypes = config.map(item => item.type)
+
+  const onChangeType = (field, value) => {
+    field.type = value
+    setState(!state)
+  }
 
   const newSection = () => {
     return {
@@ -45,12 +54,19 @@ const SectionEditor = ({ path }) => {
             <div className='add-before'>
               <FaPlusCircle onClick={() => insert(i, newSection())} />
             </div>
-            <input
+
+            <select
               name={`${path}[${i}].type`}
-              type='hidden'
               ref={register()}
+              onChange={e => onChangeType(field, e.target.value)}
               defaultValue={field.type}
-            />
+            >
+              {sectionTypes.map((type, i) => (
+                <option key={i} value={type}>
+                  {type}
+                </option>
+              ))}
+            </select>
 
             <h2>{field.type}</h2>
             {isStandAlone(field) ? (
