@@ -49,15 +49,17 @@ const SiteEditor = () => {
   }, [currentSiteId])
 
   useEffect(() => {
-    switch (pendingAction) {
-      case 'CHANGE-PAGE':
-        dispatch(setCurrentPageIndex(newPageIndex))
-        break
-      case 'SAVE-SITE':
-        methods.handleSubmit(onSaveSite)()
-        break
-      default:
-        break
+    if (flagSaved) {
+      switch (pendingAction) {
+        case 'CHANGE-PAGE':
+          dispatch(setCurrentPageIndex(newPageIndex))
+          break
+        case 'SAVE-SITE':
+          methods.handleSubmit(onSaveSite)()
+          break
+        default:
+          break
+      }
     }
   }, [flagSaved])
 

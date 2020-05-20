@@ -8,7 +8,7 @@ import {
 
 const initialState = {
   site: { pages: [] },
-  pageIndexToSave: -1,
+  pageToSave: { index: -1 },
   flagSaved: false,
   currentSiteId: '',
   currentPageIndex: 0,
@@ -22,7 +22,7 @@ const editorReducer = (state = initialState, action) => {
       return {
         ...state,
         site: newSite,
-        flagSaved: !state.flagSaved,
+        flagSaved: true,
       }
 
     case SET_EDITING_SITE:
@@ -50,8 +50,8 @@ const editorReducer = (state = initialState, action) => {
     case SAVE_PAGE_REQUEST:
       return {
         ...state,
-        pageIndexToSave: action.payload,
-        flagSaved: !state.flagSaved,
+        pageToSave: { index: action.payload },
+        flagSaved: false,
       }
 
     default:
