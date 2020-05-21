@@ -146,7 +146,7 @@ export const updateSite = site => {
   return dispatch => {
     dispatch(updateSiteRequest())
     axios
-      .put('http://localhost:8080/api/sites/', site)
+      .post('http://localhost:8080/api/sites/', site)
       .then(response => {
         const site = response.data
         dispatch(updateSiteSuccess(site))

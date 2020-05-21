@@ -10,6 +10,7 @@ import './menu.scss'
 const Menu = () => {
   const sites = useSelector(state => state.site.sites)
   const site = useSelector(state => state.site.site)
+  const currentSiteId = useSelector(state => state.editor.currentSiteId)
 
   const dispatch = useDispatch()
 
@@ -17,26 +18,25 @@ const Menu = () => {
     dispatch(setEditingSite(site))
   }, [site])
 
-  useEffect(() => {
-    console.log('SITES CHANGED')
-    //dispatch(setEditingSite(site))
-  }, [sites])
-
-  // Save the entire site
   const onCreateSite = () => {
     const newSite = { title: 'NEW_SITE', name: 'NEW_SITE', pages: [] }
     dispatch(createSite(newSite))
-    console.log('onCreateSite')
   }
 
   return (
     <div className='menu'>
-      <IconButton onClick={() => dispatch(onCreateSite)}>
-        <AddIcon />
-      </IconButton>
+      <div className='menu-controls'>
+        <IconButton className='add-site' onClick={() => dispatch(onCreateSite)}>
+          <AddIcon />
+        </IconButton>
+      </div>
       <ul>
         {sites.map(site => (
-          <li key={site.id} onClick={() => dispatch(fetchSite(site.id))}>
+          <li
+            key={site.id}
+            className={currentSiteId === site.id ? 'active' : ''}
+            onClick={() => dispatch(fetchSite(site.id))}
+          >
             {site.title}
           </li>
         ))}

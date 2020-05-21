@@ -54,7 +54,7 @@ const SiteEditor = () => {
         case 'CHANGE-PAGE':
           dispatch(setCurrentPageIndex(newPageIndex))
           break
-        case 'SAVE-SITE':
+        case 'UPDATE-SITE':
           methods.handleSubmit(onUpdateSite)()
           break
         default:
@@ -77,7 +77,6 @@ const SiteEditor = () => {
   }
   // Save the entire site
   const onUpdateSite = siteMetadata => {
-    console.log('UPDATE SITE')
     dispatch(updateSite({ ...site, ...siteMetadata }))
   }
 
