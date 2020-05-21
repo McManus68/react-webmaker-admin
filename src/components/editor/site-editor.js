@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useForm, FormContext } from 'react-hook-form'
 
 import {
-  saveSite,
+  updateSite,
   addPage,
   saveCurrentPageRequest,
   setCurrentPageIndex,
@@ -55,7 +55,7 @@ const SiteEditor = () => {
           dispatch(setCurrentPageIndex(newPageIndex))
           break
         case 'SAVE-SITE':
-          methods.handleSubmit(onSaveSite)()
+          methods.handleSubmit(onUpdateSite)()
           break
         default:
           break
@@ -71,14 +71,14 @@ const SiteEditor = () => {
   }
 
   // Request for saving the entire - First we save the current page
-  const onSaveSiteRequest = () => {
-    setPendingAction('SAVE-SITE')
+  const onUpdateSiteRequest = () => {
+    setPendingAction('UPDATE-SITE')
     dispatch(saveCurrentPageRequest(currentPageIndex))
   }
   // Save the entire site
-  const onSaveSite = siteMetadata => {
-    console.log('SAVE SITE')
-    dispatch(saveSite({ ...site, ...siteMetadata }))
+  const onUpdateSite = siteMetadata => {
+    console.log('UPDATE SITE')
+    dispatch(updateSite({ ...site, ...siteMetadata }))
   }
 
   return (
@@ -123,7 +123,7 @@ const SiteEditor = () => {
                   <Button
                     variant='contained'
                     color='secondary'
-                    onClick={onSaveSiteRequest}
+                    onClick={onUpdateSiteRequest}
                   >
                     Save
                   </Button>

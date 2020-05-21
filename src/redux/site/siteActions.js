@@ -7,9 +7,12 @@ import {
   FETCH_SITE_SUCCESS,
   FETCH_SITE_REQUEST,
   FETCH_SITE_FAILURE,
-  SAVE_SITE_SUCCESS,
-  SAVE_SITE_REQUEST,
-  SAVE_SITE_FAILURE,
+  UPDATE_SITE_SUCCESS,
+  UPDATE_SITE_REQUEST,
+  UPDATE_SITE_FAILURE,
+  CREATE_SITE_SUCCESS,
+  CREATE_SITE_REQUEST,
+  CREATE_SITE_FAILURE,
 } from './siteTypes'
 
 export const fetchSitesRequest = () => {
@@ -52,22 +55,42 @@ export const fetchSiteFailure = error => {
   }
 }
 
-export const saveSiteRequest = () => {
+export const createSiteRequest = () => {
   return {
-    type: SAVE_SITE_REQUEST,
+    type: CREATE_SITE_REQUEST,
   }
 }
 
-export const saveSiteSuccess = site => {
+export const createSiteSuccess = site => {
   return {
-    type: SAVE_SITE_SUCCESS,
+    type: CREATE_SITE_SUCCESS,
     payload: site,
   }
 }
 
-export const saveSiteFailure = error => {
+export const createSiteFailure = error => {
   return {
-    type: SAVE_SITE_FAILURE,
+    type: CREATE_SITE_FAILURE,
+    payload: error,
+  }
+}
+
+export const updateSiteRequest = () => {
+  return {
+    type: UPDATE_SITE_REQUEST,
+  }
+}
+
+export const updateSiteSuccess = site => {
+  return {
+    type: UPDATE_SITE_SUCCESS,
+    payload: site,
+  }
+}
+
+export const updateSiteFailure = error => {
+  return {
+    type: UPDATE_SITE_FAILURE,
     payload: error,
   }
 }
@@ -104,18 +127,33 @@ export const fetchSite = id => {
   }
 }
 
-export const saveSite = site => {
+export const createSite = site => {
   return dispatch => {
-    dispatch(saveSiteRequest())
+    dispatch(createSiteRequest())
     axios
       .post('http://localhost:8080/api/sites/', site)
       .then(response => {
-        const site = response.data
-        dispatch(saveSiteSuccess(site))
+        dispatch(createSiteSuccess(site))
       })
       .catch(error => {
         const errorMsg = error.message
-        dispatch(saveSiteFailure(errorMsg))
+        dispatch(createSiteFailure(errorMsg))
+      })
+  }
+}
+
+export const updateSite = site => {
+  return dispatch => {
+    dispatch(updateSiteRequest())
+    axios
+      .put('http://localhost:8080/api/sites/', site)
+      .then(response => {
+        const site = response.data
+        dispatch(updateSiteSuccess(site))
+      })
+      .catch(error => {
+        const errorMsg = error.message
+        dispatch(updateSiteFailure(errorMsg))
       })
   }
 }

@@ -1,4 +1,9 @@
-export { fetchSites, fetchSite, saveSite } from './site/siteActions'
+export {
+  fetchSites,
+  fetchSite,
+  createSite,
+  updateSite,
+} from './site/siteActions'
 export { fetchConfigSection, fetchConfigBlock } from './config/configActions'
 export {
   saveCurrentPage,

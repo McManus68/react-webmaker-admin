@@ -5,9 +5,12 @@ import {
   FETCH_SITE_SUCCESS,
   FETCH_SITE_REQUEST,
   FETCH_SITE_FAILURE,
-  SAVE_SITE_SUCCESS,
-  SAVE_SITE_REQUEST,
-  SAVE_SITE_FAILURE,
+  CREATE_SITE_SUCCESS,
+  CREATE_SITE_REQUEST,
+  CREATE_SITE_FAILURE,
+  UPDATE_SITE_SUCCESS,
+  UPDATE_SITE_REQUEST,
+  UPDATE_SITE_FAILURE,
 } from './siteTypes'
 
 const initialState = {
@@ -61,19 +64,41 @@ const siteReducer = (state = initialState, action) => {
         error: action.payload,
       }
 
-    // SAVE SITE
-    case SAVE_SITE_REQUEST:
+    // CREATE SITE
+    case CREATE_SITE_REQUEST:
       return {
         ...state,
         loading: true,
       }
-    case SAVE_SITE_SUCCESS:
+    case CREATE_SITE_SUCCESS:
+      var newSites = [...state.sites]
+      newSites.push(action.payload)
+      return {
+        ...state,
+        sites: newSites,
+        loading: false,
+        error: '',
+      }
+    case CREATE_SITE_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      }
+
+    // UPDATE SITE
+    case UPDATE_SITE_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      }
+    case UPDATE_SITE_SUCCESS:
       return {
         ...state,
         loading: false,
         error: '',
       }
-    case SAVE_SITE_FAILURE:
+    case UPDATE_SITE_FAILURE:
       return {
         ...state,
         loading: false,
