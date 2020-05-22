@@ -1,0 +1,22 @@
+.image-input {
+  input {
+    border: none;
+  }
+
+  .MuiIconButton-label {
+    color: var(--primary-color);
+  }
+
+  .sketch-picker {
+    visibility: hidden;
+    position: absolute;
+    transition: 0.4s;
+    left: 250px;
+    top: 80px;
+    z-index: 2;
+  }
+
+  .sketch-picker.visible {
+    visibility: visible;
+  }
+}

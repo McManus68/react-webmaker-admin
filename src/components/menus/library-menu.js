@@ -44,6 +44,7 @@ const LibraryMenu = () => {
           return (
             <>
               <img
+                key={i}
                 className={selectedImage.name == image.name ? 'selected' : ''}
                 src={image.thumbnail}
                 onClick={() => dispatch(setSelectedImage(image))}

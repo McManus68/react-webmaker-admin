@@ -8,6 +8,7 @@ import AddIcon from '@material-ui/icons/Add'
 import TextInput from '../form/text-input'
 import NumberInput from '../form/number-input'
 import ImageInput from '../form/image-input'
+import ColorInput from '../form/color-input'
 
 import './params.scss'
 
@@ -51,6 +52,8 @@ const Params = ({ component, path, configType }) => {
         return <TextInput name={name} defaultValue={defaultValue} />
       case 'IMAGE':
         return <ImageInput name={name} defaultValue={defaultValue} />
+      case 'COLOR':
+        return <ColorInput name={name} defaultValue={defaultValue} />
       default:
         return <TextInput name={name} defaultValue={defaultValue} />
     }
