@@ -13,29 +13,7 @@
   }
 }
 
-.site-editor-menu {
-  padding: 2rem 0.6rem;
+.site-editor-right-menu {
   border-left: 1px solid lightgrey;
   flex-grow: 0;
-}
-
-.controls {
-  display: flex;
-  align-items: center;
-  padding-right: 3rem;
-  width: calc(100% - 180px);
-  height: 80px;
-  background-color: lightgrey;
-  position: fixed;
-  bottom: 0;
-
-  .button-container {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-  }
-
-  button {
-    margin-right: 0.3rem;
-  }
 }

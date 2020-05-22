@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react'
-import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import { useForm, FormContext } from 'react-hook-form'
 
 import {
   updateSite,
-  addPage,
   saveCurrentPageRequest,
   setCurrentPageIndex,
+  setPendingAction,
 } from '../../redux'
 
 import AppBar from '@material-ui/core/AppBar'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
-import Button from '@material-ui/core/Button'
+
 import PageEditor from './page-editor'
-import SiteParams from '../params/site-params'
+import SiteEditorMenu from '../menus/site-editor-menu'
+import LibraryMenu from '../menus/library-menu'
 
 import { schema } from '../../utils/schema-site.js'
 
@@ -27,7 +27,7 @@ const SiteEditor = () => {
     validationSchema: schema,
   })
   // Pending actions
-  const [pendingAction, setPendingAction] = useState('')
+  const pendingAction = useSelector(state => state.editor.pendingAction)
   // Store the current page index
   const currentPageIndex = useSelector(state => state.editor.currentPageIndex)
   // When we request a page change, we ask to the page to save it's data before we proceed
@@ -43,7 +43,7 @@ const SiteEditor = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    setPendingAction('')
+    dispatch(setPendingAction(''))
     setNewPageIndex(-1)
     methods.reset(site)
   }, [currentSiteId])
@@ -65,16 +65,11 @@ const SiteEditor = () => {
 
   // Page change request
   const onChangePageRequest = (e, value) => {
-    setPendingAction('CHANGE-PAGE')
+    dispatch(setPendingAction('CHANGE-PAGE'))
     setNewPageIndex(value)
     dispatch(saveCurrentPageRequest(currentPageIndex))
   }
 
-  // Request for saving the entire - First we save the current page
-  const onUpdateSiteRequest = () => {
-    setPendingAction('UPDATE-SITE')
-    dispatch(saveCurrentPageRequest(currentPageIndex))
-  }
   // Save the entire site
   const onUpdateSite = siteMetadata => {
     dispatch(updateSite({ ...site, ...siteMetadata }))
@@ -105,33 +100,14 @@ const SiteEditor = () => {
           ))}
       </div>
 
-      <div className='site-editor-menu'>
+      {site && (
         <FormContext {...methods}>
-          <form>
-            {site && (
-              <div>
-                <div className='button-container'>
-                  <SiteParams site={site} />
-                  <Button
-                    variant='contained'
-                    color='primary'
-                    onClick={() => dispatch(addPage('New Page'))}
-                  >
-                    Add Page
-                  </Button>
-                  <Button
-                    variant='contained'
-                    color='secondary'
-                    onClick={onUpdateSiteRequest}
-                  >
-                    Save
-                  </Button>
-                </div>
-              </div>
-            )}
-          </form>
+          <div className='site-editor-right-menu'>
+            <SiteEditorMenu />
+            <LibraryMenu />
+          </div>
         </FormContext>
-      </div>
+      )}
     </div>
   )
 }

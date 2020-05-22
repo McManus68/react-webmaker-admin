@@ -11,4 +11,6 @@ export {
   addPage,
   saveCurrentPageRequest,
   setCurrentPageIndex,
+  setPendingAction,
 } from './editor/editorActions'
+export { uploadImage } from './library/libraryActions'

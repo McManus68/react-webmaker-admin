@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { fetchConfigSection, fetchConfigBlock, fetchSites } from './redux'
 import Header from './components/header'
-import Menu from './components/menu'
+import SitesMenu from './components/menus/sites-menu'
 import SiteEditor from './components/editor/site-editor'
 
 import './App.scss'
@@ -22,7 +22,7 @@ function App() {
       <Header />
 
       <main className='main'>
-        <Menu />
+        <SitesMenu />
         <SiteEditor />
       </main>
 

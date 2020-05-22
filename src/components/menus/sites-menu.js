@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchSite, setEditingSite, createSite } from '../redux'
+import { fetchSite, setEditingSite, createSite } from '../../redux'
 
 import IconButton from '@material-ui/core/IconButton'
 import AddIcon from '@material-ui/icons/Add'
 
-import './menu.scss'
+import './sites-menu.scss'
 
-const Menu = () => {
+const SitesMenu = () => {
   const sites = useSelector(state => state.site.sites)
   const site = useSelector(state => state.site.site)
   const currentSiteId = useSelector(state => state.editor.currentSiteId)
@@ -24,12 +24,19 @@ const Menu = () => {
   }
 
   return (
-    <div className='menu'>
-      <div className='menu-controls'>
-        <IconButton className='add-site' onClick={() => dispatch(onCreateSite)}>
-          <AddIcon />
-        </IconButton>
+    <div className='sites-menu'>
+      <div className='site-editor-menu-header'>
+        <h3>Sites</h3>
+        <div className='menu-controls'>
+          <IconButton
+            className='add-site'
+            onClick={() => dispatch(onCreateSite)}
+          >
+            <AddIcon />
+          </IconButton>
+        </div>
       </div>
+
       <ul>
         {sites.map(site => (
           <li
@@ -45,4 +52,4 @@ const Menu = () => {
   )
 }
 
-export default Menu
+export default SitesMenu

@@ -4,6 +4,7 @@ import {
   ADD_PAGE,
   SAVE_PAGE_REQUEST,
   SET_CURRENT_PAGE_INDEX,
+  SET_PENDING_ACTION,
 } from './editorTypes'
 
 const initialState = {
@@ -12,6 +13,7 @@ const initialState = {
   flagSaved: false,
   currentSiteId: '',
   currentPageIndex: 0,
+  pendingAction: '',
 }
 
 const editorReducer = (state = initialState, action) => {
@@ -37,6 +39,12 @@ const editorReducer = (state = initialState, action) => {
       return {
         ...state,
         currentPageIndex: action.payload,
+      }
+
+    case SET_PENDING_ACTION:
+      return {
+        ...state,
+        pendingAction: action.payload,
       }
 
     case ADD_PAGE:

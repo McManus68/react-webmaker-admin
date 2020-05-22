@@ -1,4 +1,4 @@
-.menu {
+.sites-menu {
   min-width: 180px;
   min-width: 250px;
   flex-grow: 0;
@@ -31,8 +31,9 @@
     }
   }
 
-  .menu-controls {
-    text-align: right;
+  .menu-controls,
+  h3 {
+    margin-left: auto;
 
     .add-site {
       color: var(--primary-color);
