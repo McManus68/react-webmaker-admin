@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import ImageUploader from 'react-images-upload'
 
-import { uploadImage } from '../../redux'
-
+import { uploadImage, setSelectedImage } from '../../redux'
 import LinearProgress from '@material-ui/core/LinearProgress'
 
 import './library-menu.scss'
@@ -11,6 +10,7 @@ import './library-menu.scss'
 const LibraryMenu = () => {
   const currentSiteId = useSelector(state => state.editor.currentSiteId)
   const images = useSelector(state => state.library.images)
+  const selectedImage = useSelector(state => state.library.selectedImage)
   const uploadProgress = useSelector(state => state.library.uploadProgress)
 
   const dispatch = useDispatch()
@@ -41,7 +41,15 @@ const LibraryMenu = () => {
 
       <div className='library-images'>
         {images.map((image, i) => {
-          return <img key={i} src={image.thumbnail}></img>
+          return (
+            <>
+              <img
+                className={selectedImage.name == image.name ? 'selected' : ''}
+                src={image.thumbnail}
+                onClick={() => dispatch(setSelectedImage(image))}
+              ></img>
+            </>
+          )
         })}
       </div>
     </div>

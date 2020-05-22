@@ -2,7 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useFormContext, useFieldArray } from 'react-hook-form'
 
-import { FaTrashAlt, FaPlusCircle } from 'react-icons/fa'
+import TrashIcon from '@material-ui/icons/Delete'
+import AddIcon from '@material-ui/icons/Add'
+
+import TextInput from '../form/text-input'
+import NumberInput from '../form/number-input'
+import ImageInput from '../form/image-input'
 
 import './params.scss'
 
@@ -38,6 +43,19 @@ const Params = ({ component, path, configType }) => {
     setParams(newParams)
   }
 
+  const getComponent = (config, name, defaultValue) => {
+    switch (config.type) {
+      case 'INT':
+        return <NumberInput name={name} defaultValue={defaultValue} />
+      case 'STRING':
+        return <TextInput name={name} defaultValue={defaultValue} />
+      case 'IMAGE':
+        return <ImageInput name={name} defaultValue={defaultValue} />
+      default:
+        return <TextInput name={name} defaultValue={defaultValue} />
+    }
+  }
+
   return (
     <div className='params'>
       <table>
@@ -53,10 +71,8 @@ const Params = ({ component, path, configType }) => {
                 <label htmlFor={component.classes}>Classes CSS</label>
               </th>
               <td>
-                <input
+                <TextInput
                   name={`${path}.classes`}
-                  type='text'
-                  ref={register()}
                   defaultValue={component.classes}
                 />
               </td>
@@ -69,36 +85,32 @@ const Params = ({ component, path, configType }) => {
                   <label htmlFor={c.name}>{c.name}</label>
                 </th>
                 <td>
-                  {!c.isArray ? (
-                    <input
-                      name={`${path}.params.${c.name}`}
-                      type={c.type === 'INT' ? 'number' : 'text'}
-                      defaultValue={params[c.name]}
-                      ref={register()}
-                    />
-                  ) : null}
+                  {!c.isArray
+                    ? getComponent(
+                        c,
+                        `${path}.params.${c.name}`,
+                        params[c.name]
+                      )
+                    : null}
 
                   {c.isArray
                     ? params[c.name] &&
                       params[c.name].map((value, i) => {
                         return (
                           <div className='params-array-item' key={i}>
-                            <input
-                              name={`${path}.params.${c.name}[${i}]`}
-                              type={c.type === 'INT' ? 'number' : 'text'}
-                              defaultValue={value}
-                              ref={register()}
-                            />
-                            <FaTrashAlt
+                            {getComponent(
+                              c,
+                              `${path}.params.${c.name}[${i}]`,
+                              value
+                            )}
+                            <TrashIcon
                               onClick={() => onDeleteParam(c.name, i)}
                             />
                           </div>
                         )
                       })
                     : null}
-                  {c.isArray && (
-                    <FaPlusCircle onClick={() => onAddParam(c.name)} />
-                  )}
+                  {c.isArray && <AddIcon onClick={() => onAddParam(c.name)} />}
                 </td>
               </tr>
             )

@@ -6,6 +6,7 @@ import {
   UPLOAD_IMAGE_SUCCESS,
   UPLOAD_IMAGE_FAILURE,
   SET_UPLOAD_PROGRESS,
+  SET_SELECTED_IMAGE,
 } from './libraryTypes'
 
 const initialState = {
@@ -13,6 +14,7 @@ const initialState = {
   images: [],
   uploadProgress: 0,
   error: '',
+  selectedImage: {},
 }
 
 const libraryReducer = (state = initialState, action) => {
@@ -62,6 +64,11 @@ const libraryReducer = (state = initialState, action) => {
       return {
         ...state,
         uploadProgress: action.payload,
+      }
+    case SET_SELECTED_IMAGE:
+      return {
+        ...state,
+        selectedImage: action.payload,
       }
     default:
       return state

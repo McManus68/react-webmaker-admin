@@ -8,6 +8,7 @@ import {
   UPLOAD_IMAGE_SUCCESS,
   UPLOAD_IMAGE_FAILURE,
   SET_UPLOAD_PROGRESS,
+  SET_SELECTED_IMAGE,
 } from './libraryTypes'
 
 export const fetchImagesRequest = siteId => {
@@ -55,6 +56,13 @@ export const setUploadProgress = progress => {
   return {
     type: SET_UPLOAD_PROGRESS,
     payload: progress,
+  }
+}
+
+export const setSelectedImage = image => {
+  return {
+    type: SET_SELECTED_IMAGE,
+    payload: image,
   }
 }
 
