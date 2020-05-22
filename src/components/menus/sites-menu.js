@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchSite, setEditingSite, createSite } from '../../redux'
+import { fetchSite, setEditingSite, createSite, fetchImages } from '../../redux'
 
 import IconButton from '@material-ui/core/IconButton'
 import AddIcon from '@material-ui/icons/Add'
@@ -16,6 +16,7 @@ const SitesMenu = () => {
 
   useEffect(() => {
     dispatch(setEditingSite(site))
+    if (site) dispatch(fetchImages(site.id))
   }, [site])
 
   const onCreateSite = () => {

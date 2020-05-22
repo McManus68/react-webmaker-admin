@@ -13,4 +13,4 @@ export {
   setCurrentPageIndex,
   setPendingAction,
 } from './editor/editorActions'
-export { uploadImage } from './library/libraryActions'
+export { uploadImage, fetchImages } from './library/libraryActions'

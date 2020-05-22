@@ -4,15 +4,13 @@ import ImageUploader from 'react-images-upload'
 
 import { uploadImage } from '../../redux'
 
-import IconButton from '@material-ui/core/IconButton'
-import CloudIcon from '@material-ui/icons/Cloud'
 import LinearProgress from '@material-ui/core/LinearProgress'
 
 import './library-menu.scss'
 
 const LibraryMenu = () => {
   const currentSiteId = useSelector(state => state.editor.currentSiteId)
-  const imagesToUpload = useSelector(state => state.library.imagesToUpload)
+  const images = useSelector(state => state.library.images)
   const uploadProgress = useSelector(state => state.library.uploadProgress)
 
   const dispatch = useDispatch()
@@ -32,13 +30,19 @@ const LibraryMenu = () => {
       ) : null}
 
       <ImageUploader
-        withIcon={true}
+        withIcon={false}
         withPreview={false}
         buttonText='Choose images'
         onChange={onDrop}
         imgExtension={['.jpg', '.png', '.gif']}
         maxFileSize={5242880}
       />
+
+      <div className='library-images'>
+        {images.map((image, i) => {
+          return <img key={i} src={image.thumbnail}></img>
+        })}
+      </div>
     </div>
   )
 }
