@@ -31,8 +31,9 @@ const LibraryMenu = () => {
 
       <ImageUploader
         withIcon={false}
+        withLabel={false}
         withPreview={false}
-        buttonText='Choose images'
+        buttonText='Upload'
         onChange={onDrop}
         imgExtension={['.jpg', '.png', '.gif']}
         maxFileSize={5242880}

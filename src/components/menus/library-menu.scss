@@ -2,7 +2,21 @@
   border-top: 1px solid lightgrey;
 
   .MuiLinearProgress-barColorPrimary {
-    background-color: var(--primary-color);
+    color: var(--primary-color);
+  }
+
+  .fileContainer {
+    background-color: none;
+    padding: 0;
+    margin: 0;
+
+    button {
+      background-color: var(--primary-color);
+
+      &:hover {
+        background-color: var(--primary-color-darker);
+      }
+    }
   }
 }
 
@@ -15,7 +29,7 @@
   img {
     max-width: 100%;
     max-height: 100%;
-    border: 2px solid var(--primary-color);
+    border: 2px solid lightgray;
     grid-row: span 2;
     cursor: pointer;
   }
