@@ -133,6 +133,7 @@ export const createSite = site => {
     axios
       .post('http://localhost:8080/api/sites/', site)
       .then(response => {
+        const site = response.data
         dispatch(createSiteSuccess(site))
       })
       .catch(error => {

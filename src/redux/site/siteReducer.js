@@ -73,6 +73,9 @@ const siteReducer = (state = initialState, action) => {
     case CREATE_SITE_SUCCESS:
       var newSites = [...state.sites]
       newSites.push(action.payload)
+      console.log('newSites', newSites)
+      console.log('action.payload‡Ò', action.payload)
+
       return {
         ...state,
         sites: newSites,

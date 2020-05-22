@@ -4,6 +4,7 @@ import { useFormContext, useFieldArray } from 'react-hook-form'
 
 import TrashIcon from '@material-ui/icons/Delete'
 import AddIcon from '@material-ui/icons/Add'
+import IconButton from '@material-ui/core/IconButton'
 
 import TextInput from '../form/text-input'
 import NumberInput from '../form/number-input'
@@ -40,6 +41,9 @@ const Params = ({ component, path, configType }) => {
 
   const onAddParam = name => {
     var newParams = { ...params }
+    if (!newParams[name]) {
+      newParams[name] = []
+    }
     newParams[name].push('')
     setParams(newParams)
   }
@@ -106,14 +110,20 @@ const Params = ({ component, path, configType }) => {
                               `${path}.params.${c.name}[${i}]`,
                               value
                             )}
-                            <TrashIcon
+                            <IconButton
                               onClick={() => onDeleteParam(c.name, i)}
-                            />
+                            >
+                              <TrashIcon />
+                            </IconButton>
                           </div>
                         )
                       })
                     : null}
-                  {c.isArray && <AddIcon onClick={() => onAddParam(c.name)} />}
+                  {c.isArray && (
+                    <IconButton onClick={() => onAddParam(c.name)}>
+                      <AddIcon />
+                    </IconButton>
+                  )}
                 </td>
               </tr>
             )

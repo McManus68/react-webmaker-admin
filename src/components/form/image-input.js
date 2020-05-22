@@ -24,7 +24,7 @@ const ImageInput = ({ name, defaultValue }) => {
         ref={register()}
         defaultValue={defaultValue}
       />
-      <IconButton className='icon-set-image' onClick={selectImage}>
+      <IconButton onClick={selectImage}>
         <Icon />
       </IconButton>
     </div>

@@ -42,14 +42,12 @@ const LibraryMenu = () => {
       <div className='library-images'>
         {images.map((image, i) => {
           return (
-            <>
-              <img
-                key={i}
-                className={selectedImage.name == image.name ? 'selected' : ''}
-                src={image.thumbnail}
-                onClick={() => dispatch(setSelectedImage(image))}
-              ></img>
-            </>
+            <img
+              key={i}
+              className={selectedImage.name == image.name ? 'selected' : ''}
+              src={image.thumbnail}
+              onClick={() => dispatch(setSelectedImage(image))}
+            ></img>
           )
         })}
       </div>
