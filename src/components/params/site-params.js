@@ -8,6 +8,14 @@ const SiteParams = ({ site }) => {
     <table>
       <thead></thead>
       <tbody>
+        <tr>
+          <th>
+            <label>Id</label>
+          </th>
+          <td>
+            <label>{site.id}</label>
+          </td>
+        </tr>
         {params.map((param, i) => {
           return (
             <tr key={i}>
