@@ -27,6 +27,7 @@ const PageEditor = ({ page, currentPage, pageIndex }) => {
 
   useEffect(() => {
     if (pageToSave.index === pageIndex) {
+      console.log('ERRORS', methods.errors)
       methods.handleSubmit(onSavePage)()
     }
   }, [pageToSave])

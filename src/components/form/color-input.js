@@ -14,7 +14,6 @@ const ColorInput = ({ name, defaultValue }) => {
 
   const selectColor = value => {
     const color = `rgba(${value.rgb.r},${value.rgb.g},${value.rgb.b},${value.rgb.a})`
-    console.log('value', value)
     setValue(name, color)
   }
 

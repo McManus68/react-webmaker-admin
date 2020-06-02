@@ -74,8 +74,6 @@ const SiteEditor = () => {
   const onUpdateSite = siteMetadata => {
     dispatch(updateSite({ ...site, ...siteMetadata }))
   }
-
-  console.log('SITUS = ', site)
   return (
     <div className='site-editor'>
       <div className='site-editor-content'>

@@ -10,6 +10,7 @@ import TextInput from '../form/text-input'
 import NumberInput from '../form/number-input'
 import ImageInput from '../form/image-input'
 import ColorInput from '../form/color-input'
+import ChoiceInput from '../form/choice-input'
 
 import './params.scss'
 
@@ -58,6 +59,14 @@ const Params = ({ component, path, configType }) => {
         return <ImageInput name={name} defaultValue={defaultValue} />
       case 'COLOR':
         return <ColorInput name={name} defaultValue={defaultValue} />
+      case 'CHOICE':
+        return (
+          <ChoiceInput
+            name={name}
+            defaultValue={defaultValue}
+            values={config.choiceValues}
+          />
+        )
       default:
         return <TextInput name={name} defaultValue={defaultValue} />
     }

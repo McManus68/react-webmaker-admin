@@ -1,10 +1,16 @@
 .image-input {
-  input {
-    border: none;
-  }
+  display: flex;
 
   .MuiIconButton-label {
     color: var(--primary-color);
+  }
+
+  img {
+    max-width: 100px;
+  }
+
+  button {
+    margin: auto 2px;
   }
 
   svg {
