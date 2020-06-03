@@ -1,0 +1,8 @@
+.site-params {
+  display: flex;
+  flex-direction: column;
+
+  .MuiFormControl-root {
+    margin: 0.4rem 0;
+  }
+}

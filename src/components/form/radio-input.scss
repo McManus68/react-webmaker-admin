@@ -1,0 +1,11 @@
+.radio-input {
+  border: 1px solid grey;
+
+  .MuiRadio-colorSecondary.Mui-checked {
+    color: var(--primary-color);
+  }
+
+  .MuiFormGroup-root {
+    flex-direction: row;
+  }
+}

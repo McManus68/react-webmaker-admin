@@ -70,10 +70,7 @@ const BlockEditor = ({ path }) => {
                   path={`${path}[${i}]`}
                 />
 
-                <ResponsiveParams
-                  responsive={field.responsive}
-                  path={`${path}[${i}].responsive`}
-                />
+                <ResponsiveParams path={`${path}[${i}].responsive`} />
                 <AnimationParams
                   animation={field.animation}
                   path={`${path}[${i}].animation`}

@@ -1,14 +1,17 @@
-import React, { useState, useEffect } from 'react'
-import { useFormContext } from 'react-hook-form'
+import React, { useState, useEffect, useRef } from 'react'
+import { useFormContext, Controller } from 'react-hook-form'
 import { useSelector } from 'react-redux'
 
+import InputAdornment from '@material-ui/core/InputAdornment'
+import { TextField } from '@material-ui/core'
 import IconButton from '@material-ui/core/IconButton'
-import Icon from '@material-ui/icons/CompareArrows'
+import SwitchIcon from '@material-ui/icons/CompareArrows'
 
 import './image-input.scss'
 
-const ImageInput = ({ name, defaultValue }) => {
-  const { register, setValue } = useFormContext()
+const ImageInput = ({ label, name, defaultValue }) => {
+  const { control, setValue } = useFormContext()
+  const inputRef = useRef()
 
   const selectedImage = useSelector(state => state.library.selectedImage)
 
@@ -27,18 +30,30 @@ const ImageInput = ({ name, defaultValue }) => {
   }
 
   return (
-    <div className='image-input'>
-      <input
-        name={name}
-        type='hidden'
-        ref={register()}
-        defaultValue={defaultValue}
-      />
-      <img src={image} />
-      <IconButton onClick={selectImage}>
-        <Icon />
-      </IconButton>
-    </div>
+    <Controller
+      as={
+        <TextField
+          inputRef={inputRef}
+          variant='outlined'
+          InputProps={{
+            readOnly: true,
+            endAdornment: (
+              <InputAdornment>
+                <img src={image} />
+                <IconButton onClick={selectImage}>
+                  <SwitchIcon />
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+        />
+      }
+      name={name}
+      label={label}
+      onFocus={() => inputRef.current.focus()}
+      control={control}
+      className='image-input'
+    />
   )
 }
 

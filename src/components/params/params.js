@@ -11,6 +11,7 @@ import NumberInput from '../form/number-input'
 import ImageInput from '../form/image-input'
 import ColorInput from '../form/color-input'
 import ChoiceInput from '../form/choice-input'
+import RadioInput from '../form/radio-input'
 
 import './params.scss'
 
@@ -52,18 +53,24 @@ const Params = ({ component, path, configType }) => {
   const getComponent = (config, name, defaultValue) => {
     switch (config.type) {
       case 'INT':
-        return <NumberInput name={name} defaultValue={defaultValue} />
+        return <NumberInput name={name} label={config.name} />
       case 'STRING':
-        return <TextInput name={name} defaultValue={defaultValue} />
+        return <TextInput name={name} label={config.name} />
       case 'IMAGE':
-        return <ImageInput name={name} defaultValue={defaultValue} />
+        return (
+          <ImageInput
+            name={name}
+            label={config.name}
+            defaultValue={defaultValue}
+          />
+        )
       case 'COLOR':
-        return <ColorInput name={name} defaultValue={defaultValue} />
+        return <ColorInput name={name} label={config.name} />
       case 'CHOICE':
         return (
-          <ChoiceInput
+          <RadioInput
             name={name}
-            defaultValue={defaultValue}
+            label={config.name}
             values={config.choiceValues}
           />
         )
@@ -74,71 +81,37 @@ const Params = ({ component, path, configType }) => {
 
   return (
     <div className='params'>
-      <table>
-        <thead>
-          <tr>
-            <th colSpan='2'>Parameters</th>
-          </tr>
-        </thead>
-        <tbody>
-          {configType === 'BLOCK' ? (
-            <tr>
-              <th>
-                <label htmlFor={component.classes}>Classes CSS</label>
-              </th>
-              <td>
-                <TextInput
-                  name={`${path}.classes`}
-                  defaultValue={component.classes}
-                />
-              </td>
-            </tr>
-          ) : null}
-          {config.params.map((c, i) => {
-            return (
-              <tr key={i}>
-                <th>
-                  <label htmlFor={c.name}>{c.name}</label>
-                </th>
-                <td>
-                  {!c.isArray
-                    ? getComponent(
-                        c,
-                        `${path}.params.${c.name}`,
-                        params[c.name]
-                      )
-                    : null}
+      {configType === 'BLOCK' ? (
+        <TextInput name={`${path}.classes`} label='Classes CSS' />
+      ) : null}
+      {config.params.map((c, i) => {
+        return (
+          <div>
+            {!c.isArray
+              ? getComponent(c, `${path}.params.${c.name}`, params[c.name])
+              : null}
 
-                  {c.isArray
-                    ? params[c.name] &&
-                      params[c.name].map((value, i) => {
-                        return (
-                          <div className='params-array-item' key={i}>
-                            {getComponent(
-                              c,
-                              `${path}.params.${c.name}[${i}]`,
-                              value
-                            )}
-                            <IconButton
-                              onClick={() => onDeleteParam(c.name, i)}
-                            >
-                              <TrashIcon />
-                            </IconButton>
-                          </div>
-                        )
-                      })
-                    : null}
-                  {c.isArray && (
-                    <IconButton onClick={() => onAddParam(c.name)}>
-                      <AddIcon />
-                    </IconButton>
-                  )}
-                </td>
-              </tr>
-            )
-          })}
-        </tbody>
-      </table>
+            {c.isArray
+              ? params[c.name] &&
+                params[c.name].map((value, i) => {
+                  return (
+                    <div className='params-array-item' key={i}>
+                      {getComponent(c, `${path}.params.${c.name}[${i}]`, value)}
+                      <IconButton onClick={() => onDeleteParam(c.name, i)}>
+                        <TrashIcon />
+                      </IconButton>
+                    </div>
+                  )
+                })
+              : null}
+            {c.isArray && (
+              <IconButton onClick={() => onAddParam(c.name)}>
+                <AddIcon />
+              </IconButton>
+            )}
+          </div>
+        )
+      })}
     </div>
   )
 }

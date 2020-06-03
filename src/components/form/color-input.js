@@ -1,31 +1,59 @@
-import React, { useState } from 'react'
-import { useFormContext } from 'react-hook-form'
+import React, { useState, useRef } from 'react'
+import { useFormContext, Controller } from 'react-hook-form'
 
+import InputAdornment from '@material-ui/core/InputAdornment'
 import IconButton from '@material-ui/core/IconButton'
 import Icon from '@material-ui/icons/Palette'
+import { TextField } from '@material-ui/core'
 
 import { SketchPicker } from 'react-color'
 
 import './color-input.scss'
 
-const ColorInput = ({ name, defaultValue }) => {
+const ColorInput = ({ label, name }) => {
   const [visible, setVisible] = useState(false)
-  const { register, setValue } = useFormContext()
+  const [color, setColor] = useState('#FAFAFA')
+  const { control, setValue } = useFormContext()
+  const inputRef = useRef()
 
   const selectColor = value => {
-    const color = `rgba(${value.rgb.r},${value.rgb.g},${value.rgb.b},${value.rgb.a})`
+    setColor(
+      `rgba(${value.rgb.r},${value.rgb.g},${value.rgb.b},${value.rgb.a})`
+    )
     setValue(name, color)
   }
 
   return (
-    <div className='image-input'>
-      <input name={name} ref={register()} defaultValue={defaultValue} />
-      <IconButton
-        className='icon-set-color'
-        onClick={() => setVisible(!visible)}
-      >
-        <Icon />
-      </IconButton>
+    <div className='color-input'>
+      <Controller
+        as={
+          <TextField
+            inputRef={inputRef}
+            variant='outlined'
+            InputProps={{
+              readOnly: true,
+              endAdornment: (
+                <InputAdornment>
+                  <div
+                    className='color-sample'
+                    style={{ backgroundColor: color }}
+                  />
+                  <IconButton
+                    className='icon-set-color'
+                    onClick={() => setVisible(!visible)}
+                  >
+                    <Icon />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+        }
+        name={name}
+        label={label}
+        onFocus={() => inputRef.current.focus()}
+        control={control}
+      />
 
       <SketchPicker
         className={visible ? 'visible' : ''}

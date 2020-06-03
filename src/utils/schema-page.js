@@ -26,38 +26,10 @@ export const schema = yup.object().shape({
                 .object()
                 .nullable()
                 .shape({
-                  sm: yup
-                    .number()
-                    .min(1)
-                    .max(12)
-                    .nullable()
-                    .transform((value, originalValue) =>
-                      originalValue.trim() === '' ? null : value
-                    ),
-                  md: yup
-                    .number()
-                    .min(1)
-                    .max(12)
-                    .nullable()
-                    .transform((value, originalValue) =>
-                      originalValue.trim() === '' ? null : value
-                    ),
-                  lg: yup
-                    .number()
-                    .min(1)
-                    .max(12)
-                    .nullable()
-                    .transform((value, originalValue) =>
-                      originalValue.trim() === '' ? null : value
-                    ),
-                  xl: yup
-                    .number()
-                    .min(1)
-                    .max(12)
-                    .nullable()
-                    .transform((value, originalValue) =>
-                      originalValue.trim() === '' ? null : value
-                    ),
+                  sm: yup.number().min(1).max(12).nullable(),
+                  md: yup.number().min(1).max(12).nullable(),
+                  lg: yup.number().min(1).max(12).nullable(),
+                  xl: yup.number().min(1).max(12).nullable(),
                 }),
               animation: yup.object().nullable().shape({
                 type: yup.string().nullable(),

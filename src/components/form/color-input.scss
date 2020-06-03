@@ -1,17 +1,19 @@
-.image-input {
-  input {
-    border: none;
-  }
-
+.color-input {
   .MuiIconButton-label {
     color: var(--primary-color);
+  }
+
+  .color-sample {
+    width: 16px;
+    height: 16px;
+    padding: 0.4rem;
   }
 
   .sketch-picker {
     visibility: hidden;
     position: absolute;
     transition: 0.4s;
-    left: 250px;
+    left: 280px;
     top: 80px;
     z-index: 2;
   }
