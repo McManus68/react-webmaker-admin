@@ -25,6 +25,7 @@ const SwitchInput = ({ label, name }) => {
       onFocus={() => inputRef.current.focus()}
       control={control}
       variant='outlined'
+      className='switch-input'
     />
   )
 }

@@ -1,0 +1,12 @@
+.params-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  margin-right: 1rem;
+
+  .MuiFormControl-root {
+    margin: 0.4rem 0;
+    box-sizing: border-box;
+    width: 250px;
+  }
+}

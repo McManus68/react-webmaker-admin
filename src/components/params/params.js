@@ -5,25 +5,28 @@ import { useFormContext, useFieldArray } from 'react-hook-form'
 import TrashIcon from '@material-ui/icons/Delete'
 import AddIcon from '@material-ui/icons/Add'
 import IconButton from '@material-ui/core/IconButton'
+import FormControl from '@material-ui/core/FormControl'
+import FormLabel from '@material-ui/core/FormLabel'
 
 import TextInput from '../form/text-input'
 import NumberInput from '../form/number-input'
 import ImageInput from '../form/image-input'
 import ColorInput from '../form/color-input'
-import ChoiceInput from '../form/choice-input'
 import RadioInput from '../form/radio-input'
+
+import ParamsContainer from './params-container'
 
 import './params.scss'
 
 const Params = ({ component, path, configType }) => {
   const { register, setValue } = useFormContext()
-  const configSection = useSelector(state => state.config.section)
-  const configBlock = useSelector(state => state.config.block)
+  const configsSection = useSelector(state => state.config.section)
+  const configsBlock = useSelector(state => state.config.block)
 
-  const config =
+  const configs =
     configType === 'SECTION'
-      ? configSection.find(item => item.type === component.type)
-      : configBlock.find(item => item.type === component.type)
+      ? configsSection.find(item => item.type === component.type)
+      : configsBlock.find(item => item.type === component.type)
 
   const [params, setParams] = useState(component.params)
 
@@ -58,11 +61,7 @@ const Params = ({ component, path, configType }) => {
         return <TextInput name={name} label={config.name} />
       case 'IMAGE':
         return (
-          <ImageInput
-            name={name}
-            label={config.name}
-            defaultValue={defaultValue}
-          />
+          <ImageInput name={name} config={config} defaultValue={defaultValue} />
         )
       case 'COLOR':
         return <ColorInput name={name} label={config.name} />
@@ -80,39 +79,48 @@ const Params = ({ component, path, configType }) => {
   }
 
   return (
-    <div className='params'>
+    <ParamsContainer>
       {configType === 'BLOCK' ? (
         <TextInput name={`${path}.classes`} label='Classes CSS' />
       ) : null}
-      {config.params.map((c, i) => {
+      {configs.params.map((config, i) => {
         return (
           <div>
-            {!c.isArray
-              ? getComponent(c, `${path}.params.${c.name}`, params[c.name])
-              : null}
-
-            {c.isArray
-              ? params[c.name] &&
-                params[c.name].map((value, i) => {
-                  return (
-                    <div className='params-array-item' key={i}>
-                      {getComponent(c, `${path}.params.${c.name}[${i}]`, value)}
-                      <IconButton onClick={() => onDeleteParam(c.name, i)}>
-                        <TrashIcon />
-                      </IconButton>
-                    </div>
-                  )
-                })
-              : null}
-            {c.isArray && (
-              <IconButton onClick={() => onAddParam(c.name)}>
-                <AddIcon />
-              </IconButton>
+            {!config.isArray ? (
+              getComponent(
+                config,
+                `${path}.params.${config.name}`,
+                params[config.name]
+              )
+            ) : (
+              <FormControl component='fieldset' className='fieldset'>
+                <FormLabel component='legend'>{config.name}</FormLabel>
+                {params[config.name] &&
+                  params[config.name].map((value, i) => {
+                    return (
+                      <div className='array-param'>
+                        {getComponent(
+                          config,
+                          `${path}.params.${config.name}[${i}]`,
+                          value
+                        )}
+                        <IconButton
+                          onClick={() => onDeleteParam(config.name, i)}
+                        >
+                          <TrashIcon />
+                        </IconButton>
+                      </div>
+                    )
+                  })}
+                <IconButton onClick={() => onAddParam(config.name)}>
+                  <AddIcon />
+                </IconButton>
+              </FormControl>
             )}
           </div>
         )
       })}
-    </div>
+    </ParamsContainer>
   )
 }
 

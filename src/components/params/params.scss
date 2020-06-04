@@ -1,5 +1,11 @@
-.params-array-item {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+.params-container {
+  svg {
+    color: var(--primary-color);
+  }
+
+  .array-param {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
 }

@@ -9,7 +9,7 @@ import SwitchIcon from '@material-ui/icons/CompareArrows'
 
 import './image-input.scss'
 
-const ImageInput = ({ label, name, defaultValue }) => {
+const ImageInput = ({ config, name, defaultValue }) => {
   const { control, setValue } = useFormContext()
   const inputRef = useRef()
 
@@ -34,7 +34,7 @@ const ImageInput = ({ label, name, defaultValue }) => {
       as={
         <TextField
           inputRef={inputRef}
-          variant='outlined'
+          variant={config.isArray ? 'standard' : 'outlined'}
           InputProps={{
             readOnly: true,
             endAdornment: (
@@ -49,7 +49,7 @@ const ImageInput = ({ label, name, defaultValue }) => {
         />
       }
       name={name}
-      label={label}
+      label={config.isArray ? null : config.name}
       onFocus={() => inputRef.current.focus()}
       control={control}
       className='image-input'

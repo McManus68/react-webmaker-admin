@@ -7,6 +7,8 @@ import FormControl from '@material-ui/core/FormControl'
 import FormLabel from '@material-ui/core/FormLabel'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 
+import FieldSet from './fieldset'
+
 import './radio-input.scss'
 
 const RadioInput = ({ label, name, values }) => {
@@ -14,7 +16,8 @@ const RadioInput = ({ label, name, values }) => {
   const inputRef = useRef()
 
   return (
-    <FormControl className='radio-input'>
+    <FormControl component='fieldset' className='fieldset'>
+      <FormLabel component='legend'>{label}</FormLabel>
       <Controller
         as={
           <RadioGroup inputRef={inputRef}>

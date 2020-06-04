@@ -4,7 +4,11 @@ export {
   createSite,
   updateSite,
 } from './site/siteActions'
-export { fetchConfigSection, fetchConfigBlock } from './config/configActions'
+export {
+  fetchConfigSection,
+  fetchConfigBlock,
+  fetchConfigAnimation,
+} from './config/configActions'
 export {
   saveCurrentPage,
   setEditingSite,

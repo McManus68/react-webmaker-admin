@@ -47,14 +47,8 @@ code {
   display: flex;
 }
 
-.params {
-  display: flex;
-  flex-direction: column;
-  margin-top: 1rem;
-  margin-right: 1rem;
-
-  .MuiFormControl-root {
-    margin: 0.4rem 0;
-    width: 250px;
-  }
+.fieldset {
+  border: 1px solid rgba(0, 0, 0, 0.23) !important;
+  padding: 18.5px 14px !important;
+  border-radius: 4px !important;
 }

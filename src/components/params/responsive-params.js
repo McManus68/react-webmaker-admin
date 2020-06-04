@@ -1,11 +1,12 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import NumberInput from '../form/number-input'
+
+import ParamsContainer from './params-container'
 
 const ResponsiveParams = ({ path }) => {
   const breakpoints = ['sm', 'md', 'lg', 'xl']
   return (
-    <div className='params'>
+    <ParamsContainer>
       {breakpoints.map((breakpoint, i) => {
         return (
           <NumberInput
@@ -15,7 +16,7 @@ const ResponsiveParams = ({ path }) => {
           />
         )
       })}
-    </div>
+    </ParamsContainer>
   )
 }
 
