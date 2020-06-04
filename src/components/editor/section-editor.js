@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useFormContext, useFieldArray } from 'react-hook-form'
 import { useSelector } from 'react-redux'
 import Params from '../params/params'
 
 import { FaTrashAlt, FaPlusCircle } from 'react-icons/fa'
+import SelectType from '../form/select-type'
 import RowEditor from './row-editor'
 
 import './section-editor.scss'
@@ -29,6 +30,7 @@ const SectionEditor = ({ path }) => {
 
   const onChangeType = (field, value) => {
     field.type = value
+    console.log('name', value)
     setState(!state)
   }
 
@@ -55,23 +57,17 @@ const SectionEditor = ({ path }) => {
               <FaPlusCircle onClick={() => insert(i, newSection())} />
             </div>
 
-            <select
+            <SelectType
               name={`${path}[${i}].type`}
-              ref={register()}
-              onChange={e => onChangeType(field, e.target.value)}
-              defaultValue={field.type}
-            >
-              {sectionTypes.map((type, i) => (
-                <option key={i} value={type}>
-                  {type}
-                </option>
-              ))}
-            </select>
+              values={sectionTypes}
+              onChange={onChangeType}
+              field={field}
+            />
 
-            <h2>{field.type}</h2>
             {isStandAlone(field) ? (
               <Params
                 component={field}
+                config={config.find(c => c.type === field.type)}
                 configType='SECTION'
                 path={`${path}[${i}]`}
               />

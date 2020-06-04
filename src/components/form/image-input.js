@@ -9,15 +9,15 @@ import SwitchIcon from '@material-ui/icons/CompareArrows'
 
 import './image-input.scss'
 
-const ImageInput = ({ config, name, defaultValue }) => {
-  const { control, setValue } = useFormContext()
+const ImageInput = ({ config, name }) => {
+  const { control, getValues, setValue } = useFormContext()
   const inputRef = useRef()
 
   const selectedImage = useSelector(state => state.library.selectedImage)
 
   const images = useSelector(state => state.library.images)
 
-  const defaultImage = images.find(image => image.name === defaultValue)
+  const defaultImage = images.find(image => image.name === getValues(name))
   const [image, setImage] = useState(null)
 
   useEffect(() => {

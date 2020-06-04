@@ -6,7 +6,6 @@
 
   --bg-color: #fafafa;
   --primary-color: #2f7208;
-  --primary-color-darker: #2c660a;
 
   --section-color: #172a96;
   --row-color: #971c91;
@@ -51,4 +50,10 @@ code {
   border: 1px solid rgba(0, 0, 0, 0.23) !important;
   padding: 18.5px 14px !important;
   border-radius: 4px !important;
+}
+
+select {
+  border: none;
+  font-size: 1rem;
+  padding: 0.3rem;
 }

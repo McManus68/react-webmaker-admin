@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   fetchConfigSection,
   fetchConfigBlock,
@@ -23,13 +23,14 @@ function App() {
     dispatch(fetchSites())
   }, [])
 
+  const site = useSelector(state => state.editor.site)
   return (
     <div className='App'>
       <Header />
 
       <main className='main'>
         <SitesMenu />
-        <SiteEditor />
+        {site && <SiteEditor site={site} />}
       </main>
 
       <footer>

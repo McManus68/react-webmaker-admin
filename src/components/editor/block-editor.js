@@ -7,6 +7,7 @@ import AnimationParams from '../params/animation-params'
 import Params from '../params/params'
 
 import { FaTrashAlt, FaPlusCircle } from 'react-icons/fa'
+import SelectType from '../form/select-type'
 
 import './block-editor.scss'
 
@@ -20,13 +21,23 @@ const BlockEditor = ({ path }) => {
   )
 
   const newBlock = () => {
-    return { type: 'BLOCK_SIMPLE_CONTENT', responsive: {}, params: {} }
+    return {
+      type: 'BLOCK_SIMPLE_CONTENT',
+      responsive: { sm: 12, md: 6, lg: 6, xl: 6 },
+      animation: {
+        type: '',
+        left: false,
+        right: false,
+        top: false,
+        bottom: false,
+      },
+      params: {},
+    }
   }
 
   const [state, setState] = useState(false)
 
   const config = useSelector(state => state.config.block)
-
   const blockTypes = config.map(item => item.type)
 
   const onChangeType = (field, value) => {
@@ -49,28 +60,25 @@ const BlockEditor = ({ path }) => {
                 <FaPlusCircle onClick={() => insert(i, newBlock())} />
               </div>
 
-              <select
+              <SelectType
                 name={`${path}[${i}].type`}
-                ref={register()}
-                onChange={e => onChangeType(field, e.target.value)}
-                defaultValue={field.type}
-              >
-                {blockTypes.map((type, i) => (
-                  <option key={i} value={type}>
-                    {type}
-                  </option>
-                ))}
-              </select>
+                values={blockTypes}
+                onChange={onChangeType}
+                field={field}
+              />
 
-              <h4>{field.type}</h4>
               <div className='block-editor-content'>
                 <Params
                   component={field}
+                  config={config.find(c => c.type === field.type)}
                   configType='BLOCK'
                   path={`${path}[${i}]`}
                 />
 
-                <ResponsiveParams path={`${path}[${i}].responsive`} />
+                <ResponsiveParams
+                  responsive={field.responsive}
+                  path={`${path}[${i}].responsive`}
+                />
                 <AnimationParams
                   animation={field.animation}
                   path={`${path}[${i}].animation`}

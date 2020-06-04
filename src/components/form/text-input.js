@@ -10,17 +10,12 @@ const TextInput = ({ label, name, defaultValue }) => {
 
   return (
     <Controller
-      as={
-        <TextField
-          inputRef={inputRef}
-          defaultValue={defaultValue}
-          variant='outlined'
-        />
-      }
+      as={<TextField inputRef={inputRef} variant='outlined' />}
       name={name}
       label={label}
       onFocus={() => inputRef.current.focus()}
       control={control}
+      defaultValue={defaultValue}
     />
   )
 }

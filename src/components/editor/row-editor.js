@@ -45,7 +45,6 @@ const RowEditor = ({ path }) => {
                 ref={register()}
                 defaultValue={field.type}
               />
-              <h3>{field.type}</h3>
               <BlockEditor path={`${path}[${i}].blocks`} />
               <div className='remove'>
                 <FaTrashAlt onClick={() => remove(i)} />

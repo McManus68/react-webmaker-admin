@@ -4,7 +4,7 @@ import { TextField } from '@material-ui/core'
 
 import './number-input.scss'
 
-const NumberInput = ({ label, name }) => {
+const NumberInput = ({ label, name, defaultValue }) => {
   const { control } = useFormContext()
   const inputRef = useRef()
 
@@ -16,6 +16,7 @@ const NumberInput = ({ label, name }) => {
       onFocus={() => inputRef.current.focus()}
       control={control}
       variant='outlined'
+      defaultValue={defaultValue}
     />
   )
 }

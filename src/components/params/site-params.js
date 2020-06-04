@@ -10,14 +10,7 @@ const SiteParams = ({ site }) => {
     <div className='site-params'>
       <label>{site.id}</label>
       {params.map((param, i) => {
-        return (
-          <TextInput
-            key={i}
-            name={param}
-            label={param}
-            defaultValue={site[param]}
-          />
-        )
+        return <TextInput key={i} name={param} label={param} />
       })}
     </div>
   )

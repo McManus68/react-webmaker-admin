@@ -3,7 +3,7 @@ import NumberInput from '../form/number-input'
 
 import ParamsContainer from './params-container'
 
-const ResponsiveParams = ({ path }) => {
+const ResponsiveParams = ({ responsive, path }) => {
   const breakpoints = ['sm', 'md', 'lg', 'xl']
   return (
     <ParamsContainer>
@@ -13,6 +13,7 @@ const ResponsiveParams = ({ path }) => {
             key={i}
             name={`${path}.${breakpoint}`}
             label={breakpoint}
+            defaultValue={responsive[breakpoint]}
           />
         )
       })}

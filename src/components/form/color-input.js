@@ -12,7 +12,7 @@ import './color-input.scss'
 
 const ColorInput = ({ label, name }) => {
   const [visible, setVisible] = useState(false)
-  const [color, setColor] = useState('#FAFAFA')
+  const [color, setColor] = useState('')
   const { control, setValue } = useFormContext()
   const inputRef = useRef()
 
@@ -31,17 +31,13 @@ const ColorInput = ({ label, name }) => {
             inputRef={inputRef}
             variant='outlined'
             InputProps={{
-              readOnly: true,
               endAdornment: (
                 <InputAdornment>
                   <div
                     className='color-sample'
                     style={{ backgroundColor: color }}
                   />
-                  <IconButton
-                    className='icon-set-color'
-                    onClick={() => setVisible(!visible)}
-                  >
+                  <IconButton onClick={() => setVisible(!visible)}>
                     <Icon />
                   </IconButton>
                 </InputAdornment>

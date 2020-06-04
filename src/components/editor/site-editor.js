@@ -21,10 +21,11 @@ import { schema } from '../../utils/schema-site.js'
 
 import './site-editor.scss'
 
-const SiteEditor = () => {
+const SiteEditor = ({ site }) => {
   // The validation schema
   const methods = useForm({
     validationSchema: schema,
+    defaultValues: { ...site, pages: null },
   })
   // Pending actions
   const pendingAction = useSelector(state => state.editor.pendingAction)
@@ -32,13 +33,10 @@ const SiteEditor = () => {
   const currentPageIndex = useSelector(state => state.editor.currentPageIndex)
   // When we request a page change, we ask to the page to save it's data before we proceed
   const [newPageIndex, setNewPageIndex] = useState(-1)
-  // Currently editing site
-  const site = useSelector(state => state.editor.site)
   // Is new Site on the Editor
   const currentSiteId = useSelector(state => state.editor.currentSiteId)
   // Listen the page saved event, after that we chan really change page
   const flagSaved = useSelector(state => state.editor.flagSaved)
-
   // If the site changes, we reset the form with the new site
   const dispatch = useDispatch()
 
@@ -78,11 +76,7 @@ const SiteEditor = () => {
     <div className='site-editor'>
       <div className='site-editor-content'>
         <AppBar position='static'>
-          <Tabs
-            value={currentPageIndex}
-            onChange={onChangePageRequest}
-            aria-label='simple tabs example'
-          >
+          <Tabs value={currentPageIndex} onChange={onChangePageRequest}>
             {site &&
               site.pages.map((page, i) => <Tab key={i} label={page.title} />)}
           </Tabs>

@@ -3,11 +3,9 @@ import { useFormContext, Controller } from 'react-hook-form'
 
 import Radio from '@material-ui/core/Radio'
 import RadioGroup from '@material-ui/core/RadioGroup'
-import FormControl from '@material-ui/core/FormControl'
-import FormLabel from '@material-ui/core/FormLabel'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 
-import FieldSet from './fieldset'
+import FieldSet from '../form/fieldset'
 
 import './radio-input.scss'
 
@@ -16,13 +14,13 @@ const RadioInput = ({ label, name, values }) => {
   const inputRef = useRef()
 
   return (
-    <FormControl component='fieldset' className='fieldset'>
-      <FormLabel component='legend'>{label}</FormLabel>
+    <FieldSet label={label} className='radio-input'>
       <Controller
         as={
-          <RadioGroup inputRef={inputRef}>
+          <RadioGroup inputref={inputRef}>
             {values.map((value, i) => (
               <FormControlLabel
+                key={i}
                 value={value}
                 control={<Radio />}
                 label={value}
@@ -34,7 +32,7 @@ const RadioInput = ({ label, name, values }) => {
         onFocus={() => inputRef.current.focus()}
         control={control}
       />
-    </FormControl>
+    </FieldSet>
   )
 }
 

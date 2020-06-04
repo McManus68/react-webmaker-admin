@@ -7,7 +7,7 @@ import './fieldset.scss'
 
 const FieldSet = ({ children, label, className }) => {
   return (
-    <FormControl className={`fieldset ${className}`}>
+    <FormControl component='fieldset' className={`fieldset ${className}`}>
       <FormLabel component='legend'>{label}</FormLabel>
       {children}
     </FormControl>

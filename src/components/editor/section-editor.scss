@@ -2,6 +2,10 @@
 
 .section-editor {
   @include container-editor(var(--section-color));
+
+  select {
+    color: var(--section-color);
+  }
 }
 
 .prepend-section {

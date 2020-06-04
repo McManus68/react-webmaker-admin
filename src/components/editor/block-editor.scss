@@ -2,6 +2,10 @@
 
 .section-editor .row-editor .block-editor {
   @include container-editor(var(--block-color));
+
+  select {
+    color: var(--block-color);
+  }
 }
 
 .block-editor-content {
