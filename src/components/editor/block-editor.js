@@ -11,7 +11,7 @@ import SelectType from '../form/select-type'
 
 import './block-editor.scss'
 
-const BlockEditor = ({ path }) => {
+const BlockEditor = ({ path, scope }) => {
   const { control, register } = useFormContext()
   const { fields, append, prepend, remove, swap, move, insert } = useFieldArray(
     {
@@ -22,7 +22,7 @@ const BlockEditor = ({ path }) => {
 
   const newBlock = () => {
     return {
-      type: 'BLOCK_SIMPLE_CONTENT',
+      type: scope === 'PAGE' ? 'BLOCK_SIMPLE_CONTENT' : 'FOOTER_SIMPLE_CONTENT',
       responsive: { sm: 12, md: 6, lg: 6, xl: 6 },
       animation: {
         type: '',
@@ -38,7 +38,9 @@ const BlockEditor = ({ path }) => {
   const [state, setState] = useState(false)
 
   const config = useSelector(state => state.config.block)
-  const blockTypes = config.map(item => item.type)
+  const blockTypes = config
+    .filter(item => item.scope === scope)
+    .map(item => item.type)
 
   const onChangeType = (field, value) => {
     field.type = value

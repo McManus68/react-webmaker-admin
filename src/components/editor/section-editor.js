@@ -30,7 +30,6 @@ const SectionEditor = ({ path }) => {
 
   const onChangeType = (field, value) => {
     field.type = value
-    console.log('name', value)
     setState(!state)
   }
 
@@ -72,7 +71,7 @@ const SectionEditor = ({ path }) => {
                 path={`${path}[${i}]`}
               />
             ) : (
-              <RowEditor path={`${path}[${i}].rows`} />
+              <RowEditor path={`${path}[${i}].rows`} scope='PAGE' />
             )}
 
             <div className='remove'>

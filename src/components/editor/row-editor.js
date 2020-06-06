@@ -7,7 +7,7 @@ import { FaTrashAlt, FaPlusCircle } from 'react-icons/fa'
 
 import './row-editor.scss'
 
-const RowEditor = ({ path }) => {
+const RowEditor = ({ path, scope }) => {
   const { control, register } = useFormContext()
 
   const { fields, append, prepend, remove, swap, move, insert } = useFieldArray(
@@ -45,7 +45,7 @@ const RowEditor = ({ path }) => {
                 ref={register()}
                 defaultValue={field.type}
               />
-              <BlockEditor path={`${path}[${i}].blocks`} />
+              <BlockEditor path={`${path}[${i}].blocks`} scope={scope} />
               <div className='remove'>
                 <FaTrashAlt onClick={() => remove(i)} />
               </div>

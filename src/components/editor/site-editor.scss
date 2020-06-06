@@ -11,11 +11,14 @@
     color: var(--primary-color);
     box-shadow: none;
   }
+
+  .MuiTabs-flexContainer button:last-child {
+    margin-left: auto;
+  }
 }
 
 .site-editor-right-menu {
   display: flex;
   flex-direction: column;
-  width: 250px;
   border-left: 1px solid lightgrey;
 }

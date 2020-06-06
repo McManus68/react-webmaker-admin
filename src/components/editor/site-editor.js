@@ -4,8 +4,8 @@ import { useForm, FormContext } from 'react-hook-form'
 
 import {
   updateSite,
-  saveCurrentPageRequest,
-  setCurrentPageIndex,
+  saveActiveTabRequest,
+  setActiveIndex,
   setPendingAction,
 } from '../../redux'
 
@@ -14,6 +14,7 @@ import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 
 import PageEditor from './page-editor'
+import FooterEditor from './footer-editor'
 import SiteEditorMenu from '../menus/site-editor-menu'
 import LibraryMenu from '../menus/library-menu'
 
@@ -25,14 +26,14 @@ const SiteEditor = ({ site }) => {
   // The validation schema
   const methods = useForm({
     validationSchema: schema,
-    defaultValues: { ...site, pages: null },
+    defaultValues: { ...site, pages: null, footer: null },
   })
   // Pending actions
   const pendingAction = useSelector(state => state.editor.pendingAction)
-  // Store the current page index
-  const currentPageIndex = useSelector(state => state.editor.currentPageIndex)
+  // Store the current tab index
+  const activeIndex = useSelector(state => state.editor.activeIndex)
   // When we request a page change, we ask to the page to save it's data before we proceed
-  const [newPageIndex, setNewPageIndex] = useState(-1)
+  const [newTabIndex, setNewTabIndex] = useState(-1)
   // Is new Site on the Editor
   const currentSiteId = useSelector(state => state.editor.currentSiteId)
   // Listen the page saved event, after that we chan really change page
@@ -42,15 +43,15 @@ const SiteEditor = ({ site }) => {
 
   useEffect(() => {
     dispatch(setPendingAction(''))
-    setNewPageIndex(-1)
+    setNewTabIndex(-1)
     methods.reset(site)
   }, [currentSiteId])
 
   useEffect(() => {
     if (flagSaved) {
       switch (pendingAction) {
-        case 'CHANGE-PAGE':
-          dispatch(setCurrentPageIndex(newPageIndex))
+        case 'SWITCH-TAB':
+          dispatch(setActiveIndex(newTabIndex))
           break
         case 'UPDATE-SITE':
           methods.handleSubmit(onUpdateSite)()
@@ -62,10 +63,10 @@ const SiteEditor = ({ site }) => {
   }, [flagSaved])
 
   // Page change request
-  const onChangePageRequest = (e, value) => {
-    dispatch(setPendingAction('CHANGE-PAGE'))
-    setNewPageIndex(value)
-    dispatch(saveCurrentPageRequest(currentPageIndex))
+  const onSwitchTabRequest = (e, value) => {
+    dispatch(setPendingAction('SWITCH-TAB'))
+    setNewTabIndex(value)
+    dispatch(saveActiveTabRequest(activeIndex))
   }
 
   // Save the entire site
@@ -76,21 +77,27 @@ const SiteEditor = ({ site }) => {
     <div className='site-editor'>
       <div className='site-editor-content'>
         <AppBar position='static'>
-          <Tabs value={currentPageIndex} onChange={onChangePageRequest}>
+          <Tabs value={activeIndex} onChange={onSwitchTabRequest}>
             {site &&
               site.pages.map((page, i) => <Tab key={i} label={page.title} />)}
+            <Tab label='Footer' />
           </Tabs>
         </AppBar>
 
         {site &&
-          site.pages.map((page, pageIndex) => (
+          site.pages.map((page, i) => (
             <PageEditor
               page={page}
-              key={pageIndex}
-              currentPage={currentPageIndex}
-              pageIndex={pageIndex}
+              key={i}
+              activeIndex={activeIndex}
+              index={i}
             />
           ))}
+        <FooterEditor
+          footer={site.footer}
+          activeIndex={activeIndex}
+          index={site.pages.length}
+        />
       </div>
 
       {site && (

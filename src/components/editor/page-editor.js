@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useForm, FormContext } from 'react-hook-form'
-import { saveCurrentPage } from '../../redux'
+import { savePage } from '../../redux'
 import PageParams from '../params/page-params'
 
 import { schema } from '../../utils/schema-page.js'
@@ -10,7 +10,7 @@ import SectionEditor from './section-editor'
 
 import './page-editor.scss'
 
-const PageEditor = ({ page, currentPage, pageIndex }) => {
+const PageEditor = ({ page, activeIndex, index }) => {
   // Each page has its own form - Like other pages are not in the DOM it's easier to handle this way
   // cause the other pages values are not accessible
   const methods = useForm({
@@ -23,24 +23,24 @@ const PageEditor = ({ page, currentPage, pageIndex }) => {
   }, [page])
 
   // If we change the a new page, we save the current page into the Redux store
-  const pageToSave = useSelector(state => state.editor.pageToSave)
+  const tabIndexToSave = useSelector(state => state.editor.tabIndexToSave)
 
   useEffect(() => {
-    if (pageToSave.index === pageIndex) {
+    if (tabIndexToSave.index === index) {
       console.log('ERRORS', methods.errors)
       methods.handleSubmit(onSavePage)()
     }
-  }, [pageToSave])
+  }, [tabIndexToSave])
 
   const dispatch = useDispatch()
 
   const onSavePage = data => {
     console.log('PAGE SAVED', data)
-    dispatch(saveCurrentPage(data, pageIndex))
+    dispatch(savePage(data, index))
   }
 
   return (
-    currentPage === pageIndex && (
+    activeIndex === index && (
       <FormContext {...methods}>
         <form>
           <div className='page-editor container'>

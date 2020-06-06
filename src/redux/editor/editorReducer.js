@@ -1,26 +1,37 @@
 import {
-  SAVE_CURRENT_PAGE,
+  SAVE_PAGE,
+  SAVE_FOOTER,
   SET_EDITING_SITE,
   ADD_PAGE,
-  SAVE_PAGE_REQUEST,
-  SET_CURRENT_PAGE_INDEX,
+  SAVE_TAB_REQUEST,
+  SET_ACTIVE_INDEX,
   SET_PENDING_ACTION,
 } from './editorTypes'
 
 const initialState = {
-  site: { pages: [] },
-  pageToSave: { index: -1 },
+  site: { pages: [], footer: {} },
+  tabIndexToSave: { index: -1 },
   flagSaved: false,
   currentSiteId: '',
-  currentPageIndex: 0,
+  activeIndex: 0,
   pendingAction: '',
 }
 
 const editorReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SAVE_CURRENT_PAGE:
+    case SAVE_PAGE:
       var newSite = { ...state.site }
       newSite.pages[action.payload.pageIndex] = action.payload.page
+      return {
+        ...state,
+        site: newSite,
+        flagSaved: true,
+      }
+
+    case SAVE_FOOTER:
+      var newSite = { ...state.site }
+      newSite.footer = action.payload
+      console.log('new site', newSite)
       return {
         ...state,
         site: newSite,
@@ -32,13 +43,13 @@ const editorReducer = (state = initialState, action) => {
         ...state,
         site: action.payload,
         currentSiteId: action.payload && action.payload.id,
-        currentPageIndex: 0,
+        activeIndex: 0,
       }
 
-    case SET_CURRENT_PAGE_INDEX:
+    case SET_ACTIVE_INDEX:
       return {
         ...state,
-        currentPageIndex: action.payload,
+        activeIndex: action.payload,
       }
 
     case SET_PENDING_ACTION:
@@ -55,10 +66,10 @@ const editorReducer = (state = initialState, action) => {
         site: newSite,
       }
 
-    case SAVE_PAGE_REQUEST:
+    case SAVE_TAB_REQUEST:
       return {
         ...state,
-        pageToSave: { index: action.payload },
+        tabIndexToSave: { index: action.payload },
         flagSaved: false,
       }
 

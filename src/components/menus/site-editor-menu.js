@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { addPage, saveCurrentPageRequest, setPendingAction } from '../../redux'
+import { addPage, saveActiveTabRequest, setPendingAction } from '../../redux'
 
 import Button from '@material-ui/core/Button'
 
@@ -10,14 +10,14 @@ import './site-editor-menu.scss'
 
 const SiteEditorMenu = methods => {
   const site = useSelector(state => state.editor.site)
-  const currentPageIndex = useSelector(state => state.editor.currentPageIndex)
+  const activeIndex = useSelector(state => state.editor.activeIndex)
 
   const dispatch = useDispatch()
 
   // Request for saving the entire - First we save the current page
   const onUpdateSiteRequest = () => {
     dispatch(setPendingAction('UPDATE-SITE'))
-    dispatch(saveCurrentPageRequest(currentPageIndex))
+    dispatch(saveActiveTabRequest(activeIndex))
   }
 
   return (

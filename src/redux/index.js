@@ -10,11 +10,12 @@ export {
   fetchConfigAnimation,
 } from './config/configActions'
 export {
-  saveCurrentPage,
+  savePage,
+  saveFooter,
   setEditingSite,
   addPage,
-  saveCurrentPageRequest,
-  setCurrentPageIndex,
+  saveActiveTabRequest,
+  setActiveIndex,
   setPendingAction,
 } from './editor/editorActions'
 export {

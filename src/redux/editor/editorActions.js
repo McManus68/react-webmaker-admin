@@ -1,19 +1,27 @@
 import {
-  SAVE_CURRENT_PAGE,
+  SAVE_PAGE,
+  SAVE_FOOTER,
   SET_EDITING_SITE,
   ADD_PAGE,
-  SAVE_PAGE_REQUEST,
-  SET_CURRENT_PAGE_INDEX,
+  SAVE_TAB_REQUEST,
+  SET_ACTIVE_INDEX,
   SET_PENDING_ACTION,
 } from './editorTypes'
 
-export const saveCurrentPage = (page, pageIndex) => {
+export const savePage = (page, index) => {
   return {
-    type: SAVE_CURRENT_PAGE,
+    type: SAVE_PAGE,
     payload: {
       page: page,
-      pageIndex: pageIndex,
+      index: index,
     },
+  }
+}
+
+export const saveFooter = footer => {
+  return {
+    type: SAVE_FOOTER,
+    payload: footer,
   }
 }
 
@@ -38,16 +46,16 @@ export const addPage = name => {
   }
 }
 
-export const saveCurrentPageRequest = index => {
+export const saveActiveTabRequest = index => {
   return {
-    type: SAVE_PAGE_REQUEST,
+    type: SAVE_TAB_REQUEST,
     payload: index,
   }
 }
 
-export const setCurrentPageIndex = index => {
+export const setActiveIndex = index => {
   return {
-    type: SET_CURRENT_PAGE_INDEX,
+    type: SET_ACTIVE_INDEX,
     payload: index,
   }
 }
