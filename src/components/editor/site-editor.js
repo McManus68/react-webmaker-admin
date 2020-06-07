@@ -18,7 +18,7 @@ import FooterEditor from './footer-editor'
 import SiteEditorMenu from '../menus/site-editor-menu'
 import LibraryMenu from '../menus/library-menu'
 
-import { schema } from '../../utils/schema-site.js'
+import { schema } from '../../yup/schema-site.js'
 
 import './site-editor.scss'
 

@@ -4,7 +4,7 @@ import { useForm, FormContext } from 'react-hook-form'
 import { saveFooter } from '../../redux'
 import RowEditor from './row-editor'
 
-import { schema } from '../../utils/schema-footer.js'
+import { schema } from '../../yup/schema-footer.js'
 
 import './section-editor.scss'
 

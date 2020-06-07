@@ -4,7 +4,7 @@ import { useForm, FormContext } from 'react-hook-form'
 import { savePage } from '../../redux'
 import PageParams from '../params/page-params'
 
-import { schema } from '../../utils/schema-page.js'
+import { schema } from '../../yup/schema-page.js'
 
 import SectionEditor from './section-editor'
 

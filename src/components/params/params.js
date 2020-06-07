@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useFormContext } from 'react-hook-form'
-
 import TrashIcon from '@material-ui/icons/Delete'
 import AddIcon from '@material-ui/icons/Add'
 import IconButton from '@material-ui/core/IconButton'
 import ComponentFactory from '../factories/component-factory'
-
 import ParamsContainer from './params-container'
 import TextInput from '../form/text-input'
 import FieldSet from '../form/fieldset'
@@ -14,7 +12,7 @@ import FieldSet from '../form/fieldset'
 import './params.scss'
 
 const Params = ({ config, component, path, configType }) => {
-  const { setValue } = useFormContext()
+  const { register, setValue } = useFormContext()
 
   const [params, setParams] = useState(component.params)
 
@@ -23,24 +21,27 @@ const Params = ({ config, component, path, configType }) => {
   }, [component])
 
   const onDelete = (name, i) => {
-    var newParams = { ...params }
-    newParams[name].splice(i, 1)
+    var newParams = [...params]
+    var param = newParams.find(param => param.name === name)
+    param.value.splice(i, 1)
     setParams(newParams)
 
-    newParams[name].forEach((param, i) =>
-      setValue(`${path}.params.${name}[${i}]`, param)
+    param.value.forEach((value, j) =>
+      setValue(`${path}.params[${j}].value[${i}]`, value)
     )
   }
 
   const onAdd = name => {
-    var newParams = { ...params }
-    if (!newParams[name]) {
-      newParams[name] = []
+    var newParams = [...params]
+    var param = newParams.find(param => param.name === name)
+    if (!param.value) {
+      param.value = []
     }
-    newParams[name].push('')
+    param.value.push('')
     setParams(newParams)
   }
 
+  console.log('PARAMS', params)
   return (
     <ParamsContainer column={configType === 'BLOCK'}>
       {configType === 'BLOCK' ? (
@@ -49,27 +50,43 @@ const Params = ({ config, component, path, configType }) => {
       {config.params.map((param, i) => {
         return (
           <div key={i}>
+            <input
+              name={`${path}.params[${i}].name`}
+              type='hidden'
+              ref={register()}
+              defaultValue={param.name}
+            />
+            <input
+              name={`${path}.params[${i}].type`}
+              type='hidden'
+              ref={register()}
+              defaultValue={param.type}
+            />
             {!param.isArray ? (
               <ComponentFactory
                 param={param}
-                name={`${path}.params.${param.name}`}
+                name={`${path}.params[${i}].value`}
               />
             ) : (
               <FieldSet label={param.name}>
-                {params[param.name] &&
-                  params[param.name].map((value, i) => {
-                    return (
-                      <div key={i} className='array-param'>
-                        <ComponentFactory
-                          param={param}
-                          name={`${path}.params.${param.name}[${i}]`}
-                        />
-                        <IconButton onClick={() => onDelete(param.name, i)}>
-                          <TrashIcon />
-                        </IconButton>
-                      </div>
-                    )
-                  })}
+                {params &&
+                  params.find(p => p.type === param.type) &&
+                  params.find(p => p.type === param.type).value &&
+                  params
+                    .find(p => p.type === param.type)
+                    .value.map((v, j) => {
+                      return (
+                        <div key={j} className='array-param'>
+                          <ComponentFactory
+                            param={param}
+                            name={`${path}.params[${i}].value[${j}]`}
+                          />
+                          <IconButton onClick={() => onDelete(param.name, j)}>
+                            <TrashIcon />
+                          </IconButton>
+                        </div>
+                      )
+                    })}
                 <IconButton onClick={() => onAdd(param.name)}>
                   <AddIcon />
                 </IconButton>
