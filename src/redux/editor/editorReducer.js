@@ -21,7 +21,7 @@ const editorReducer = (state = initialState, action) => {
   switch (action.type) {
     case SAVE_PAGE:
       var newSite = { ...state.site }
-      newSite.pages[action.payload.pageIndex] = action.payload.page
+      newSite.pages[action.payload.index] = action.payload.page
       return {
         ...state,
         site: newSite,
@@ -31,7 +31,6 @@ const editorReducer = (state = initialState, action) => {
     case SAVE_FOOTER:
       var newSite = { ...state.site }
       newSite.footer = action.payload
-      console.log('new site', newSite)
       return {
         ...state,
         site: newSite,

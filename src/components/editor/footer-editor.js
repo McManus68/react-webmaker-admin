@@ -18,8 +18,6 @@ const FooterEditor = ({ footer, activeIndex, index }) => {
     methods.reset(footer)
   }, [footer])
 
-  console.log('footer = ', footer)
-
   const tabIndexToSave = useSelector(state => state.editor.tabIndexToSave)
 
   const dispatch = useDispatch()
