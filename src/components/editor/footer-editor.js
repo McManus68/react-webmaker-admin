@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useForm, FormContext } from 'react-hook-form'
 import { saveFooter } from '../../redux'
 import RowEditor from './row-editor'
-
-import { schema } from '../../yup/schema-footer.js'
+import { schema } from '../../yup/footer.js'
 
 import './section-editor.scss'
 
@@ -30,7 +29,7 @@ const FooterEditor = ({ footer, activeIndex, index }) => {
 
   const onSaveFooter = data => {
     console.log('FOOTER SAVED', data)
-    dispatch(saveFooter(data, index))
+    dispatch(saveFooter(data))
   }
 
   return (

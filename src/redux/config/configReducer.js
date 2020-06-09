@@ -1,81 +1,44 @@
 import {
-  FETCH_CONFIG_SECTION_REQUEST,
-  FETCH_CONFIG_SECTION_SUCCESS,
-  FETCH_CONFIG_SECTION_FAILURE,
-  FETCH_CONFIG_BLOCK_REQUEST,
-  FETCH_CONFIG_BLOCK_SUCCESS,
-  FETCH_CONFIG_BLOCK_FAILURE,
-  FETCH_CONFIG_ANIMATION_REQUEST,
-  FETCH_CONFIG_ANIMATION_SUCCESS,
-  FETCH_CONFIG_ANIMATION_FAILURE,
+  FETCH_CONFIG_REQUEST,
+  FETCH_CONFIG_SUCCESS,
+  FETCH_CONFIG_FAILURE,
 } from './configTypes'
 
 const initialState = {
   loading: false,
-  section: {},
-  block: {},
   error: '',
+  section: [],
+  block: [],
   animation: [],
+  nav: [],
 }
 
 const configReducer = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_CONFIG_SECTION_REQUEST:
+    case FETCH_CONFIG_REQUEST:
       return {
         ...state,
         loading: true,
       }
-    case FETCH_CONFIG_SECTION_SUCCESS:
+    case FETCH_CONFIG_SUCCESS:
       return {
         ...state,
         loading: false,
-        section: action.payload,
         error: '',
+        section: action.payload.section,
+        block: action.payload.block,
+        animation: action.payload.animation,
+        nav: action.payload.nav,
       }
-    case FETCH_CONFIG_SECTION_FAILURE:
+    case FETCH_CONFIG_FAILURE:
       return {
         ...state,
         loading: false,
+        error: action.payload,
         section: {},
-        error: action.payload,
-      }
-    case FETCH_CONFIG_BLOCK_REQUEST:
-      return {
-        ...state,
-        loading: true,
-      }
-    case FETCH_CONFIG_BLOCK_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        block: action.payload,
-        error: '',
-      }
-    case FETCH_CONFIG_BLOCK_FAILURE:
-      return {
-        ...state,
-        loading: false,
         block: {},
-        error: action.payload,
-      }
-    case FETCH_CONFIG_ANIMATION_REQUEST:
-      return {
-        ...state,
-        loading: true,
-      }
-    case FETCH_CONFIG_ANIMATION_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        animation: [''].concat(action.payload),
-        error: '',
-      }
-    case FETCH_CONFIG_ANIMATION_FAILURE:
-      return {
-        ...state,
-        loading: false,
-        animation: [],
-        error: action.payload,
+        animation: {},
+        nav: {},
       }
     default:
       return state

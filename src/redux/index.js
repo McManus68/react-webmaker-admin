@@ -4,14 +4,12 @@ export {
   createSite,
   updateSite,
 } from './site/siteActions'
-export {
-  fetchConfigSection,
-  fetchConfigBlock,
-  fetchConfigAnimation,
-} from './config/configActions'
+export { fetchConfig } from './config/configActions'
 export {
   savePage,
   saveFooter,
+  saveHeader,
+  saveTheme,
   setEditingSite,
   addPage,
   saveActiveTabRequest,

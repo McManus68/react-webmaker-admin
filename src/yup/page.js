@@ -1,6 +1,6 @@
 import * as yup from 'yup'
 
-import { YUP_PARAM_VALUE, YUP_RESPONSIVE, YUP_ANIMATION } from './yup-common'
+import { YUP_PARAM_VALUE, YUP_RESPONSIVE, YUP_ANIMATION } from './utils'
 
 export const schema = yup.object().shape({
   title: yup.string(),

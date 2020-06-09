@@ -1,121 +1,43 @@
 import axios from 'axios'
 
 import {
-  FETCH_CONFIG_SECTION_REQUEST,
-  FETCH_CONFIG_SECTION_SUCCESS,
-  FETCH_CONFIG_SECTION_FAILURE,
-  FETCH_CONFIG_BLOCK_REQUEST,
-  FETCH_CONFIG_BLOCK_SUCCESS,
-  FETCH_CONFIG_BLOCK_FAILURE,
-  FETCH_CONFIG_ANIMATION_REQUEST,
-  FETCH_CONFIG_ANIMATION_SUCCESS,
-  FETCH_CONFIG_ANIMATION_FAILURE,
+  FETCH_CONFIG_REQUEST,
+  FETCH_CONFIG_SUCCESS,
+  FETCH_CONFIG_FAILURE,
 } from './configTypes'
 
-export const fetchConfigSectionRequest = () => {
+export const fetchConfigRequest = () => {
   return {
-    type: FETCH_CONFIG_SECTION_REQUEST,
+    type: FETCH_CONFIG_REQUEST,
   }
 }
 
-export const fetchConfigSectionSuccess = config => {
+export const fetchConfigSuccess = config => {
   return {
-    type: FETCH_CONFIG_SECTION_SUCCESS,
+    type: FETCH_CONFIG_SUCCESS,
     payload: config,
   }
 }
 
-export const fetchConfigSectionFailure = error => {
+export const fetchConfigFailure = error => {
   return {
-    type: FETCH_CONFIG_SECTION_FAILURE,
+    type: FETCH_CONFIG_FAILURE,
     payload: error,
   }
 }
 
-export const fetchConfigBlockRequest = () => {
-  return {
-    type: FETCH_CONFIG_BLOCK_REQUEST,
-  }
-}
-
-export const fetchConfigBlockSuccess = config => {
-  return {
-    type: FETCH_CONFIG_BLOCK_SUCCESS,
-    payload: config,
-  }
-}
-
-export const fetchConfigBlockFailure = error => {
-  return {
-    type: FETCH_CONFIG_BLOCK_FAILURE,
-    payload: error,
-  }
-}
-
-export const fetchConfigAnimationRequest = () => {
-  return {
-    type: FETCH_CONFIG_ANIMATION_REQUEST,
-  }
-}
-
-export const fetchConfigAnimationSuccess = config => {
-  return {
-    type: FETCH_CONFIG_ANIMATION_SUCCESS,
-    payload: config,
-  }
-}
-
-export const fetchConfigAnimationFailure = error => {
-  return {
-    type: FETCH_CONFIG_ANIMATION_FAILURE,
-    payload: error,
-  }
-}
-
-export const fetchConfigSection = () => {
+export const fetchConfig = () => {
   return dispatch => {
-    dispatch(fetchConfigSectionRequest())
+    dispatch(fetchConfigRequest())
     axios
-      .get('http://localhost:8080/api/config/sections')
+      .get('http://localhost:8080/api/config')
       .then(response => {
         const config = response.data
-        dispatch(fetchConfigSectionSuccess(config))
+        dispatch(fetchConfigSuccess(config))
       })
       .catch(error => {
         const errorMsg = error.message
-        dispatch(fetchConfigSectionFailure(errorMsg))
-      })
-  }
-}
-
-export const fetchConfigBlock = () => {
-  return dispatch => {
-    dispatch(fetchConfigBlockRequest())
-    axios
-      .get('http://localhost:8080/api/config/blocks')
-      .then(response => {
-        const config = response.data
-        dispatch(fetchConfigBlockSuccess(config))
-      })
-      .catch(error => {
-        const errorMsg = error.message
-        dispatch(fetchConfigBlockFailure(errorMsg))
-      })
-  }
-}
-
-export const fetchConfigAnimation = () => {
-  return dispatch => {
-    dispatch(fetchConfigAnimationRequest())
-    axios
-      .get('http://localhost:8080/api/config/animations')
-      .then(response => {
-        const config = response.data
-        dispatch(fetchConfigAnimationSuccess(config))
-      })
-      .catch(error => {
-        const errorMsg = error.message
-        dispatch(fetchConfigAnimationFailure(errorMsg))
+        dispatch(fetchConfigFailure(errorMsg))
       })
   }
 }

@@ -1,10 +1,12 @@
 @import '../../styles/common';
 
 .fieldset {
-  border: 1px solid rgba(0, 0, 0, 0.23) !important;
+  border: 1px solid rgba(0, 0, 0, 0.23);
   padding: 18.5px 14px !important;
   border-radius: 4px !important;
+  margin-bottom: 1rem !important;
   width: 100%;
+  box-sizing: border-box;
 
   legend {
     font-size: 12px;

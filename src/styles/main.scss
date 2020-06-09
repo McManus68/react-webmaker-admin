@@ -46,14 +46,14 @@ code {
   display: flex;
 }
 
-.fieldset {
-  border: 1px solid rgba(0, 0, 0, 0.23) !important;
-  padding: 18.5px 14px !important;
-  border-radius: 4px !important;
-}
-
 select {
   border: none;
   font-size: 1rem;
   padding: 0.3rem;
+}
+
+.MuiTextField-root {
+  margin: 0.4rem !important;
+  box-sizing: border-box;
+  width: 250px !important;
 }

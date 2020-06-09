@@ -1,18 +1,33 @@
 import React, { useState, useRef } from 'react'
 import { useFormContext, Controller } from 'react-hook-form'
-
 import InputAdornment from '@material-ui/core/InputAdornment'
 import IconButton from '@material-ui/core/IconButton'
 import Icon from '@material-ui/icons/Palette'
 import { TextField } from '@material-ui/core'
-
 import { SketchPicker } from 'react-color'
+import styled from 'styled-components'
 
-import './color-input.scss'
+const ColorSample = styled.div`
+  width: 16px;
+  height: 16px;
+  padding: 0.4rem;
+  background-color: ${props => props.color};
+`
+const StyledColorPicker = styled(SketchPicker)`
+  visibility: hidden;
+  position: absolute;
+  transition: 0.4s;
+  left: 280px;
+  top: 80px;
+  z-index: 2;
+  visibility: ${props => (props.visible ? 'visible' : 'hidden')};
+`
 
 const ColorInput = ({ label, name }) => {
+  const { getValues } = useFormContext()
+
   const [visible, setVisible] = useState(false)
-  const [color, setColor] = useState('')
+  const [color, setColor] = useState(getValues(name) || '')
   const { control, setValue } = useFormContext()
   const inputRef = useRef()
 
@@ -24,7 +39,7 @@ const ColorInput = ({ label, name }) => {
   }
 
   return (
-    <div className='color-input'>
+    <div>
       <Controller
         as={
           <TextField
@@ -33,10 +48,7 @@ const ColorInput = ({ label, name }) => {
             InputProps={{
               endAdornment: (
                 <InputAdornment>
-                  <div
-                    className='color-sample'
-                    style={{ backgroundColor: color }}
-                  />
+                  <ColorSample color={color} />
                   <IconButton onClick={() => setVisible(!visible)}>
                     <Icon />
                   </IconButton>
@@ -49,12 +61,10 @@ const ColorInput = ({ label, name }) => {
         label={label}
         onFocus={() => inputRef.current.focus()}
         control={control}
+        defaultValue=''
       />
 
-      <SketchPicker
-        className={visible ? 'visible' : ''}
-        onChangeComplete={selectColor}
-      />
+      <StyledColorPicker visible={visible} onChange={selectColor} />
     </div>
   )
 }

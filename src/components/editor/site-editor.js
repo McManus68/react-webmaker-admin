@@ -14,11 +14,13 @@ import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 
 import PageEditor from './page-editor'
+import HeaderEditor from './header-editor'
 import FooterEditor from './footer-editor'
+import ThemeEditor from './theme-editor'
 import SiteEditorMenu from '../menus/site-editor-menu'
 import LibraryMenu from '../menus/library-menu'
 
-import { schema } from '../../yup/schema-site.js'
+import { schema } from '../../yup/site.js'
 
 import './site-editor.scss'
 
@@ -80,7 +82,9 @@ const SiteEditor = ({ site }) => {
           <Tabs value={activeIndex} onChange={onSwitchTabRequest}>
             {site &&
               site.pages.map((page, i) => <Tab key={i} label={page.title} />)}
-            <Tab label='Footer' />
+            <Tab label='Footer' className='tab-footer' />
+            <Tab label='Header' className='tab-header' />
+            <Tab label='Theme' className='tab-theme' />
           </Tabs>
         </AppBar>
 
@@ -97,6 +101,16 @@ const SiteEditor = ({ site }) => {
           footer={site.footer}
           activeIndex={activeIndex}
           index={site.pages.length}
+        />
+        <HeaderEditor
+          header={site.header}
+          activeIndex={activeIndex}
+          index={site.pages.length + 1}
+        />
+        <ThemeEditor
+          theme={site.theme}
+          activeIndex={activeIndex}
+          index={site.pages.length + 2}
         />
       </div>
 

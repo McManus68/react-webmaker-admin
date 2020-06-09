@@ -1,6 +1,8 @@
 import {
   SAVE_PAGE,
   SAVE_FOOTER,
+  SAVE_HEADER,
+  SAVE_THEME,
   SET_EDITING_SITE,
   ADD_PAGE,
   SAVE_TAB_REQUEST,
@@ -31,6 +33,24 @@ const editorReducer = (state = initialState, action) => {
     case SAVE_FOOTER:
       var newSite = { ...state.site }
       newSite.footer = action.payload
+      return {
+        ...state,
+        site: newSite,
+        flagSaved: true,
+      }
+
+    case SAVE_THEME:
+      var newSite = { ...state.site }
+      newSite.theme = action.payload
+      return {
+        ...state,
+        site: newSite,
+        flagSaved: true,
+      }
+
+    case SAVE_HEADER:
+      var newSite = { ...state.site }
+      newSite.header = action.payload
       return {
         ...state,
         site: newSite,

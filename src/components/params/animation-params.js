@@ -1,13 +1,10 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-
 import NumberInput from '../form/number-input'
 import SwitchInput from '../form/switch-input'
 import SelectInput from '../form/select-input'
-
 import ParamsContainer from './params-container'
 import FieldSet from '../form/fieldset'
-
 import './animation-params.scss'
 
 const AnimationParams = ({ animation, path }) => {

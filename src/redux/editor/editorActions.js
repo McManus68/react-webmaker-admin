@@ -1,6 +1,8 @@
 import {
   SAVE_PAGE,
   SAVE_FOOTER,
+  SAVE_HEADER,
+  SAVE_THEME,
   SET_EDITING_SITE,
   ADD_PAGE,
   SAVE_TAB_REQUEST,
@@ -22,6 +24,20 @@ export const saveFooter = footer => {
   return {
     type: SAVE_FOOTER,
     payload: footer,
+  }
+}
+
+export const saveHeader = header => {
+  return {
+    type: SAVE_HEADER,
+    payload: header,
+  }
+}
+
+export const saveTheme = theme => {
+  return {
+    type: SAVE_THEME,
+    payload: theme,
   }
 }
 
