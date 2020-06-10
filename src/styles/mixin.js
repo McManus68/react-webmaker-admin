@@ -3,13 +3,13 @@ import styled from 'styled-components'
 export const GenericEditor = styled.div`
   position: relative;
   padding: 0.7rem 0;
-  border: 3px solid ${props => props.color};
-  padding: var(--container-padding);
+  border: 3px solid ${props => props.theme.color[props.type]};
+  padding: ${props => props.theme.container.padding};
   margin: 1.2rem 0;
   h2,
   h3,
   h4 {
-    color: ${props => props.color};
+    color: ${props => props.theme.color[props.type]};
     text-align: center;
   }
 `
@@ -18,7 +18,7 @@ export const Control = styled.div`
   position: absolute;
   padding: 2px;
   background-color: #fff;
-  color: ${props => props.color};
+  color: ${props => props.theme.color[props.type]};
   visibility: hidden;
   transition: 0.3s;
   ${GenericEditor}:hover & {
@@ -43,7 +43,7 @@ export const Remove = styled(Control)`
 export const Prepend = styled.div`
   cursor: pointer;
   text-align: center;
-  color: ${props => props.color};
+  color: ${props => props.theme.color[props.type]};
   padding: 2px;
   background-color: #fff;
 `

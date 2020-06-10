@@ -4,8 +4,8 @@ import { Controller, useFormContext } from 'react-hook-form'
 import { TextField } from '@material-ui/core'
 import MenuItem from '@material-ui/core/MenuItem'
 
-const SelectInput = ({ label, name, values, variant }) => {
-  const { control } = useFormContext()
+const SelectInput = ({ label, name, values, variant, defaultValue }) => {
+  const { control, getValues } = useFormContext()
   const inputRef = useRef()
 
   return (
@@ -24,6 +24,7 @@ const SelectInput = ({ label, name, values, variant }) => {
       onFocus={() => inputRef.current.focus()}
       control={control}
       variant={variant}
+      defaultValue={getValues(name) || defaultValue}
     />
   )
 }

@@ -6,10 +6,18 @@ import RadioGroup from '@material-ui/core/RadioGroup'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import FieldSet from '../form/fieldset'
 
-const RadioInput = ({ label, name, values }) => {
-  const { control } = useFormContext()
+const RadioInput = ({ label, name, values, defaultValue }) => {
+  const { control, getValues } = useFormContext()
   const inputRef = useRef()
 
+  console.log(
+    'name',
+    name,
+    'getValues(name)',
+    getValues(name),
+    'defaultValue',
+    defaultValue
+  )
   return (
     <FieldSet label={label}>
       <Controller
@@ -28,7 +36,7 @@ const RadioInput = ({ label, name, values }) => {
         name={name}
         onFocus={() => inputRef.current.focus()}
         control={control}
-        defaultValue=''
+        defaultValue={defaultValue}
       />
     </FieldSet>
   )

@@ -5,9 +5,27 @@ import ResponsiveParams from '../params/responsive-params'
 import AnimationParams from '../params/animation-params'
 import Params from '../params/params'
 import SelectType from '../form/select-type'
-import GenericEditor from './generic-editor'
+import { FaTrashAlt, FaPlusCircle } from 'react-icons/fa'
+import {
+  GenericEditor,
+  Prepend,
+  AddBefore,
+  AddAfter,
+  Remove,
+} from '../../styles/mixin'
+import styled from 'styled-components'
+
+const BlockEditorParameters = styled.div`
+  display: flex;
+  flex-direction: row;
+`
 
 const BlockEditor = ({ path, scope }) => {
+  const { control, register } = useFormContext()
+  const { fields, prepend, remove, insert } = useFieldArray({
+    control,
+    name: path,
+  })
   const [state, setState] = useState(false)
   const config = useSelector(state => state.config.block)
 
@@ -26,9 +44,10 @@ const BlockEditor = ({ path, scope }) => {
       scope === 'PAGE' ? 'BLOCK_SIMPLE_CONTENT' : 'FOOTER_SIMPLE_CONTENT'
     return {
       type: type,
+      classes: '',
       responsive: { sm: 12, md: 6, lg: 6, xl: 6 },
       animation: {
-        type: '',
+        type: 'NONE',
         left: false,
         right: false,
         top: false,
@@ -48,36 +67,55 @@ const BlockEditor = ({ path, scope }) => {
     setState(!state)
   }
 
-  const getContent = (field, i) => {
-    return (
-      <>
-        <SelectType
-          name={`${path}[${i}].type`}
-          values={blockTypes}
-          onChange={onChangeType}
-          field={field}
-        />
-
-        <Params
-          component={field}
-          config={config.find(c => c.type === field.type)}
-          configType='BLOCK'
-          path={`${path}[${i}]`}
-        />
-
-        <ResponsiveParams path={`${path}[${i}].responsive`} />
-        <AnimationParams path={`${path}[${i}].animation`} />
-      </>
-    )
-  }
-
   return (
-    <GenericEditor
-      path={path}
-      getContent={getContent}
-      type='BLOCK'
-      newObj={newBlock}
-    ></GenericEditor>
+    <>
+      {!fields.length ? (
+        <Prepend type='block'>
+          <FaPlusCircle onClick={() => prepend(newBlock())} />
+        </Prepend>
+      ) : null}
+
+      {fields &&
+        fields.map((field, i) => (
+          <GenericEditor key={field.id} type='block'>
+            <AddBefore type='block'>
+              <FaPlusCircle onClick={() => insert(i, newBlock())} />
+            </AddBefore>
+
+            <SelectType
+              name={`${path}[${i}].type`}
+              values={blockTypes}
+              onChange={onChangeType}
+              field={field}
+            />
+
+            <BlockEditorParameters>
+              <Params
+                component={field}
+                config={config.find(c => c.type === field.type)}
+                configType='BLOCK'
+                path={`${path}[${i}]`}
+              />
+
+              <ResponsiveParams
+                responsive={field.responsive}
+                path={`${path}[${i}].responsive`}
+              />
+              <AnimationParams
+                animation={field.animation}
+                path={`${path}[${i}].animation`}
+              />
+            </BlockEditorParameters>
+
+            <Remove type='block'>
+              <FaTrashAlt onClick={() => remove(i)} />
+            </Remove>
+            <AddAfter type='block'>
+              <FaPlusCircle onClick={() => insert(i + 1, newBlock())} />
+            </AddAfter>
+          </GenericEditor>
+        ))}
+    </>
   )
 }
 

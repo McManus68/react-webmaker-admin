@@ -24,7 +24,7 @@ const StyledColorPicker = styled(SketchPicker)`
   visibility: ${props => (props.visible ? 'visible' : 'hidden')};
 `
 
-const ColorInput = ({ label, name }) => {
+const ColorInput = ({ label, name, defaultValue }) => {
   const { getValues } = useFormContext()
   const [visible, setVisible] = useState(false)
   const [color, setColor] = useState(getValues(name) || '')
@@ -61,7 +61,7 @@ const ColorInput = ({ label, name }) => {
         label={label}
         onFocus={() => inputRef.current.focus()}
         control={control}
-        defaultValue=''
+        defaultValue={getValues(name) || defaultValue}
       />
 
       <StyledColorPicker visible={visible} onChange={selectColor} />

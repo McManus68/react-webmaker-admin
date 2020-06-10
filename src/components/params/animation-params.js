@@ -7,14 +7,23 @@ import SelectInput from '../form/select-input'
 import ParamsContainer from './params-container'
 import FieldSet from '../form/fieldset'
 
-const AnimationParams = ({ path }) => {
+const AnimationParams = ({ animation, path }) => {
   const directions = ['left', 'right', 'top', 'bottom']
   const animations = useSelector(state => state.config.animation)
 
   return (
     <ParamsContainer>
-      <SelectInput name={`${path}.type`} label='Type' values={animations} />
-      <NumberInput name={`${path}.delay`} label='Delay' />
+      <SelectInput
+        name={`${path}.type`}
+        label='Type'
+        values={animations}
+        defaultValue={animation.type}
+      />
+      <NumberInput
+        name={`${path}.delay`}
+        label='Delay'
+        defaultValue={animation.delay}
+      />
       <FieldSet label='Direction'>
         <div>
           {directions.map((direction, i) => {
@@ -23,6 +32,7 @@ const AnimationParams = ({ path }) => {
                 key={i}
                 name={`${path}.${direction}`}
                 label={direction}
+                defaultValue={animation[direction]}
               />
             )
           })}

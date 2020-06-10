@@ -4,8 +4,8 @@ import { useFormContext, Controller } from 'react-hook-form'
 import Switch from '@material-ui/core/Switch'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 
-const SwitchInput = ({ label, name }) => {
-  const { control } = useFormContext()
+const SwitchInput = ({ label, name, defaultValue }) => {
+  const { control, getValues } = useFormContext()
   const inputRef = useRef()
 
   return (
@@ -21,7 +21,7 @@ const SwitchInput = ({ label, name }) => {
       onFocus={() => inputRef.current.focus()}
       control={control}
       variant='outlined'
-      defaultValue={false}
+      defaultValue={getValues(name) || defaultValue}
     />
   )
 }

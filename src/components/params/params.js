@@ -8,6 +8,7 @@ import InputFactory from '../factories/input-factory'
 import ParamsContainer from './params-container'
 import TextInput from '../form/text-input'
 import FieldSet from '../form/fieldset'
+import ArrayParams from '../params/array-param'
 import styled from 'styled-components'
 
 const ParamArray = styled.div`
@@ -16,42 +17,38 @@ const ParamArray = styled.div`
   align-items: center;
 `
 
-const Params = ({ config, component, path, configType, row }) => {
+const Params = ({ config, component, path, configType }) => {
   const { register, setValue } = useFormContext()
-  const [params, setParams] = useState(component.params)
 
-  useEffect(() => {
-    setParams(component.params || [])
-  }, [component.params])
+  const [state, setState] = useState(false)
 
   const onDelete = (name, i) => {
-    var newParams = [...params]
+    var newParams = [...component.params]
     var param = newParams.find(param => param.name === name)
     param.value.splice(i, 1)
-    setParams(newParams)
+    //setParams(newParams)
 
     param.value.forEach((value, j) =>
       setValue(`${path}.params[${j}].value[${i}]`, value)
     )
   }
 
-  const onAdd = name => {
-    console.log('all params', params, component.params)
-    var newParams = [...params]
-    var param = newParams.find(param => param.name === name)
-
-    console.log('onAdd', name, newParams)
-    if (!param.value) {
-      param.value = []
-    }
-    param.value.push('')
-    setParams(newParams)
+  const onAdd = (name, i) => {
+    var value = component.params.find(param => param.name === name).value
+    value.push('ddd')
+    setValue(`${path}.params[${i}].value[0]`, 'dd')
+    setState(!state)
   }
 
+  console.log('component = ', component, 'config', config)
   return (
-    <ParamsContainer row={row}>
+    <ParamsContainer row={configType === 'SECTION'}>
       {configType === 'BLOCK' ? (
-        <TextInput name={`${path}.classes`} label='Classes CSS' />
+        <TextInput
+          name={`${path}.classes`}
+          label='Classes CSS'
+          defaultValue={component.classes}
+        />
       ) : null}
       {config.params.map((param, i) => {
         return (
@@ -68,32 +65,14 @@ const Params = ({ config, component, path, configType, row }) => {
               ref={register()}
               defaultValue={param.type}
             />
-            {!param.isArray ? (
-              <InputFactory param={param} name={`${path}.params[${i}].value`} />
+            {param.isArray ? (
+              <ArrayParams
+                path={`${path}.params[${i}]`}
+                param={param}
+                values={component.params.find(p => p.type === param.type).value}
+              />
             ) : (
-              <FieldSet label={param.name}>
-                {params &&
-                  params.find(p => p.type === param.type) &&
-                  params.find(p => p.type === param.type).value &&
-                  params
-                    .find(p => p.type === param.type)
-                    .value.map((v, j) => {
-                      return (
-                        <ParamArray key={j}>
-                          <InputFactory
-                            param={param}
-                            name={`${path}.params[${i}].value[${j}]`}
-                          />
-                          <IconButton onClick={() => onDelete(param.name, j)}>
-                            <TrashIcon />
-                          </IconButton>
-                        </ParamArray>
-                      )
-                    })}
-                <IconButton onClick={() => onAdd(param.name)}>
-                  <AddIcon />
-                </IconButton>
-              </FieldSet>
+              <InputFactory param={param} name={`${path}.params[${i}].value`} />
             )}
           </div>
         )

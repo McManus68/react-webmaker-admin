@@ -35,8 +35,8 @@ const SiteEditorRightMenu = styled.div`
   border-left: 1px solid lightgrey;
 `
 const StyledTabs = styled(Tabs)`
-  background-color: var(--bg-color);
-  color: var(--primary-color);
+  background-color: ${props => props.theme.color.bg};
+  color: ${props => props.theme.color.primary};
 `
 
 const SiteEditor = ({ site }) => {

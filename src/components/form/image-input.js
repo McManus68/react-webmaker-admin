@@ -24,18 +24,18 @@ const ImageInput = ({ config, name }) => {
 
   const selectedImage = useSelector(state => state.library.selectedImage)
   const images = useSelector(state => state.library.images)
-
-  const defaultImage = images.find(image => image.name === getValues(name))
-  const [image, setImage] = useState(null)
+  const [image, setImage] = useState()
 
   useEffect(() => {
-    if (defaultImage) setImage(defaultImage.thumbnail)
-  }, [defaultImage])
+    setImage(images.find(image => image.name === getValues(name)))
+  }, [images])
 
   const selectImage = () => {
     setValue(name, selectedImage.name)
-    setImage(selectedImage.thumbnail)
+    setImage(selectedImage)
   }
+
+  console.log('getValues(name', getValues(name))
 
   return (
     <Controller
@@ -47,7 +47,7 @@ const ImageInput = ({ config, name }) => {
             readOnly: true,
             endAdornment: (
               <InputAdornment>
-                <Preview src={image} />
+                {image && <Preview src={image.thumbnail} />}
                 <IconButton onClick={selectImage}>
                   <StyledSwitchIcon />
                 </IconButton>
@@ -60,6 +60,7 @@ const ImageInput = ({ config, name }) => {
       label={config.isArray ? null : config.name}
       onFocus={() => inputRef.current.focus()}
       control={control}
+      defaultValue={getValues(name) || config.defaultValue}
     />
   )
 }

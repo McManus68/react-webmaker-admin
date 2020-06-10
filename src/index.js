@@ -3,32 +3,17 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import store from './redux/store'
 
-import {
-  createMuiTheme,
-  makeStyles,
-  ThemeProvider,
-} from '@material-ui/core/styles'
+import Theme from './styles/theme'
 import './styles/main.scss'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
 
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: '#172a96',
-    },
-    secondary: {
-      main: '#2f7208',
-    },
-  },
-})
-
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>
-      <ThemeProvider theme={theme}>
+      <Theme>
         <App />
-      </ThemeProvider>
+      </Theme>
     </React.StrictMode>
   </Provider>,
   document.getElementById('root')

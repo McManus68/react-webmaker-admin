@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import { Controller, useFormContext } from 'react-hook-form'
 import { TextField } from '@material-ui/core'
 
-const NumberInput = ({ label, name, variant }) => {
-  const { control } = useFormContext()
+const NumberInput = ({ label, name, variant, defaultValue }) => {
+  const { control, getValues } = useFormContext()
   const inputRef = useRef()
 
   return (
@@ -15,7 +15,7 @@ const NumberInput = ({ label, name, variant }) => {
       onFocus={() => inputRef.current.focus()}
       control={control}
       variant={variant}
-      defaultValue={0}
+      defaultValue={getValues(name) || defaultValue}
     />
   )
 }
