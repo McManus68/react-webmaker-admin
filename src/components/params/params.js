@@ -70,6 +70,7 @@ const Params = ({ config, component, path, configType }) => {
                 path={`${path}.params[${i}]`}
                 param={param}
                 values={component.params.find(p => p.type === param.type).value}
+                component={component}
               />
             ) : (
               <InputFactory param={param} name={`${path}.params[${i}].value`} />
