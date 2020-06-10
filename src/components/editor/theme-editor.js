@@ -6,7 +6,12 @@ import { saveTheme } from '../../redux'
 import TextInput from '../form/text-input'
 import ColorInput from '../form/color-input'
 import { schema } from '../../yup/theme.js'
-import './theme-editor.scss'
+import styled from 'styled-components'
+
+const ThemeParams = styled.div`
+  display: flex;
+  flex-direction: column;
+`
 
 const ThemeEditor = ({ theme, activeIndex, index }) => {
   const methods = useForm({
@@ -40,7 +45,7 @@ const ThemeEditor = ({ theme, activeIndex, index }) => {
       <div className='container'>
         <FormContext {...methods}>
           <form>
-            <div className='theme-editor-params'>
+            <ThemeParams>
               <FieldSet label='Colors' row>
                 {colors.map((color, i) => {
                   return (
@@ -73,7 +78,7 @@ const ThemeEditor = ({ theme, activeIndex, index }) => {
                 <TextInput name={`block.padding`} label='padding' />
                 <TextInput name={`block.spacing`} label='spacing' />
               </FieldSet>
-            </div>
+            </ThemeParams>
           </form>
         </FormContext>
       </div>

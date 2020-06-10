@@ -5,8 +5,6 @@ import { saveFooter } from '../../redux'
 import RowEditor from './row-editor'
 import { schema } from '../../yup/footer.js'
 
-import './section-editor.scss'
-
 const FooterEditor = ({ footer, activeIndex, index }) => {
   const methods = useForm({
     validationSchema: schema,
@@ -36,16 +34,15 @@ const FooterEditor = ({ footer, activeIndex, index }) => {
     activeIndex === index && (
       <div className='container'>
         <FormContext {...methods}>
-          <input
-            name='type'
-            type='hidden'
-            ref={methods.register()}
-            defaultValue={footer.type}
-          />
           <form>
-            <div className='section-editor'>
-              <RowEditor path='rows' scope='FOOTER' />
-            </div>
+            <input
+              name='type'
+              type='hidden'
+              ref={methods.register()}
+              defaultValue={footer.type}
+            />
+
+            <RowEditor path='rows' scope='FOOTER' />
           </form>
         </FormContext>
       </div>

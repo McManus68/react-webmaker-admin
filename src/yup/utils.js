@@ -19,10 +19,10 @@ export const YUP_RESPONSIVE = yup
   .object()
   .nullable()
   .shape({
-    sm: yup.number().min(1).max(12).nullable(),
-    md: yup.number().min(1).max(12).nullable(),
-    lg: yup.number().min(1).max(12).nullable(),
-    xl: yup.number().min(1).max(12).nullable(),
+    sm: yup.number().min(0).max(12).nullable(),
+    md: yup.number().min(0).max(12).nullable(),
+    lg: yup.number().min(0).max(12).nullable(),
+    xl: yup.number().min(0).max(12).nullable(),
   })
 
 export const YUP_ANIMATION = yup.object().nullable().shape({

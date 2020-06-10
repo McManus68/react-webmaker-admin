@@ -3,12 +3,14 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useForm, FormContext } from 'react-hook-form'
 import { savePage } from '../../redux'
 import PageParams from '../params/page-params'
-
 import { schema } from '../../yup/page.js'
-
 import SectionEditor from './section-editor'
+import styled from 'styled-components'
 
-import './page-editor.scss'
+const StyledPageEditor = styled.div`
+  display: flex;
+  flex-direction: column;
+`
 
 const PageEditor = ({ page, activeIndex, index }) => {
   // Each page has its own form - Like other pages are not in the DOM it's easier to handle this way
@@ -41,14 +43,16 @@ const PageEditor = ({ page, activeIndex, index }) => {
 
   return (
     activeIndex === index && (
-      <FormContext {...methods}>
-        <form>
-          <div className='page-editor container'>
-            <PageParams page={page} />
-            <SectionEditor page={page} path='sections' />
-          </div>
-        </form>
-      </FormContext>
+      <div className='container'>
+        <StyledPageEditor>
+          <FormContext {...methods}>
+            <form>
+              <PageParams page={page} />
+              <SectionEditor page={page} path='sections' />
+            </form>
+          </FormContext>
+        </StyledPageEditor>
+      </div>
     )
   )
 }

@@ -1,12 +1,10 @@
 import React, { useRef } from 'react'
+import PropTypes from 'prop-types'
 import { useFormContext, Controller } from 'react-hook-form'
-
 import Switch from '@material-ui/core/Switch'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 
-import './radio-input.scss'
-
-const SwitchInput = ({ label, name, defaultValue }) => {
+const SwitchInput = ({ label, name }) => {
   const { control } = useFormContext()
   const inputRef = useRef()
 
@@ -23,10 +21,14 @@ const SwitchInput = ({ label, name, defaultValue }) => {
       onFocus={() => inputRef.current.focus()}
       control={control}
       variant='outlined'
-      className='switch-input'
-      defaultValue={defaultValue}
+      defaultValue={false}
     />
   )
 }
 
 export default SwitchInput
+
+SwitchInput.propTypes = {
+  name: PropTypes.string,
+  label: PropTypes.string,
+}

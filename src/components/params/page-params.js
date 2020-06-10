@@ -1,22 +1,17 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-
 import TextInput from '../form/text-input'
+import ParamsContainer from './params-container'
 
-import './page-params.scss'
-
-const PageParams = ({ page }) => {
+const PageParams = () => {
   const params = ['title', 'slug', 'description']
 
   return (
-    <div className='page-params'>
+    <ParamsContainer row>
       {params.map((param, i) => {
         return <TextInput key={i} name={param} label={param} />
       })}
-    </div>
+    </ParamsContainer>
   )
 }
 
 export default PageParams
-
-PageParams.propTypes = {}

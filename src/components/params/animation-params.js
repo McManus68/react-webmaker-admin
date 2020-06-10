@@ -1,24 +1,20 @@
-import React, { useState } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 import NumberInput from '../form/number-input'
 import SwitchInput from '../form/switch-input'
 import SelectInput from '../form/select-input'
 import ParamsContainer from './params-container'
 import FieldSet from '../form/fieldset'
-import './animation-params.scss'
 
-const AnimationParams = ({ animation, path }) => {
+const AnimationParams = ({ path }) => {
   const directions = ['left', 'right', 'top', 'bottom']
   const animations = useSelector(state => state.config.animation)
 
   return (
     <ParamsContainer>
       <SelectInput name={`${path}.type`} label='Type' values={animations} />
-      <NumberInput
-        name={`${path}.delay`}
-        label='Delay'
-        defaultValue={animation.delay}
-      />
+      <NumberInput name={`${path}.delay`} label='Delay' />
       <FieldSet label='Direction'>
         <div>
           {directions.map((direction, i) => {
@@ -27,7 +23,6 @@ const AnimationParams = ({ animation, path }) => {
                 key={i}
                 name={`${path}.${direction}`}
                 label={direction}
-                defaultValue={animation[direction]}
               />
             )
           })}
@@ -38,3 +33,7 @@ const AnimationParams = ({ animation, path }) => {
 }
 
 export default AnimationParams
+
+AnimationParams.propTypes = {
+  path: PropTypes.string,
+}

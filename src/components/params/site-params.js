@@ -1,19 +1,22 @@
 import React from 'react'
-
+import PropTypes from 'prop-types'
 import TextInput from '../form/text-input'
-
-import './site-params.scss'
+import ParamsContainer from './params-container'
 
 const SiteParams = ({ site }) => {
   const params = ['name', 'title', 'description']
   return (
-    <div className='site-params'>
+    <ParamsContainer>
       <label>{site.id}</label>
-      {params.map((param, i) => {
-        return <TextInput key={i} name={param} label={param} />
-      })}
-    </div>
+      {params.map((param, i) => (
+        <TextInput key={i} name={param} label={param} />
+      ))}
+    </ParamsContainer>
   )
 }
 
 export default SiteParams
+
+SiteParams.propTypes = {
+  site: PropTypes.object,
+}

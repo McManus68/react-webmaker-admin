@@ -1,12 +1,10 @@
 import React, { useRef } from 'react'
+import PropTypes from 'prop-types'
 import { Controller, useFormContext } from 'react-hook-form'
-
 import { TextField } from '@material-ui/core'
 import MenuItem from '@material-ui/core/MenuItem'
 
-import './number-input.scss'
-
-const SelectInput = ({ label, name, values }) => {
+const SelectInput = ({ label, name, values, variant }) => {
   const { control } = useFormContext()
   const inputRef = useRef()
 
@@ -25,9 +23,21 @@ const SelectInput = ({ label, name, values }) => {
       label={label}
       onFocus={() => inputRef.current.focus()}
       control={control}
-      variant='outlined'
+      variant={variant}
     />
   )
 }
 
 export default SelectInput
+
+SelectInput.propTypes = {
+  name: PropTypes.string,
+  label: PropTypes.string,
+  values: PropTypes.array,
+  variant: PropTypes.oneOf(['filled', 'standard', 'outlined']),
+}
+
+SelectInput.defaultProps = {
+  values: [],
+  variant: 'outlined',
+}

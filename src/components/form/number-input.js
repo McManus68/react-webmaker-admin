@@ -1,10 +1,9 @@
 import React, { useRef } from 'react'
+import PropTypes from 'prop-types'
 import { Controller, useFormContext } from 'react-hook-form'
 import { TextField } from '@material-ui/core'
 
-import './number-input.scss'
-
-const NumberInput = ({ label, name, defaultValue }) => {
+const NumberInput = ({ label, name, variant }) => {
   const { control } = useFormContext()
   const inputRef = useRef()
 
@@ -15,10 +14,20 @@ const NumberInput = ({ label, name, defaultValue }) => {
       label={label}
       onFocus={() => inputRef.current.focus()}
       control={control}
-      variant='outlined'
-      defaultValue={defaultValue}
+      variant={variant}
+      defaultValue={0}
     />
   )
 }
 
 export default NumberInput
+
+NumberInput.propTypes = {
+  name: PropTypes.string,
+  label: PropTypes.string,
+  variant: PropTypes.oneOf(['filled', 'standard', 'outlined']),
+}
+
+NumberInput.defaultProps = {
+  variant: 'outlined',
+}

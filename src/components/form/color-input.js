@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react'
+import PropTypes from 'prop-types'
 import { useFormContext, Controller } from 'react-hook-form'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import IconButton from '@material-ui/core/IconButton'
@@ -25,7 +26,6 @@ const StyledColorPicker = styled(SketchPicker)`
 
 const ColorInput = ({ label, name }) => {
   const { getValues } = useFormContext()
-
   const [visible, setVisible] = useState(false)
   const [color, setColor] = useState(getValues(name) || '')
   const { control, setValue } = useFormContext()
@@ -39,7 +39,7 @@ const ColorInput = ({ label, name }) => {
   }
 
   return (
-    <div>
+    <>
       <Controller
         as={
           <TextField
@@ -65,8 +65,13 @@ const ColorInput = ({ label, name }) => {
       />
 
       <StyledColorPicker visible={visible} onChange={selectColor} />
-    </div>
+    </>
   )
 }
 
 export default ColorInput
+
+ColorInput.propTypes = {
+  label: PropTypes.string,
+  name: PropTypes.string,
+}

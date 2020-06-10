@@ -1,21 +1,10 @@
 import React from 'react'
-import { useFormContext, useFieldArray } from 'react-hook-form'
-
+import { useFormContext } from 'react-hook-form'
 import BlockEditor from './block-editor'
-
-import { FaTrashAlt, FaPlusCircle } from 'react-icons/fa'
-
-import './row-editor.scss'
+import GenericEditor from './generic-editor'
 
 const RowEditor = ({ path, scope }) => {
-  const { control, register } = useFormContext()
-
-  const { fields, append, prepend, remove, swap, move, insert } = useFieldArray(
-    {
-      control,
-      name: path,
-    }
-  )
+  const { register } = useFormContext()
 
   const newRow = () => {
     return {
@@ -24,38 +13,28 @@ const RowEditor = ({ path, scope }) => {
     }
   }
 
-  return (
-    <div>
-      <div className='prepend-row'>
-        {!fields.length ? (
-          <FaPlusCircle onClick={() => prepend(newRow())} />
-        ) : null}
-      </div>
-      {fields &&
-        fields.map((field, i) => (
-          <div key={field.id}>
-            <div className='row-editor'>
-              <div className='add-before'>
-                <FaPlusCircle onClick={() => insert(i, newRow())} />
-              </div>
+  const getContent = (field, i) => {
+    return (
+      <>
+        <input
+          name={`${path}[${i}].type`}
+          type='hidden'
+          ref={register()}
+          defaultValue={field.type}
+        />
 
-              <input
-                name={`${path}[${i}].type`}
-                type='hidden'
-                ref={register()}
-                defaultValue={field.type}
-              />
-              <BlockEditor path={`${path}[${i}].blocks`} scope={scope} />
-              <div className='remove'>
-                <FaTrashAlt onClick={() => remove(i)} />
-              </div>
-              <div className='add-after'>
-                <FaPlusCircle onClick={() => insert(i + 1, newRow())} />
-              </div>
-            </div>
-          </div>
-        ))}
-    </div>
+        <BlockEditor path={`${path}[${i}].blocks`} scope={scope} />
+      </>
+    )
+  }
+
+  return (
+    <GenericEditor
+      path={path}
+      getContent={getContent}
+      type='ROW'
+      newObj={newRow}
+    ></GenericEditor>
   )
 }
 

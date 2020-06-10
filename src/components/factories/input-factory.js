@@ -6,8 +6,7 @@ import ImageInput from '../form/image-input'
 import ColorInput from '../form/color-input'
 import RadioInput from '../form/radio-input'
 
-const ComponentFactory = ({ param, name }) => {
-  console.log('ComponentFactory', param, name)
+const InputFactory = ({ param, name }) => {
   switch (param.type) {
     case 'INT':
       return <NumberInput name={name} label={param.name} />
@@ -30,4 +29,4 @@ const ComponentFactory = ({ param, name }) => {
   }
 }
 
-export default ComponentFactory
+export default InputFactory

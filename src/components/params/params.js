@@ -1,24 +1,28 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import PropTypes from 'prop-types'
 import { useFormContext } from 'react-hook-form'
 import TrashIcon from '@material-ui/icons/Delete'
 import AddIcon from '@material-ui/icons/Add'
 import IconButton from '@material-ui/core/IconButton'
-import ComponentFactory from '../factories/component-factory'
+import InputFactory from '../factories/input-factory'
 import ParamsContainer from './params-container'
 import TextInput from '../form/text-input'
 import FieldSet from '../form/fieldset'
+import styled from 'styled-components'
 
-import './params.scss'
+const ParamArray = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`
 
-const Params = ({ config, component, path, configType }) => {
+const Params = ({ config, component, path, configType, row }) => {
   const { register, setValue } = useFormContext()
-
   const [params, setParams] = useState(component.params)
 
   useEffect(() => {
-    setParams(component.params || {})
-  }, [component])
+    setParams(component.params || [])
+  }, [component.params])
 
   const onDelete = (name, i) => {
     var newParams = [...params]
@@ -32,8 +36,11 @@ const Params = ({ config, component, path, configType }) => {
   }
 
   const onAdd = name => {
+    console.log('all params', params, component.params)
     var newParams = [...params]
     var param = newParams.find(param => param.name === name)
+
+    console.log('onAdd', name, newParams)
     if (!param.value) {
       param.value = []
     }
@@ -41,9 +48,8 @@ const Params = ({ config, component, path, configType }) => {
     setParams(newParams)
   }
 
-  console.log('PARAMS', params)
   return (
-    <ParamsContainer column={configType === 'BLOCK'}>
+    <ParamsContainer row={row}>
       {configType === 'BLOCK' ? (
         <TextInput name={`${path}.classes`} label='Classes CSS' />
       ) : null}
@@ -63,10 +69,7 @@ const Params = ({ config, component, path, configType }) => {
               defaultValue={param.type}
             />
             {!param.isArray ? (
-              <ComponentFactory
-                param={param}
-                name={`${path}.params[${i}].value`}
-              />
+              <InputFactory param={param} name={`${path}.params[${i}].value`} />
             ) : (
               <FieldSet label={param.name}>
                 {params &&
@@ -76,15 +79,15 @@ const Params = ({ config, component, path, configType }) => {
                     .find(p => p.type === param.type)
                     .value.map((v, j) => {
                       return (
-                        <div key={j} className='array-param'>
-                          <ComponentFactory
+                        <ParamArray key={j}>
+                          <InputFactory
                             param={param}
                             name={`${path}.params[${i}].value[${j}]`}
                           />
                           <IconButton onClick={() => onDelete(param.name, j)}>
                             <TrashIcon />
                           </IconButton>
-                        </div>
+                        </ParamArray>
                       )
                     })}
                 <IconButton onClick={() => onAdd(param.name)}>
@@ -100,3 +103,15 @@ const Params = ({ config, component, path, configType }) => {
 }
 
 export default Params
+
+Params.propTypes = {
+  config: PropTypes.object,
+  component: PropTypes.object,
+  path: PropTypes.string,
+  configType: PropTypes.string,
+  row: PropTypes.bool,
+}
+
+Params.defaultProps = {
+  row: false,
+}

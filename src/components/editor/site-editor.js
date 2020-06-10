@@ -1,28 +1,43 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useForm, FormContext } from 'react-hook-form'
-
 import {
   updateSite,
   saveActiveTabRequest,
   setActiveIndex,
   setPendingAction,
 } from '../../redux'
-
 import AppBar from '@material-ui/core/AppBar'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
-
 import PageEditor from './page-editor'
 import HeaderEditor from './header-editor'
 import FooterEditor from './footer-editor'
 import ThemeEditor from './theme-editor'
 import SiteEditorMenu from '../menus/site-editor-menu'
 import LibraryMenu from '../menus/library-menu'
-
 import { schema } from '../../yup/site.js'
+import styled from 'styled-components'
 
-import './site-editor.scss'
+const StyledSiteEditor = styled.div`
+  display: flex;
+  flex-grow: 1;
+  header {
+    box-shadow: none;
+  }
+`
+const SiteEditorContent = styled.div`
+  flex-grow: 1;
+`
+const SiteEditorRightMenu = styled.div`
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid lightgrey;
+`
+const StyledTabs = styled(Tabs)`
+  background-color: var(--bg-color);
+  color: var(--primary-color);
+`
 
 const SiteEditor = ({ site }) => {
   // The validation schema
@@ -76,16 +91,16 @@ const SiteEditor = ({ site }) => {
     dispatch(updateSite({ ...site, ...siteMetadata }))
   }
   return (
-    <div className='site-editor'>
-      <div className='site-editor-content'>
+    <StyledSiteEditor>
+      <SiteEditorContent>
         <AppBar position='static'>
-          <Tabs value={activeIndex} onChange={onSwitchTabRequest}>
+          <StyledTabs value={activeIndex} onChange={onSwitchTabRequest}>
             {site &&
               site.pages.map((page, i) => <Tab key={i} label={page.title} />)}
-            <Tab label='Footer' className='tab-footer' />
-            <Tab label='Header' className='tab-header' />
-            <Tab label='Theme' className='tab-theme' />
-          </Tabs>
+            <Tab label='Footer' />
+            <Tab label='Header' />
+            <Tab label='Theme' />
+          </StyledTabs>
         </AppBar>
 
         {site &&
@@ -112,17 +127,17 @@ const SiteEditor = ({ site }) => {
           activeIndex={activeIndex}
           index={site.pages.length + 2}
         />
-      </div>
+      </SiteEditorContent>
 
       {site && (
-        <FormContext {...methods}>
-          <div className='site-editor-right-menu'>
+        <SiteEditorRightMenu>
+          <FormContext {...methods}>
             <SiteEditorMenu />
             <LibraryMenu />
-          </div>
-        </FormContext>
+          </FormContext>
+        </SiteEditorRightMenu>
       )}
-    </div>
+    </StyledSiteEditor>
   )
 }
 
