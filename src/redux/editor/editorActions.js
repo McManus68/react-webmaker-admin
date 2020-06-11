@@ -3,7 +3,7 @@ import {
   SAVE_FOOTER,
   SAVE_HEADER,
   SAVE_THEME,
-  SET_EDITING_SITE,
+  SET_SITE,
   ADD_PAGE,
   SAVE_TAB_REQUEST,
   SET_ACTIVE_INDEX,
@@ -41,9 +41,9 @@ export const saveTheme = theme => {
   }
 }
 
-export const setEditingSite = site => {
+export const setSite = site => {
   return {
-    type: SET_EDITING_SITE,
+    type: SET_SITE,
     payload: site,
   }
 }

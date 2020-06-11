@@ -20,27 +20,6 @@ const ParamArray = styled.div`
 const Params = ({ config, component, path, configType }) => {
   const { register, setValue } = useFormContext()
 
-  const [state, setState] = useState(false)
-
-  const onDelete = (name, i) => {
-    var newParams = [...component.params]
-    var param = newParams.find(param => param.name === name)
-    param.value.splice(i, 1)
-    //setParams(newParams)
-
-    param.value.forEach((value, j) =>
-      setValue(`${path}.params[${j}].value[${i}]`, value)
-    )
-  }
-
-  const onAdd = (name, i) => {
-    var value = component.params.find(param => param.name === name).value
-    value.push('ddd')
-    setValue(`${path}.params[${i}].value[0]`, 'dd')
-    setState(!state)
-  }
-
-  console.log('component = ', component, 'config', config)
   return (
     <ParamsContainer row={configType === 'SECTION'}>
       {configType === 'BLOCK' ? (
@@ -67,7 +46,7 @@ const Params = ({ config, component, path, configType }) => {
             />
             {param.isArray ? (
               <ArrayParams
-                path={`${path}.params[${i}]`}
+                path={`${path}.params[${i}].value`}
                 param={param}
                 values={component.params.find(p => p.type === param.type).value}
                 component={component}

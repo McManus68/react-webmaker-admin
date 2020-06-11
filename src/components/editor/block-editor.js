@@ -18,6 +18,7 @@ import styled from 'styled-components'
 const BlockEditorParameters = styled.div`
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
 `
 
 const BlockEditor = ({ path, scope }) => {

@@ -1,12 +1,15 @@
 import React, { useEffect } from 'react'
-
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchConfig, fetchSites } from './redux'
 import Header from './components/header'
 import SitesMenu from './components/menus/sites-menu'
 import SiteEditor from './components/editor/site-editor'
-
+import styled from 'styled-components'
 import './App.scss'
+
+const Main = styled.main`
+  display: flex;
+`
 
 function App() {
   const dispatch = useDispatch()
@@ -18,17 +21,15 @@ function App() {
 
   const site = useSelector(state => state.editor.site)
   return (
-    <div className='App'>
+    <div>
       <Header />
 
-      <main className='main'>
+      <Main>
         <SitesMenu />
         {site && <SiteEditor site={site} />}
-      </main>
+      </Main>
 
-      <footer>
-        <div className='container'></div>
-      </footer>
+      <footer></footer>
     </div>
   )
 }

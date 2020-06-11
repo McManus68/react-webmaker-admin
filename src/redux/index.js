@@ -10,7 +10,7 @@ export {
   saveFooter,
   saveHeader,
   saveTheme,
-  setEditingSite,
+  setSite,
   addPage,
   saveActiveTabRequest,
   setActiveIndex,

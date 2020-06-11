@@ -35,8 +35,6 @@ const ImageInput = ({ config, name }) => {
     setImage(selectedImage)
   }
 
-  console.log('getValues(name', getValues(name))
-
   return (
     <Controller
       as={

@@ -1,11 +1,45 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import ImageUploader from 'react-images-upload'
-
 import { uploadImage, setSelectedImage } from '../../redux'
 import LinearProgress from '@material-ui/core/LinearProgress'
+import styled from 'styled-components'
 
-import './library-menu.scss'
+const Menu = styled.div`
+  border-top: 1px solid lightgrey;
+`
+const MenuHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+`
+const Library = styled.div`
+  display: grid;
+  gap: 5px;
+  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+  grid-auto-flow: dense;
+  align-self: center;
+`
+const Image = styled.img`
+  box-sizing: border-box;
+  max-width: 100%;
+  max-height: 100%;
+  border: 4px solid lightgray;
+  cursor: pointer;
+  ${({ active }) =>
+    active &&
+    ` border-color: var(--primary-color);
+    z-index: 2;`}
+`
+
+const StyledImageUploader = styled(ImageUploader)`
+  .fileContainer {
+    background-color: none;
+    padding: 0;
+    margin: 0;
+  }
+`
 
 const LibraryMenu = () => {
   const currentSiteId = useSelector(state => state.editor.currentSiteId)
@@ -20,16 +54,16 @@ const LibraryMenu = () => {
   }
 
   return (
-    <div className='library-menu'>
-      <div className='site-editor-menu-header'>
+    <Menu>
+      <MenuHeader>
         <h3>Resources</h3>
-      </div>
+      </MenuHeader>
 
       {uploadProgress !== 0 ? (
         <LinearProgress variant='buffer' value={uploadProgress} />
       ) : null}
 
-      <ImageUploader
+      <StyledImageUploader
         withIcon={false}
         withLabel={false}
         withPreview={false}
@@ -39,19 +73,19 @@ const LibraryMenu = () => {
         maxFileSize={5242880}
       />
 
-      <div className='library-images'>
+      <Library>
         {images.map((image, i) => {
           return (
-            <img
+            <Image
               key={i}
-              className={selectedImage.name == image.name ? 'selected' : ''}
+              active={selectedImage.name == image.name}
               src={image.thumbnail}
               onClick={() => dispatch(setSelectedImage(image))}
-            ></img>
+            ></Image>
           )
         })}
-      </div>
-    </div>
+      </Library>
+    </Menu>
   )
 }
 

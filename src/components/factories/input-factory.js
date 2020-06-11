@@ -8,7 +8,7 @@ import RadioInput from '../form/radio-input'
 
 const InputFactory = ({ param, name }) => {
   switch (param.type) {
-    case 'INT':
+    case 'NUMBER':
       return (
         <NumberInput
           name={name}
@@ -16,7 +16,7 @@ const InputFactory = ({ param, name }) => {
           defaultValue={param.defaultValue}
         />
       )
-    case 'STRING':
+    case 'TEXT':
       return (
         <TextInput
           name={name}
@@ -38,6 +38,15 @@ const InputFactory = ({ param, name }) => {
           name={name}
           label={param.name}
           defaultValue={param.defaultValue}
+        />
+      )
+    case 'RGBA':
+      return (
+        <ColorInput
+          name={name}
+          label={param.name}
+          defaultValue={param.defaultValue}
+          rgba
         />
       )
     case 'RADIO':

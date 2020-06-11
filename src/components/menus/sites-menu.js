@@ -1,11 +1,46 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchSite, setEditingSite, createSite, fetchImages } from '../../redux'
-
+import { fetchSite, setSite, createSite, fetchImages } from '../../redux'
 import IconButton from '@material-ui/core/IconButton'
 import AddIcon from '@material-ui/icons/Add'
+import styled from 'styled-components'
 
-import './sites-menu.scss'
+const Menu = styled.div`
+  min-width: 200px;
+  min-height: calc(100vh - 60px);
+  background-color: ${props => props.theme.color.bg};
+  border-right: 1px solid lightgrey;
+  padding: 1rem;
+`
+const MenuHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`
+const AddButton = styled(IconButton)`
+  color: ${props => props.theme.color.primary};
+`
+const List = styled.ul`
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.4rem;
+`
+const Site = styled.li`
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  list-style: none;
+  height: 40px;
+  cursor: pointer;
+  padding: 0.4rem;
+  &:hover,
+  &.active {
+    background-color: rgb(238, 236, 236);
+    border-left: 4px solid ${props => props.theme.color.primary};
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+  }
+`
 
 const SitesMenu = () => {
   const sites = useSelector(state => state.site.sites)
@@ -15,7 +50,7 @@ const SitesMenu = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(setEditingSite(site))
+    dispatch(setSite(site))
     if (site) dispatch(fetchImages(site.id))
   }, [site])
 
@@ -25,31 +60,26 @@ const SitesMenu = () => {
   }
 
   return (
-    <div className='sites-menu'>
-      <div className='site-editor-menu-header'>
+    <Menu>
+      <MenuHeader>
         <h3>Sites</h3>
-        <div className='menu-controls'>
-          <IconButton
-            className='add-site'
-            onClick={() => dispatch(onCreateSite)}
-          >
-            <AddIcon />
-          </IconButton>
-        </div>
-      </div>
+        <AddButton onClick={() => dispatch(onCreateSite)}>
+          <AddIcon />
+        </AddButton>
+      </MenuHeader>
 
-      <ul>
+      <List>
         {sites.map(site => (
-          <li
-            key={site.id}
+          <Site
             className={currentSiteId === site.id ? 'active' : ''}
+            key={site.id}
             onClick={() => dispatch(fetchSite(site.id))}
           >
             {site.title}
-          </li>
+          </Site>
         ))}
-      </ul>
-    </div>
+      </List>
+    </Menu>
   )
 }
 

@@ -16,11 +16,6 @@ const ParamArray = styled.div`
 
 const ArrayParam = ({ path, param, values, component }) => {
   const { control, register, getValues, setValue } = useFormContext()
-  console.log('path', path, 'value', getValues(path), 'component', component)
-  if (!getValues(path)) {
-    console.log('pwet')
-    setValue(path, [])
-  }
   const { fields, append, remove, insert } = useFieldArray({
     control,
     name: path,
@@ -28,17 +23,17 @@ const ArrayParam = ({ path, param, values, component }) => {
 
   return (
     <FieldSet label={param.name}>
-      {values.map((value, i) => {
+      {fields.map((value, i) => {
         return (
           <ParamArray key={i}>
-            <InputFactory param={param} name={`${path}.value[${i}]`} />
+            <InputFactory param={param} name={`${path}[${i}]`} />
             <IconButton onClick={() => remove(i)}>
               <TrashIcon />
             </IconButton>
           </ParamArray>
         )
       })}
-      <IconButton onClick={() => insert(0, param.defaultValue)}>
+      <IconButton onClick={() => append('')}>
         <AddIcon />
       </IconButton>
     </FieldSet>

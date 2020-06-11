@@ -3,7 +3,7 @@ import {
   SAVE_FOOTER,
   SAVE_HEADER,
   SAVE_THEME,
-  SET_EDITING_SITE,
+  SET_SITE,
   ADD_PAGE,
   SAVE_TAB_REQUEST,
   SET_ACTIVE_INDEX,
@@ -57,7 +57,7 @@ const editorReducer = (state = initialState, action) => {
         flagSaved: true,
       }
 
-    case SET_EDITING_SITE:
+    case SET_SITE:
       return {
         ...state,
         site: action.payload,

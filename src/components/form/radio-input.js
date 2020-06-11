@@ -10,14 +10,6 @@ const RadioInput = ({ label, name, values, defaultValue }) => {
   const { control, getValues } = useFormContext()
   const inputRef = useRef()
 
-  console.log(
-    'name',
-    name,
-    'getValues(name)',
-    getValues(name),
-    'defaultValue',
-    defaultValue
-  )
   return (
     <FieldSet label={label}>
       <Controller
@@ -36,7 +28,7 @@ const RadioInput = ({ label, name, values, defaultValue }) => {
         name={name}
         onFocus={() => inputRef.current.focus()}
         control={control}
-        defaultValue={defaultValue}
+        defaultValue={getValues(name) || defaultValue}
       />
     </FieldSet>
   )

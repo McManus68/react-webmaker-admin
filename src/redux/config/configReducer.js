@@ -11,6 +11,7 @@ const initialState = {
   block: [],
   animation: [],
   nav: [],
+  default: {},
 }
 
 const configReducer = (state = initialState, action) => {
@@ -23,22 +24,20 @@ const configReducer = (state = initialState, action) => {
     case FETCH_CONFIG_SUCCESS:
       return {
         ...state,
+        ...action.payload,
         loading: false,
         error: '',
-        section: action.payload.section,
-        block: action.payload.block,
-        animation: action.payload.animation,
-        nav: action.payload.nav,
       }
     case FETCH_CONFIG_FAILURE:
       return {
         ...state,
         loading: false,
         error: action.payload,
-        section: {},
-        block: {},
-        animation: {},
-        nav: {},
+        section: [],
+        block: [],
+        animation: [],
+        nav: [],
+        default: {},
       }
     default:
       return state

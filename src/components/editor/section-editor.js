@@ -41,7 +41,6 @@ const SectionEditor = ({ path }) => {
   const onChangeType = (field, value) => {
     field.type = value
     field.params = getDefaultParams(field.type)
-    console.log('FIELD = ', field)
     setState(!state)
   }
 

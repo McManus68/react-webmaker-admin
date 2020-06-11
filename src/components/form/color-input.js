@@ -24,7 +24,7 @@ const StyledColorPicker = styled(SketchPicker)`
   visibility: ${props => (props.visible ? 'visible' : 'hidden')};
 `
 
-const ColorInput = ({ label, name, defaultValue }) => {
+const ColorInput = ({ label, name, defaultValue, rgba }) => {
   const { getValues } = useFormContext()
   const [visible, setVisible] = useState(false)
   const [color, setColor] = useState(getValues(name) || '')
@@ -33,7 +33,9 @@ const ColorInput = ({ label, name, defaultValue }) => {
 
   const selectColor = value => {
     setColor(
-      `rgba(${value.rgb.r},${value.rgb.g},${value.rgb.b},${value.rgb.a})`
+      rgba
+        ? `rgba(${value.rgb.r},${value.rgb.g},${value.rgb.b},${value.rgb.a})`
+        : value.hex
     )
     setValue(name, color)
   }
@@ -61,7 +63,7 @@ const ColorInput = ({ label, name, defaultValue }) => {
         label={label}
         onFocus={() => inputRef.current.focus()}
         control={control}
-        defaultValue={getValues(name) || defaultValue}
+        defaultValue={getValues(name) || defaultValue || ''}
       />
 
       <StyledColorPicker visible={visible} onChange={selectColor} />
@@ -74,4 +76,9 @@ export default ColorInput
 ColorInput.propTypes = {
   label: PropTypes.string,
   name: PropTypes.string,
+  rgba: PropTypes.bool,
+}
+
+ColorInput.defaultProps = {
+  rgba: false,
 }

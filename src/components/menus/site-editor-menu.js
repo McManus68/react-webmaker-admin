@@ -1,12 +1,31 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { addPage, saveActiveTabRequest, setPendingAction } from '../../redux'
-
 import Button from '@material-ui/core/Button'
-
 import SiteParams from '../params/site-params'
+import styled from 'styled-components'
 
-import './site-editor-menu.scss'
+const Menu = styled.div`
+  padding: 1rem;
+`
+const MenuHeader = styled.div`
+  background-color: ${props => props.theme.color.bg};
+  display: flex;
+  justify-content: center;
+  height: 48px;
+  align-items: center;
+  box-sizing: border-box;
+`
+const MenuContent = styled.div`
+  padding: 0.8rem;
+`
+const MenuControls = styled.div`
+  text-align: center;
+  margin: 1rem 0;
+  button {
+    margin-right: 0.3rem;
+  }
+`
 
 const SiteEditorMenu = methods => {
   const site = useSelector(state => state.editor.site)
@@ -21,36 +40,30 @@ const SiteEditorMenu = methods => {
   }
 
   return (
-    <div className='site-editor-menu'>
-      <form>
-        {site && (
-          <div>
-            <div className='site-editor-menu-header'>
-              <h3>Site information</h3>
-            </div>
-            <div className='site-editor-menu-content'>
-              <SiteParams site={site} />
-              <div className='site-editor-menu-buttons'>
-                <Button
-                  variant='contained'
-                  color='primary'
-                  onClick={() => dispatch(addPage('New Page'))}
-                >
-                  Add Page
-                </Button>
-                <Button
-                  variant='contained'
-                  color='secondary'
-                  onClick={onUpdateSiteRequest}
-                >
-                  Save
-                </Button>
-              </div>
-            </div>
-          </div>
-        )}
-      </form>
-    </div>
+    <Menu>
+      <MenuHeader>
+        <h3>Site information</h3>
+      </MenuHeader>
+      <MenuContent>
+        <SiteParams site={site} />
+        <MenuControls>
+          <Button
+            variant='contained'
+            color='primary'
+            onClick={() => dispatch(addPage('New Page'))}
+          >
+            Add Page
+          </Button>
+          <Button
+            variant='contained'
+            color='secondary'
+            onClick={onUpdateSiteRequest}
+          >
+            Save
+          </Button>
+        </MenuControls>
+      </MenuContent>
+    </Menu>
   )
 }
 

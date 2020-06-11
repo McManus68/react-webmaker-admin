@@ -25,18 +25,16 @@ const AnimationParams = ({ animation, path }) => {
         defaultValue={animation.delay}
       />
       <FieldSet label='Direction'>
-        <div>
-          {directions.map((direction, i) => {
-            return (
-              <SwitchInput
-                key={i}
-                name={`${path}.${direction}`}
-                label={direction}
-                defaultValue={animation[direction]}
-              />
-            )
-          })}
-        </div>
+        {directions.map((direction, i) => {
+          return (
+            <SwitchInput
+              key={i}
+              name={`${path}.${direction}`}
+              label={direction}
+              defaultValue={animation[direction]}
+            />
+          )
+        })}
       </FieldSet>
     </ParamsContainer>
   )
