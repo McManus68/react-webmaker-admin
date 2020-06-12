@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useForm, FormContext } from 'react-hook-form'
 import { saveFooter } from '../../redux'
 import RowEditor from './row-editor'
+import { Container } from '../../styles/mixin'
 import { schema } from '../../yup/footer.js'
 
 const FooterEditor = ({ footer, activeIndex, index }) => {
@@ -32,7 +33,7 @@ const FooterEditor = ({ footer, activeIndex, index }) => {
 
   return (
     activeIndex === index && (
-      <div className='container'>
+      <Container>
         <FormContext {...methods}>
           <form>
             <input
@@ -45,7 +46,7 @@ const FooterEditor = ({ footer, activeIndex, index }) => {
             <RowEditor path='rows' scope='FOOTER' />
           </form>
         </FormContext>
-      </div>
+      </Container>
     )
   )
 }

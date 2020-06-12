@@ -19,7 +19,7 @@ const InputFactory = ({ param, name }) => {
     case 'TEXT':
       return <TextInput {...props} />
     case 'IMAGE':
-      return <ImageInput {...props} config={param} />
+      return <ImageInput {...props} />
     case 'COLOR':
       return <ColorInput {...props} />
     case 'RGBA':

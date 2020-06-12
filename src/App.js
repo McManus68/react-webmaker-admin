@@ -5,7 +5,6 @@ import Header from './components/header'
 import SitesMenu from './components/menus/sites-menu'
 import SiteEditor from './components/editor/site-editor'
 import styled from 'styled-components'
-import './App.scss'
 
 const Main = styled.main`
   display: flex;
@@ -13,7 +12,6 @@ const Main = styled.main`
 
 function App() {
   const dispatch = useDispatch()
-
   useEffect(() => {
     dispatch(fetchConfig())
     dispatch(fetchSites())

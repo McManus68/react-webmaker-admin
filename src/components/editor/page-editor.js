@@ -4,6 +4,7 @@ import { useForm, FormContext } from 'react-hook-form'
 import { savePage } from '../../redux'
 import PageParams from '../params/page-params'
 import { schema } from '../../yup/page.js'
+import { Container } from '../../styles/mixin'
 import SectionEditor from './section-editor'
 import styled from 'styled-components'
 
@@ -11,10 +12,7 @@ const StyledPageEditor = styled.div`
   display: flex;
   flex-direction: column;
 `
-
 const PageEditor = ({ page, activeIndex, index }) => {
-  // Each page has its own form - Like other pages are not in the DOM it's easier to handle this way
-  // cause the other pages values are not accessible
   const methods = useForm({
     validationSchema: schema,
     defaultValues: page,
@@ -43,16 +41,14 @@ const PageEditor = ({ page, activeIndex, index }) => {
 
   return (
     activeIndex === index && (
-      <div className='container'>
+      <Container>
         <StyledPageEditor>
           <FormContext {...methods}>
-            <form>
-              <PageParams page={page} />
-              <SectionEditor page={page} path='sections' />
-            </form>
+            <PageParams page={page} />
+            <SectionEditor page={page} path='sections' />
           </FormContext>
         </StyledPageEditor>
-      </div>
+      </Container>
     )
   )
 }

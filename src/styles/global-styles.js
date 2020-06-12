@@ -15,7 +15,4 @@ export const GlobalStyle = createGlobalStyle`
       background-color: ${props => props.theme.color.bg};
       overflow-x: hidden;
     }
-    .container {
-      max-width: 1140px !important;
-    }
   `

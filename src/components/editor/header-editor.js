@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useForm, FormContext } from 'react-hook-form'
 import { saveHeader } from '../../redux'
+import { Container } from '../../styles/mixin'
 import SelectInput from '../form/select-input'
 import { schema } from '../../yup/header.js'
 
@@ -33,13 +34,11 @@ const HeaderEditor = ({ header, activeIndex, index }) => {
 
   return (
     activeIndex === index && (
-      <div className='container'>
+      <Container>
         <FormContext {...methods}>
-          <form>
-            <SelectInput name='nav' label='Navigation' values={navs} />
-          </form>
+          <SelectInput name='nav' label='Navigation' values={navs} />
         </FormContext>
-      </div>
+      </Container>
     )
   )
 }

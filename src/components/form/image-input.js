@@ -18,7 +18,7 @@ const StyledSwitchIcon = styled(SwitchIcon)`
   cursor: pointer;
 `
 
-const ImageInput = ({ config, name }) => {
+const ImageInput = ({ name, label, defaultValue, variant }) => {
   const { control, getValues, setValue } = useFormContext()
   const inputRef = useRef()
 
@@ -40,7 +40,7 @@ const ImageInput = ({ config, name }) => {
       as={
         <TextField
           inputRef={inputRef}
-          variant={config.isArray ? 'standard' : 'outlined'}
+          variant={variant}
           InputProps={{
             readOnly: true,
             endAdornment: (
@@ -55,10 +55,10 @@ const ImageInput = ({ config, name }) => {
         />
       }
       name={name}
-      label={config.isArray ? null : config.name}
+      label={label}
       onFocus={() => inputRef.current.focus()}
       control={control}
-      defaultValue={getValues(name) || config.defaultValue}
+      defaultValue={getValues(name) || defaultValue}
     />
   )
 }
@@ -66,6 +66,13 @@ const ImageInput = ({ config, name }) => {
 export default ImageInput
 
 ImageInput.propTypes = {
-  config: PropTypes.object,
   name: PropTypes.string,
+  label: PropTypes.string,
+  variant: PropTypes.string,
+}
+
+ImageInput.defaultProps = {
+  name: PropTypes.string,
+  label: PropTypes.string,
+  variant: 'outlined',
 }

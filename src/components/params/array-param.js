@@ -15,8 +15,8 @@ const ParamArray = styled.div`
 `
 
 const ArrayParam = ({ path, param, values, component }) => {
-  const { control, register, getValues, setValue } = useFormContext()
-  const { fields, append, remove, insert } = useFieldArray({
+  const { control } = useFormContext()
+  const { fields, append, remove } = useFieldArray({
     control,
     name: path,
   })

@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Container } from '../styles/mixin'
 import styled from 'styled-components'
 
 const StyledHeader = styled.div`
@@ -16,7 +17,7 @@ const StyledHeader = styled.div`
 const Header = ({ items }) => {
   return (
     <StyledHeader>
-      <div className='container'></div>
+      <Container></Container>
     </StyledHeader>
   )
 }
