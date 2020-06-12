@@ -41,7 +41,6 @@ const ThemeEditor = ({ theme, activeIndex, index }) => {
 
   const colors = ['primary', 'secondary', 'font', 'bg']
 
-  console.log('theme', theme)
   return (
     activeIndex === index && (
       <div className='container'>

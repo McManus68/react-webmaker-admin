@@ -1,24 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { useFormContext } from 'react-hook-form'
-import TrashIcon from '@material-ui/icons/Delete'
-import AddIcon from '@material-ui/icons/Add'
-import IconButton from '@material-ui/core/IconButton'
 import InputFactory from '../factories/input-factory'
 import ParamsContainer from './params-container'
 import TextInput from '../form/text-input'
-import FieldSet from '../form/fieldset'
 import ArrayParams from '../params/array-param'
-import styled from 'styled-components'
-
-const ParamArray = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`
 
 const Params = ({ config, component, path, configType }) => {
-  const { register, setValue } = useFormContext()
+  const { register } = useFormContext()
 
   return (
     <ParamsContainer row={configType === 'SECTION'}>

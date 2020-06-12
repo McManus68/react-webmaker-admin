@@ -2,16 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { useFormContext, useFieldArray } from 'react-hook-form'
 import { useSelector } from 'react-redux'
 import Params from '../params/params'
-import { FaTrashAlt, FaPlusCircle } from 'react-icons/fa'
 import SelectType from '../form/select-type'
 import RowEditor from './row-editor'
-import {
-  GenericEditor,
-  Prepend,
-  AddBefore,
-  AddAfter,
-  Remove,
-} from '../../styles/mixin'
+import { AddBefore, AddAfter, Remove, Prepend, GenericEditor } from './controls'
 
 const SectionEditor = ({ path }) => {
   const { control, register } = useFormContext()
@@ -22,6 +15,7 @@ const SectionEditor = ({ path }) => {
 
   const [state, setState] = useState(false)
   const config = useSelector(state => state.config.section)
+  const defaultSection = useSelector(state => state.config.default.section)
 
   const isStandAlone = section =>
     config.find(item => item.type === section.type).standalone
@@ -44,29 +38,18 @@ const SectionEditor = ({ path }) => {
     setState(!state)
   }
 
-  const newSection = () => {
-    return {
-      type: 'SECTION_CUSTOM',
-      params: getDefaultParams('SECTION_CUSTOM'),
-      rows: [],
-    }
-  }
+  const newSection = () => ({ ...defaultSection })
 
   return (
     <>
-      {!fields.length ? (
-        <Prepend type='section'>
-          <FaPlusCircle onClick={() => prepend(newSection())} />
-        </Prepend>
-      ) : null}
+      {!fields.length && (
+        <Prepend type='section' onClick={() => prepend(newSection())} />
+      )}
 
       {fields &&
         fields.map((field, i) => (
           <GenericEditor key={field.id} type='section'>
-            <AddBefore type='section'>
-              <FaPlusCircle onClick={() => insert(i, newSection())} />
-            </AddBefore>
-
+            <AddBefore type='section' onClick={() => insert(i, newSection())} />
             <SelectType
               name={`${path}[${i}].type`}
               values={sectionTypes}
@@ -85,12 +68,11 @@ const SectionEditor = ({ path }) => {
               <RowEditor path={`${path}[${i}].rows`} scope='PAGE' />
             )}
 
-            <Remove type='section'>
-              <FaTrashAlt onClick={() => remove(i)} />
-            </Remove>
-            <AddAfter type='section'>
-              <FaPlusCircle onClick={() => insert(i + 1, newSection())} />
-            </AddAfter>
+            <Remove type='section' onClick={() => remove(i)} />
+            <AddAfter
+              type='section'
+              onClick={() => insert(i + 1, newSection())}
+            />
           </GenericEditor>
         ))}
     </>

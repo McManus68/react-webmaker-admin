@@ -7,59 +7,27 @@ import ColorInput from '../form/color-input'
 import RadioInput from '../form/radio-input'
 
 const InputFactory = ({ param, name }) => {
+  const props = {
+    name: name,
+    label: param.name,
+    defaultValue: param.defaultValue,
+  }
+
   switch (param.type) {
     case 'NUMBER':
-      return (
-        <NumberInput
-          name={name}
-          label={param.name}
-          defaultValue={param.defaultValue}
-        />
-      )
+      return <NumberInput {...props} />
     case 'TEXT':
-      return (
-        <TextInput
-          name={name}
-          label={param.name}
-          defaultValue={param.defaultValue}
-        />
-      )
+      return <TextInput {...props} />
     case 'IMAGE':
-      return (
-        <ImageInput
-          name={name}
-          config={param}
-          defaultValue={param.defaultValue}
-        />
-      )
+      return <ImageInput {...props} config={param} />
     case 'COLOR':
-      return (
-        <ColorInput
-          name={name}
-          label={param.name}
-          defaultValue={param.defaultValue}
-        />
-      )
+      return <ColorInput {...props} />
     case 'RGBA':
-      return (
-        <ColorInput
-          name={name}
-          label={param.name}
-          defaultValue={param.defaultValue}
-          rgba
-        />
-      )
+      return <ColorInput {...props} rgba />
     case 'RADIO':
-      return (
-        <RadioInput
-          name={name}
-          label={param.name}
-          values={param.choiceValues}
-          defaultValue={param.defaultValue}
-        />
-      )
+      return <RadioInput {...props} values={param.choiceValues} />
     default:
-      return <TextInput name={name} defaultValue={param.defaultValue} />
+      return <TextInput {...props} />
   }
 }
 
