@@ -5,6 +5,7 @@ import { saveFooter } from '../../redux'
 import RowEditor from './row-editor'
 import { Container } from '../../styles/mixin'
 import { schema } from '../../yup/footer.js'
+import FactoryFooter from '@bit/mcmanus68.webmaker.factory.factory-footer'
 
 const FooterEditor = ({ footer, activeIndex, index }) => {
   const methods = useForm({
@@ -36,12 +37,7 @@ const FooterEditor = ({ footer, activeIndex, index }) => {
       <Container>
         <FormContext {...methods}>
           <form>
-            <input
-              name='type'
-              type='hidden'
-              ref={methods.register()}
-              defaultValue={footer.type}
-            />
+            <input name='type' type='hidden' ref={methods.register()} defaultValue={footer.type} />
 
             <RowEditor path='rows' scope='FOOTER' />
           </form>

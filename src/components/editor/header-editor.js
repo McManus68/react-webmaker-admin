@@ -17,7 +17,7 @@ const HeaderEditor = ({ header, activeIndex, index }) => {
   }, [header])
 
   const tabIndexToSave = useSelector(state => state.editor.tabIndexToSave)
-  const navs = useSelector(state => state.config.nav)
+  const headerTypes = useSelector(state => state.config.header)
 
   const dispatch = useDispatch()
 
@@ -36,7 +36,7 @@ const HeaderEditor = ({ header, activeIndex, index }) => {
     activeIndex === index && (
       <Container>
         <FormContext {...methods}>
-          <SelectInput name='nav' label='Navigation' values={navs} />
+          <SelectInput name='type' label='Type' values={headerTypes} />
         </FormContext>
       </Container>
     )

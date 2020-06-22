@@ -10,13 +10,9 @@ const Params = ({ config, component, path, configType }) => {
   const { register } = useFormContext()
 
   return (
-    <ParamsContainer row={configType === 'SECTION'}>
+    <ParamsContainer>
       {configType === 'BLOCK' ? (
-        <TextInput
-          name={`${path}.classes`}
-          label='Classes CSS'
-          defaultValue={component.classes}
-        />
+        <TextInput name={`${path}.classes`} label='Classes CSS' defaultValue={component.classes} />
       ) : null}
       {config.params.map((param, i) => {
         return (

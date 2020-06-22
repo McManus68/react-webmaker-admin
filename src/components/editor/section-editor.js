@@ -1,78 +1,86 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useFormContext, useFieldArray } from 'react-hook-form'
 import { useSelector } from 'react-redux'
 import Params from '../params/params'
-import SelectType from '../form/select-type'
 import RowEditor from './row-editor'
-import { AddBefore, AddAfter, Remove, Prepend, GenericEditor } from './controls'
+import { AddBefore, AddAfter, Remove, Prepend, GenericEditor, Settings } from './controls'
+import FactorySection from '@bit/mcmanus68.webmaker.factory.factory-section'
+import ParamsDialog from '../params/params-dialog'
+import EditorControls from './editor-controls'
+import TabPanel from '../ui/tab-panel'
+import styled from 'styled-components'
 
 const SectionEditor = ({ path }) => {
-  const { control, register } = useFormContext()
+  const { control, watch, setValue, register } = useFormContext()
   const { fields, prepend, remove, insert } = useFieldArray({
     control,
     name: path,
   })
 
   const [state, setState] = useState(false)
+  const [openSectionId, setOpenSectionId] = useState(-1)
   const config = useSelector(state => state.config.section)
   const defaultSection = useSelector(state => state.config.default.section)
-
-  const isStandAlone = section =>
-    config.find(item => item.type === section.type).standalone
-
-  const sectionTypes = config.map(item => item.type)
-
-  const getDefaultParams = type => {
-    return config
-      .find(item => item.type === type)
-      .params.map(item => ({
-        name: item.name,
-        type: item.type,
-        value: item.defaultValue,
-      }))
+  const isStandAlone = section => {
+    console.log('isStandAlone', section, config)
+    return config.find(item => item.type === section.type).standalone
   }
 
-  const onChangeType = (field, value) => {
-    field.type = value
-    field.params = getDefaultParams(field.type)
+  const onSave = (field, newParams) => {
+    field.params = newParams
+    setOpenSectionId(-1)
     setState(!state)
   }
 
+  const onClose = () => setOpenSectionId(-1)
   const newSection = () => ({ ...defaultSection })
 
   return (
     <>
-      {!fields.length && (
-        <Prepend type='section' onClick={() => prepend(newSection())} />
-      )}
+      {!fields.length && <Prepend type='section' onClick={() => prepend(newSection())} />}
 
       {fields &&
         fields.map((field, i) => (
           <GenericEditor key={field.id} type='section'>
-            <AddBefore type='section' onClick={() => insert(i, newSection())} />
-            <SelectType
-              name={`${path}[${i}].type`}
-              values={sectionTypes}
-              onChange={onChangeType}
+            <FactorySection section={field} recursive={false}>
+              <RowEditor path={`${path}[${i}].rows`} scope='PAGE' />
+            </FactorySection>
+
+            <EditorControls
+              type='section'
               field={field}
+              index={i}
+              remove={remove}
+              insert={insert}
+              newObj={newSection}
+              settings={setOpenSectionId}
+            />
+
+            <input
+              name={`${path}[${i}].type`}
+              type='hidden'
+              ref={register()}
+              defaultValue={field.type}
             />
 
             {isStandAlone(field) ? (
-              <Params
-                component={field}
-                config={config.find(c => c.type === field.type)}
-                configType='SECTION'
-                path={`${path}[${i}]`}
-              />
-            ) : (
-              <RowEditor path={`${path}[${i}].rows`} scope='PAGE' />
-            )}
-
-            <Remove type='section' onClick={() => remove(i)} />
-            <AddAfter
-              type='section'
-              onClick={() => insert(i + 1, newSection())}
-            />
+              <>
+                <ParamsDialog
+                  open={openSectionId === field.id}
+                  field={field}
+                  path={`${path}[${i}].params`}
+                  onSave={onSave}
+                  onClose={onClose}
+                >
+                  <Params
+                    component={field}
+                    config={config.find(c => c.type === field.type)}
+                    configType='SECTION'
+                    path={`${path}[${i}]`}
+                  />
+                </ParamsDialog>
+              </>
+            ) : null}
           </GenericEditor>
         ))}
     </>

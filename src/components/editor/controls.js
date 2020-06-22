@@ -1,19 +1,10 @@
 import React from 'react'
-import { FaPlusCircle, FaTrashAlt } from 'react-icons/fa'
+import { FaPlusCircle, FaTrashAlt, FaToolbox } from 'react-icons/fa'
 import styled from 'styled-components'
 
 export const GenericEditor = styled.div`
   position: relative;
-  padding: 0.7rem 0;
-  border: 3px solid ${props => props.theme.color[props.type]};
-  padding: ${props => props.theme.container.padding};
-  margin: 1.2rem 0;
-  h2,
-  h3,
-  h4 {
-    color: ${props => props.theme.color[props.type]};
-    text-align: center;
-  }
+  border: 2px solid ${props => props.theme.color[props.type]};
 `
 const Control = styled.div`
   cursor: pointer;
@@ -49,6 +40,11 @@ const StyledRemove = styled(Control)`
   right: -12px;
   top: 50%;
 `
+const StyledSettings = styled(Control)`
+  position: absolute;
+  left: -12px;
+  top: -12px;
+`
 
 export const AddBefore = ({ type, onClick }) => {
   return (
@@ -79,5 +75,13 @@ export const Prepend = ({ type, onClick }) => {
     <StyledPrepend type={type}>
       <FaPlusCircle onClick={onClick} />
     </StyledPrepend>
+  )
+}
+
+export const Settings = ({ type, onClick }) => {
+  return (
+    <StyledSettings type={type}>
+      <FaToolbox onClick={onClick} />
+    </StyledSettings>
   )
 }

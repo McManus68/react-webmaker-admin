@@ -10,7 +10,7 @@ const initialState = {
   section: [],
   block: [],
   animation: [],
-  nav: [],
+  header: [],
   default: {},
 }
 
@@ -36,7 +36,7 @@ const configReducer = (state = initialState, action) => {
         section: [],
         block: [],
         animation: [],
-        nav: [],
+        header: [],
         default: {},
       }
     default:

@@ -71,9 +71,7 @@ export const uploadImage = (siteId, image) => {
     const config = {
       headers: { 'Content-Type': 'multipart/form-data' },
       onUploadProgress: function (progressEvent) {
-        var percentCompleted = Math.round(
-          (progressEvent.loaded * 100) / progressEvent.total
-        )
+        var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
         dispatch(setUploadProgress(percentCompleted))
       },
     }
@@ -81,7 +79,7 @@ export const uploadImage = (siteId, image) => {
     fd.append('file', image)
     dispatch(uploadImageRequest())
     axios
-      .post(`http://localhost:8080/api/images/upload/${siteId}`, fd, config)
+      .post(`${process.env.REACT_APP_API_URL}/images/upload/${siteId}`, fd, config)
       .then(response => {
         const image = response.data
         dispatch(uploadImageSuccess(image))
@@ -97,7 +95,7 @@ export const fetchImages = siteId => {
   return dispatch => {
     dispatch(fetchImagesRequest())
     axios
-      .get(`http://localhost:8080/api/images/${siteId}`)
+      .get(`${process.env.REACT_APP_API_URL}/images/${siteId}`)
       .then(response => {
         const images = response.data
         dispatch(fetchImagesSuccess(images))

@@ -3,15 +3,25 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "^4.9.14",
+    "@bit/mcmanus68.webmaker.factory.factory-block": "^1.0.42",
+    "@bit/mcmanus68.webmaker.factory.factory-footer": "^1.0.43",
+    "@bit/mcmanus68.webmaker.factory.factory-page": "^1.0.53",
+    "@bit/mcmanus68.webmaker.factory.factory-row": "^1.0.43",
+    "@bit/mcmanus68.webmaker.factory.factory-section": "^1.0.53",
+    "@bit/mcmanus68.webmaker.factory.factory-theme": "^1.0.6",
+    "@bit/mcmanus68.webmaker.section.section-hero": "^1.0.19",
+    "@bit/mcmanus68.webmaker.ui.back-to-top": "^1.0.2",
+    "@material-ui/core": "^4.10.2",
     "@material-ui/icons": "^4.9.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
+    "bootstrap": "^4.5.0",
     "lodash": "^4.17.15",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
+    "react-bootstrap": "^1.0.1",
     "react-color": "2.17.2",
     "react-dom": "^16.13.1",
     "react-flip-move": "^3.0.4",
@@ -26,6 +36,9 @@
     "redux-thunk": "^2.3.0",
     "styled-components": "^5.1.1",
     "yup": "^0.28.5"
+  },
+  "devDependencies": {
+    "prettier": "2.0.5"
   },
   "scripts": {
     "start": "react-scripts start",

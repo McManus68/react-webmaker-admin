@@ -99,7 +99,7 @@ export const fetchSites = () => {
   return dispatch => {
     dispatch(fetchSitesRequest())
     axios
-      .get('http://localhost:8080/api/sites')
+      .get(`${process.env.REACT_APP_API_URL}/sites`)
       .then(response => {
         const sites = response.data
         dispatch(fetchSitesSuccess(sites))
@@ -115,7 +115,7 @@ export const fetchSite = id => {
   return dispatch => {
     dispatch(fetchSiteRequest())
     axios
-      .get('http://localhost:8080/api/sites/' + id)
+      .get(`${process.env.REACT_APP_API_URL}/sites/${id}`)
       .then(response => {
         const site = response.data
         dispatch(fetchSiteSuccess(site))
@@ -131,7 +131,7 @@ export const createSite = site => {
   return dispatch => {
     dispatch(createSiteRequest())
     axios
-      .post('http://localhost:8080/api/sites/', site)
+      .post(`${process.env.REACT_APP_API_URL}/sites/`, site)
       .then(response => {
         const site = response.data
         dispatch(createSiteSuccess(site))
@@ -147,7 +147,7 @@ export const updateSite = site => {
   return dispatch => {
     dispatch(updateSiteRequest())
     axios
-      .post('http://localhost:8080/api/sites/', site)
+      .post(`${process.env.REACT_APP_API_URL}/sites/`, site)
       .then(response => {
         const site = response.data
         dispatch(updateSiteSuccess(site))

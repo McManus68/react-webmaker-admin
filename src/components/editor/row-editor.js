@@ -3,6 +3,7 @@ import { useFormContext, useFieldArray } from 'react-hook-form'
 import { useSelector } from 'react-redux'
 import BlockEditor from './block-editor'
 import { AddBefore, AddAfter, Remove, Prepend, GenericEditor } from './controls'
+import FactoryRow from '@bit/mcmanus68.webmaker.factory.factory-row'
 
 const RowEditor = ({ path, scope }) => {
   const { control, register } = useFormContext()
@@ -16,13 +17,15 @@ const RowEditor = ({ path, scope }) => {
 
   return (
     <>
-      {!fields.length && (
-        <Prepend type='row' onClick={() => prepend(newRow())} />
-      )}
+      {!fields.length && <Prepend type='row' onClick={() => prepend(newRow())} />}
 
       {fields &&
         fields.map((field, i) => (
           <GenericEditor key={field.id} type='row'>
+            <FactoryRow row={field} recursive={false}>
+              <BlockEditor path={`${path}[${i}].blocks`} scope={scope} />
+            </FactoryRow>
+
             <AddBefore type='row' onClick={() => insert(i, newRow())} />
 
             <input
@@ -31,8 +34,6 @@ const RowEditor = ({ path, scope }) => {
               ref={register()}
               defaultValue={field.type}
             />
-
-            <BlockEditor path={`${path}[${i}].blocks`} scope={scope} />
 
             <Remove type='row' onClick={() => remove(i)} />
             <AddAfter type='row' onClick={() => insert(i + 1, newRow())} />

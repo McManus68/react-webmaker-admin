@@ -4,14 +4,21 @@ import { useSelector } from 'react-redux'
 import ResponsiveParams from '../params/responsive-params'
 import AnimationParams from '../params/animation-params'
 import Params from '../params/params'
+import { Row, Col } from 'react-bootstrap'
 import SelectType from '../form/select-type'
-import { AddBefore, AddAfter, Remove, Prepend, GenericEditor } from './controls'
+import { AddBefore, AddAfter, Remove, Prepend, GenericEditor, Settings } from './controls'
+import FactoryBlock from '@bit/mcmanus68.webmaker.factory.factory-block'
+import ParamsDialog from '../params/params-dialog'
+import EditorControls from './editor-controls'
 import styled from 'styled-components'
 
 const BlockEditorParameters = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+`
+const StyledBlock = styled(FactoryBlock)`
+  border: 2px solid gree;
 `
 
 const BlockEditor = ({ path, scope }) => {
@@ -21,6 +28,7 @@ const BlockEditor = ({ path, scope }) => {
     name: path,
   })
   const [state, setState] = useState(false)
+  const [openBlockId, setOpenBlockId] = useState(-1)
   const config = useSelector(state => state.config.block)
   const defaultBlock = useSelector(state => state.config.default.block)
 
@@ -34,61 +42,59 @@ const BlockEditor = ({ path, scope }) => {
       }))
   }
 
-  const newBlock = () => {
-    const type =
-      scope === 'PAGE' ? 'BLOCK_SIMPLE_CONTENT' : 'FOOTER_SIMPLE_CONTENT'
-    return { ...defaultBlock, type: type, params: getDefaultParams(type) }
+  const onSave = (field, newParams) => {
+    field.params = newParams
+    setOpenBlockId(-1)
+    setState(!state)
   }
 
-  const blockTypes = config
-    .filter(item => item.scope === scope)
-    .map(item => item.type)
+  const onClose = () => setOpenBlockId(-1)
 
-  const onChangeType = (field, value) => {
-    field.type = value
-    field.params = getDefaultParams(field.type)
-    setState(!state)
+  const newBlock = () => {
+    const type = scope === 'PAGE' ? 'BLOCK_SIMPLE_CONTENT' : 'FOOTER_SIMPLE_CONTENT'
+    return { ...defaultBlock, type: type, params: getDefaultParams(type) }
   }
 
   return (
     <>
-      {!fields.length && (
-        <Prepend type='block' onClick={() => prepend(newBlock())} />
-      )}
+      {!fields.length && <Prepend type='block' onClick={() => prepend(newBlock())} />}
 
       {fields &&
         fields.map((field, i) => (
-          <GenericEditor key={field.id} type='block'>
-            <AddBefore type='block' onClick={() => insert(i, newBlock())} />
+          <>
+            <input name={`${path}[${i}].type`} type='hidden' ref={register()} />
 
-            <SelectType
-              name={`${path}[${i}].type`}
-              values={blockTypes}
-              onChange={onChangeType}
-              field={field}
-            />
-
-            <BlockEditorParameters>
-              <Params
-                component={field}
-                config={config.find(c => c.type === field.type)}
-                configType='BLOCK'
-                path={`${path}[${i}]`}
+            <FactoryBlock key={i} block={field}>
+              <EditorControls
+                type='block'
+                field={field}
+                index={i}
+                remove={remove}
+                insert={insert}
+                newObj={newBlock}
+                settings={setOpenBlockId}
               />
+            </FactoryBlock>
 
-              <ResponsiveParams
-                responsive={field.responsive}
-                path={`${path}[${i}].responsive`}
-              />
-              <AnimationParams
-                animation={field.animation}
-                path={`${path}[${i}].animation`}
-              />
-            </BlockEditorParameters>
+            {openBlockId === field.id ? (
+              <ParamsDialog
+                field={field}
+                path={`${path}[${i}].params`}
+                onSave={onSave}
+                onClose={onClose}
+              >
+                <Params
+                  component={field}
+                  config={config.find(c => c.type === field.type)}
+                  configType='BLOCK'
+                  path={`${path}[${i}]`}
+                />
 
-            <Remove type='block' onClick={() => remove(i)} />
-            <AddAfter type='block' onClick={() => insert(i + 1, newBlock())} />
-          </GenericEditor>
+                <ResponsiveParams responsive={field.responsive} path={`${path}[${i}].responsive`} />
+                <AnimationParams animation={field.animation} path={`${path}[${i}].animation`} />
+              </ParamsDialog>
+            ) : null}
+          </>
         ))}
     </>
   )
