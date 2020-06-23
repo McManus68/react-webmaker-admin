@@ -1,33 +1,43 @@
+import { get, set } from 'lodash'
 import {
-  SAVE_PAGE,
+  ADD_SECTION,
+  SET_SECTION,
+  REMOVE_SECTION,
+  ADD_ROW,
+  REMOVE_ROW,
+  SAVE_PAGE_INFO,
+  SAVE_SITE_INFO,
   SAVE_FOOTER,
   SAVE_HEADER,
   SAVE_THEME,
   SET_SITE,
   ADD_PAGE,
-  SAVE_TAB_REQUEST,
   SET_ACTIVE_INDEX,
-  SET_PENDING_ACTION,
+  SAVE_PARAMS,
 } from './editorTypes'
 
 const initialState = {
-  site: { pages: [], footer: {} },
-  tabIndexToSave: { index: -1 },
-  flagSaved: false,
+  site: { pages: [] },
   currentSiteId: '',
   activeIndex: 0,
-  pendingAction: '',
 }
 
 const editorReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SAVE_PAGE:
+    case SAVE_PAGE_INFO:
       var newSite = { ...state.site }
-      newSite.pages[action.payload.index] = action.payload.page
+      var page = get(newSite, action.payload.path)
+      set(newSite, action.payload.path, { ...page, ...action.payload.page })
       return {
         ...state,
         site: newSite,
-        flagSaved: true,
+      }
+
+    case SAVE_SITE_INFO:
+      var newSite = { ...state.site, ...action.payload }
+      return {
+        ...state,
+        site: newSite,
       }
 
     case SAVE_FOOTER:
@@ -45,7 +55,6 @@ const editorReducer = (state = initialState, action) => {
       return {
         ...state,
         site: newSite,
-        flagSaved: true,
       }
 
     case SAVE_HEADER:
@@ -54,7 +63,6 @@ const editorReducer = (state = initialState, action) => {
       return {
         ...state,
         site: newSite,
-        flagSaved: true,
       }
 
     case SET_SITE:
@@ -65,18 +73,6 @@ const editorReducer = (state = initialState, action) => {
         activeIndex: 0,
       }
 
-    case SET_ACTIVE_INDEX:
-      return {
-        ...state,
-        activeIndex: action.payload,
-      }
-
-    case SET_PENDING_ACTION:
-      return {
-        ...state,
-        pendingAction: action.payload,
-      }
-
     case ADD_PAGE:
       var newSite = { ...state.site }
       newSite.pages.push({ title: action.payload })
@@ -85,11 +81,71 @@ const editorReducer = (state = initialState, action) => {
         site: newSite,
       }
 
-    case SAVE_TAB_REQUEST:
+    case SET_ACTIVE_INDEX:
       return {
         ...state,
-        tabIndexToSave: { index: action.payload },
-        flagSaved: false,
+        activeIndex: action.payload,
+      }
+
+    case ADD_SECTION:
+      var newSite = { ...state.site }
+      var sections = get(newSite, action.payload.path, [])
+      sections.splice(action.payload.index, 0, { rows: [], params: [] })
+      set(newSite, action.payload.path, sections)
+      return {
+        ...state,
+        site: newSite,
+      }
+
+    case SET_SECTION:
+      var newSite = { ...state.site }
+      var sections = get(newSite, action.payload.path, [])
+      sections[action.payload.index] = action.payload.section
+      set(newSite, action.payload.path, sections)
+      return {
+        ...state,
+        site: newSite,
+      }
+
+    case REMOVE_SECTION:
+      var newSite = { ...state.site }
+      var sections = get(newSite, action.payload.path, [])
+      sections.splice(action.payload.index, 1)
+      set(newSite, action.payload.path, sections)
+      return {
+        ...state,
+        site: newSite,
+      }
+
+    case ADD_ROW:
+      var newSite = { ...state.site }
+      var rows = get(newSite, action.payload.path, [])
+      rows.splice(action.payload.index, 0, { blocks: [] })
+      set(newSite, action.payload.path, rows)
+      return {
+        ...state,
+        site: newSite,
+      }
+
+    case REMOVE_ROW:
+      var newSite = { ...state.site }
+      var rows = get(newSite, action.payload.path, [])
+      rows.splice(action.payload.index, 1)
+      set(newSite, action.payload.path, rows)
+      return {
+        ...state,
+        site: newSite,
+      }
+
+    case SAVE_PARAMS:
+      var newSite = { ...state.site }
+      console.log('action.payload', action.payload)
+      var params = get(newSite, action.payload.path, [])
+      params.forEach((param, i) => (param.value = action.payload.params[i].value))
+      set(newSite, action.payload.path, params)
+      return {
+        ...state,
+        site: newSite,
       }
 
     default:

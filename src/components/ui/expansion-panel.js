@@ -1,27 +1,24 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import FormControl from '@material-ui/core/FormControl'
-import styled from 'styled-components'
+import React, { useState } from 'react'
+import MuiExpansionPanel from '@material-ui/core/ExpansionPanel'
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
-const ExpansionPanel = props => {
-  const { children, value, index, ...other } = props
+const ExpansionPanel = ({ title, children }) => {
+  const [expanded, setExpanded] = useState(true)
+
   return (
-    <div
-      role='tabpanel'
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && children}
-    </div>
+    <MuiExpansionPanel expanded={expanded} onChange={() => setExpanded(!expanded)}>
+      <ExpansionPanelSummary
+        expandIcon={<ExpandMoreIcon />}
+        aria-controls='panel1a-content'
+        id='panel1a-header'
+      >
+        <h3>{title}</h3>
+      </ExpansionPanelSummary>
+      <ExpansionPanelDetails>{children}</ExpansionPanelDetails>
+    </MuiExpansionPanel>
   )
 }
 
-export default TabPanel
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
-}
+export default ExpansionPanel

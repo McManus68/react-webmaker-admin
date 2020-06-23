@@ -3,20 +3,9 @@ import { useSelector, useDispatch } from 'react-redux'
 import { fetchSite, setSite, createSite, fetchImages } from '../../redux'
 import IconButton from '@material-ui/core/IconButton'
 import AddIcon from '@material-ui/icons/Add'
+import { Menu, MenuHeader } from '../../styles/mixin'
 import styled from 'styled-components'
 
-const Menu = styled.div`
-  min-width: 200px;
-  min-height: calc(100vh - 60px);
-  background-color: ${props => props.theme.color.bg};
-  border-right: 1px solid lightgrey;
-  padding: 1rem;
-`
-const MenuHeader = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`
 const AddButton = styled(IconButton)`
   color: ${props => props.theme.color.primary};
 `
@@ -62,7 +51,6 @@ const SitesMenu = () => {
   return (
     <Menu>
       <MenuHeader>
-        <h3>Sites</h3>
         <AddButton onClick={() => dispatch(onCreateSite)}>
           <AddIcon />
         </AddButton>

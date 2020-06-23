@@ -55,13 +55,7 @@ const LibraryMenu = () => {
 
   return (
     <Menu>
-      <MenuHeader>
-        <h3>Resources</h3>
-      </MenuHeader>
-
-      {uploadProgress !== 0 ? (
-        <LinearProgress variant='buffer' value={uploadProgress} />
-      ) : null}
+      {uploadProgress !== 0 ? <LinearProgress variant='buffer' value={uploadProgress} /> : null}
 
       <StyledImageUploader
         withIcon={false}

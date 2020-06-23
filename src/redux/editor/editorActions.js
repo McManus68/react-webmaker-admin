@@ -1,21 +1,94 @@
 import {
-  SAVE_PAGE,
+  SET_ACTIVE_INDEX,
+  ADD_SECTION,
+  SET_SECTION,
+  REMOVE_SECTION,
+  ADD_ROW,
+  REMOVE_ROW,
+  SAVE_PAGE_INFO,
+  SAVE_SITE_INFO,
   SAVE_FOOTER,
   SAVE_HEADER,
   SAVE_THEME,
   SET_SITE,
   ADD_PAGE,
-  SAVE_TAB_REQUEST,
-  SET_ACTIVE_INDEX,
-  SET_PENDING_ACTION,
+  SAVE_PARAMS,
 } from './editorTypes'
 
-export const savePage = (page, index) => {
+export const addSection = (path, index) => {
   return {
-    type: SAVE_PAGE,
+    type: ADD_SECTION,
     payload: {
-      page: page,
+      path: path,
       index: index,
+    },
+  }
+}
+
+export const setSection = (path, index, section) => {
+  return {
+    type: SET_SECTION,
+    payload: {
+      path: path,
+      index: index,
+      section: section,
+    },
+  }
+}
+
+export const removeSection = (path, index) => {
+  return {
+    type: REMOVE_SECTION,
+    payload: {
+      path: path,
+      index: index,
+    },
+  }
+}
+
+export const addRow = (path, index) => {
+  return {
+    type: ADD_ROW,
+    payload: {
+      path: path,
+      index: index,
+    },
+  }
+}
+
+export const removeRow = (path, index) => {
+  return {
+    type: REMOVE_ROW,
+    payload: {
+      path: path,
+      index: index,
+    },
+  }
+}
+
+export const savePageInfo = (path, page) => {
+  return {
+    type: SAVE_PAGE_INFO,
+    payload: {
+      path: path,
+      page: page,
+    },
+  }
+}
+
+export const saveSiteInfo = site => {
+  return {
+    type: SAVE_SITE_INFO,
+    payload: site,
+  }
+}
+
+export const saveParams = (path, params) => {
+  return {
+    type: SAVE_PARAMS,
+    payload: {
+      path: path,
+      params: params,
     },
   }
 }
@@ -48,24 +121,10 @@ export const setSite = site => {
   }
 }
 
-export const setPendingAction = action => {
-  return {
-    type: SET_PENDING_ACTION,
-    payload: action,
-  }
-}
-
 export const addPage = name => {
   return {
     type: ADD_PAGE,
     payload: name,
-  }
-}
-
-export const saveActiveTabRequest = index => {
-  return {
-    type: SAVE_TAB_REQUEST,
-    payload: index,
   }
 }
 

@@ -7,7 +7,10 @@ import { Container } from '../../styles/mixin'
 import { schema } from '../../yup/footer.js'
 import FactoryFooter from '@bit/mcmanus68.webmaker.factory.factory-footer'
 
-const FooterEditor = ({ footer, activeIndex, index }) => {
+const FooterEditor = ({ activeIndex, index }) => {
+  const footer = useSelector(state => state.editor.site).footer
+
+  console.log('footer', footer)
   const methods = useForm({
     validationSchema: schema,
     defaultValues: footer,
@@ -17,34 +20,21 @@ const FooterEditor = ({ footer, activeIndex, index }) => {
     methods.reset(footer)
   }, [footer])
 
-  const tabIndexToSave = useSelector(state => state.editor.tabIndexToSave)
-
   const dispatch = useDispatch()
-
-  useEffect(() => {
-    if (tabIndexToSave.index === index) {
-      methods.handleSubmit(onSaveFooter)()
-    }
-  }, [tabIndexToSave])
 
   const onSaveFooter = data => {
     console.log('FOOTER SAVED', data)
     dispatch(saveFooter(data))
   }
 
-  return (
-    activeIndex === index && (
-      <Container>
-        <FormContext {...methods}>
-          <form>
-            <input name='type' type='hidden' ref={methods.register()} defaultValue={footer.type} />
-
-            <RowEditor path='rows' scope='FOOTER' />
-          </form>
-        </FormContext>
-      </Container>
-    )
-  )
+  return activeIndex === index && footer ? (
+    <Container>
+      <FormContext {...methods}>
+        {footer.rows &&
+          footer.rows.map((row, i) => <RowEditor key={i} row={row} path='rows' scope='FOOTER' />)}
+      </FormContext>
+    </Container>
+  ) : null
 }
 
 export default FooterEditor

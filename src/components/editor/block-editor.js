@@ -21,81 +21,35 @@ const StyledBlock = styled(FactoryBlock)`
   border: 2px solid gree;
 `
 
-const BlockEditor = ({ path, scope }) => {
-  const { control, register } = useFormContext()
-  const { fields, prepend, remove, insert } = useFieldArray({
-    control,
-    name: path,
-  })
-  const [state, setState] = useState(false)
+const BlockEditor = ({ path, block, scope, index }) => {
   const [openBlockId, setOpenBlockId] = useState(-1)
   const config = useSelector(state => state.config.block)
   const defaultBlock = useSelector(state => state.config.default.block)
 
-  const getDefaultParams = type => {
-    return config
-      .find(item => item.type === type)
-      .params.map(item => ({
-        name: item.name,
-        type: item.type,
-        value: item.defaultValue,
-      }))
-  }
-
   const onSave = (field, newParams) => {
     field.params = newParams
     setOpenBlockId(-1)
-    setState(!state)
   }
 
   const onClose = () => setOpenBlockId(-1)
 
-  const newBlock = () => {
-    const type = scope === 'PAGE' ? 'BLOCK_SIMPLE_CONTENT' : 'FOOTER_SIMPLE_CONTENT'
-    return { ...defaultBlock, type: type, params: getDefaultParams(type) }
-  }
-
   return (
     <>
-      {!fields.length && <Prepend type='block' onClick={() => prepend(newBlock())} />}
+      <FactoryBlock block={block}></FactoryBlock>
 
-      {fields &&
-        fields.map((field, i) => (
-          <>
-            <input name={`${path}[${i}].type`} type='hidden' ref={register()} />
+      {openBlockId === index ? (
+        <ParamsDialog field={block} path={`${path}.params`} onSave={onSave} onClose={onClose}>
+          <Params
+            component={block}
+            config={config.find(c => c.type === block.type)}
+            configType='BLOCK'
+            path={`${path}[${index}]`}
+          />
 
-            <FactoryBlock key={i} block={field}>
-              <EditorControls
-                type='block'
-                field={field}
-                index={i}
-                remove={remove}
-                insert={insert}
-                newObj={newBlock}
-                settings={setOpenBlockId}
-              />
-            </FactoryBlock>
-
-            {openBlockId === field.id ? (
-              <ParamsDialog
-                field={field}
-                path={`${path}[${i}].params`}
-                onSave={onSave}
-                onClose={onClose}
-              >
-                <Params
-                  component={field}
-                  config={config.find(c => c.type === field.type)}
-                  configType='BLOCK'
-                  path={`${path}[${i}]`}
-                />
-
-                <ResponsiveParams responsive={field.responsive} path={`${path}[${i}].responsive`} />
-                <AnimationParams animation={field.animation} path={`${path}[${i}].animation`} />
-              </ParamsDialog>
-            ) : null}
-          </>
-        ))}
+          <ResponsiveParams responsive={block.responsive} path={`${path}[${index}].responsive`} />
+          <AnimationParams animation={block.animation} path={`${path}[${index}].animation`} />
+        </ParamsDialog>
+      ) : null}
     </>
   )
 }

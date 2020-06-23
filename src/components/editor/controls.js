@@ -5,6 +5,7 @@ import styled from 'styled-components'
 export const GenericEditor = styled.div`
   position: relative;
   border: 2px solid ${props => props.theme.color[props.type]};
+  min-height: 100px;
 `
 const Control = styled.div`
   cursor: pointer;

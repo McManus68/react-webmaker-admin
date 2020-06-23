@@ -2,8 +2,11 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchConfig, fetchSites } from './redux'
 import Header from './components/header'
-import SitesMenu from './components/menus/sites-menu'
+import LeftMenu from './components/menus/left-menu'
+import RightMenu from './components/menus/right-menu'
 import SiteEditor from './components/editor/site-editor'
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
 import styled from 'styled-components'
 
 const Main = styled.main`
@@ -21,11 +24,13 @@ function App() {
   return (
     <div>
       <Header />
-
-      <Main>
-        <SitesMenu />
-        {site && <SiteEditor site={site} />}
-      </Main>
+      <DndProvider backend={HTML5Backend}>
+        <Main>
+          <LeftMenu />
+          <SiteEditor />
+          <RightMenu />
+        </Main>
+      </DndProvider>
 
       <footer></footer>
     </div>

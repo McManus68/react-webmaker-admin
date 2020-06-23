@@ -16,16 +16,9 @@ const HeaderEditor = ({ header, activeIndex, index }) => {
     methods.reset(header)
   }, [header])
 
-  const tabIndexToSave = useSelector(state => state.editor.tabIndexToSave)
   const headerTypes = useSelector(state => state.config.header)
 
   const dispatch = useDispatch()
-
-  useEffect(() => {
-    if (tabIndexToSave.index === index) {
-      methods.handleSubmit(onSaveHeader)()
-    }
-  }, [tabIndexToSave])
 
   const onSaveHeader = data => {
     console.log('HEADER SAVED', data)

@@ -24,16 +24,9 @@ const ThemeEditor = ({ theme, activeIndex, index }) => {
     methods.reset(theme)
   }, [theme])
 
-  const tabIndexToSave = useSelector(state => state.editor.tabIndexToSave)
   const defaultTheme = useSelector(state => state.config.default.theme)
 
   const dispatch = useDispatch()
-
-  useEffect(() => {
-    if (tabIndexToSave.index === index) {
-      methods.handleSubmit(onSaveTheme)()
-    }
-  }, [tabIndexToSave])
 
   const onSaveTheme = data => {
     console.log('THEME SAVED', data)
@@ -71,11 +64,7 @@ const ThemeEditor = ({ theme, activeIndex, index }) => {
                 label='secondary'
                 defaultValue={defaultTheme.font.secondary}
               />
-              <TextInput
-                name='font.body'
-                label='body'
-                defaultValue={defaultTheme.font.body}
-              />
+              <TextInput name='font.body' label='body' defaultValue={defaultTheme.font.body} />
             </FieldSet>
 
             <FieldSet label='Footer' row>
@@ -84,11 +73,7 @@ const ThemeEditor = ({ theme, activeIndex, index }) => {
                 label='color'
                 defaultValue={defaultTheme.footer.color}
               />
-              <ColorInput
-                name='footer.bg'
-                label='bg'
-                defaultValue={defaultTheme.footer.bg}
-              />
+              <ColorInput name='footer.bg' label='bg' defaultValue={defaultTheme.footer.bg} />
             </FieldSet>
 
             <FieldSet label='Header' row>
@@ -97,11 +82,7 @@ const ThemeEditor = ({ theme, activeIndex, index }) => {
                 label='color'
                 defaultValue={defaultTheme.header.color}
               />
-              <ColorInput
-                name='header.bg'
-                label='bg'
-                defaultValue={defaultTheme.header.bg}
-              />
+              <ColorInput name='header.bg' label='bg' defaultValue={defaultTheme.header.bg} />
             </FieldSet>
 
             <FieldSet label='Section' row>
