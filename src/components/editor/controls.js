@@ -6,6 +6,14 @@ export const GenericEditor = styled.div`
   position: relative;
   border: 2px solid ${props => props.theme.color[props.type]};
   min-height: 100px;
+  background-color: ${({ canDrop, isOver }) =>
+    isOver && !canDrop
+      ? 'red'
+      : !isOver && canDrop
+      ? 'yellow'
+      : isOver && canDrop
+      ? 'green'
+      : 'inherit'};
 `
 const Control = styled.div`
   cursor: pointer;

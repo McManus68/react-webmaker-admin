@@ -20,6 +20,7 @@ const Component = styled.li`
 const DraggableItem = ({ type, component }) => {
   const [{ isDragging }, drag] = useDrag({
     item: { type: type },
+    options: { type: component.type },
     collect: monitor => ({
       isDragging: !!monitor.isDragging(),
     }),

@@ -10,7 +10,6 @@ import FactoryFooter from '@bit/mcmanus68.webmaker.factory.factory-footer'
 const FooterEditor = ({ activeIndex, index }) => {
   const footer = useSelector(state => state.editor.site).footer
 
-  console.log('footer', footer)
   const methods = useForm({
     validationSchema: schema,
     defaultValues: footer,

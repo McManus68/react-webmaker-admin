@@ -1,4 +1,5 @@
 import { get, set } from 'lodash'
+
 import {
   ADD_SECTION,
   SET_SECTION,
@@ -20,6 +21,16 @@ const initialState = {
   site: { pages: [] },
   currentSiteId: '',
   activeIndex: 0,
+}
+
+const getDefaultParams = (config, type) => {
+  return config
+    .find(item => item.type === type)
+    .params.map(item => ({
+      name: item.name,
+      type: item.type,
+      value: item.defaultValue,
+    }))
 }
 
 const editorReducer = (state = initialState, action) => {
@@ -46,7 +57,6 @@ const editorReducer = (state = initialState, action) => {
       return {
         ...state,
         site: newSite,
-        flagSaved: true,
       }
 
     case SAVE_THEME:
@@ -99,9 +109,10 @@ const editorReducer = (state = initialState, action) => {
 
     case SET_SECTION:
       var newSite = { ...state.site }
-      var sections = get(newSite, action.payload.path, [])
-      sections[action.payload.index] = action.payload.section
-      set(newSite, action.payload.path, sections)
+      var { path, index, section } = { ...action.payload }
+      var sections = get(newSite, path, [])
+      sections[index] = section
+      set(newSite, path, sections)
       return {
         ...state,
         site: newSite,
@@ -139,7 +150,6 @@ const editorReducer = (state = initialState, action) => {
 
     case SAVE_PARAMS:
       var newSite = { ...state.site }
-      console.log('action.payload', action.payload)
       var params = get(newSite, action.payload.path, [])
       params.forEach((param, i) => (param.value = action.payload.params[i].value))
       set(newSite, action.payload.path, params)
