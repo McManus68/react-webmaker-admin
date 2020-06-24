@@ -11,10 +11,7 @@ const SwitchInput = ({ label, name, defaultValue }) => {
   return (
     <Controller
       as={
-        <FormControlLabel
-          control={<Switch inputRef={inputRef} />}
-          label='Primary'
-        />
+        <FormControlLabel control={<Switch inputRef={inputRef} size='small' />} label='Primary' />
       }
       name={name}
       label={label}

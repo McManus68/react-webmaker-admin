@@ -4,14 +4,22 @@ import { useFormContext, Controller } from 'react-hook-form'
 import Radio from '@material-ui/core/Radio'
 import RadioGroup from '@material-ui/core/RadioGroup'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
-import FieldSet from '../form/fieldset'
+import styled from 'styled-components'
+
+const StyledRadioInput = styled.div`
+  .MuiFormGroup-root {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  padding: 0.6rem 1rem;
+`
 
 const RadioInput = ({ label, name, values, defaultValue }) => {
   const { control, getValues } = useFormContext()
   const inputRef = useRef()
 
   return (
-    <FieldSet label={label}>
+    <StyledRadioInput>
       <Controller
         as={
           <RadioGroup inputref={inputRef}>
@@ -19,7 +27,7 @@ const RadioInput = ({ label, name, values, defaultValue }) => {
               <FormControlLabel
                 key={i}
                 value={value}
-                control={<Radio />}
+                control={<Radio size='small' />}
                 label={value}
               />
             ))}
@@ -30,7 +38,7 @@ const RadioInput = ({ label, name, values, defaultValue }) => {
         control={control}
         defaultValue={getValues(name) || defaultValue}
       />
-    </FieldSet>
+    </StyledRadioInput>
   )
 }
 

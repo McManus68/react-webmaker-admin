@@ -8,7 +8,13 @@ import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
+import LibraryMenu from '../menus/library-menu'
 import styled from 'styled-components'
+
+const StyledDialogContent = styled(DialogContent)`
+  display: grid;
+  grid-template-columns: 350px 500fr;
+`
 
 const ParamsDialog = ({ defaultValues, open, onSave, onClose, children }) => {
   const methods = useForm({
@@ -16,7 +22,6 @@ const ParamsDialog = ({ defaultValues, open, onSave, onClose, children }) => {
   })
 
   const onSubmit = (data, e) => {
-    console.log('Submit event', JSON.stringify(data))
     onSave(data)
     onClose()
   }
@@ -29,7 +34,10 @@ const ParamsDialog = ({ defaultValues, open, onSave, onClose, children }) => {
     <FormContext {...methods}>
       <Dialog open={open} onClose={onClose} aria-labelledby='form-dialog-title'>
         <DialogTitle id='form-dialog-title'>Edit Parameters</DialogTitle>
-        <DialogContent>{children}</DialogContent>
+        <StyledDialogContent>
+          <div>{children}</div>
+          <LibraryMenu />
+        </StyledDialogContent>
         <DialogActions>
           <Button onClick={onClose} color='primary'>
             Cancel

@@ -5,7 +5,13 @@ import NumberInput from '../form/number-input'
 import SwitchInput from '../form/switch-input'
 import SelectInput from '../form/select-input'
 import ParamsContainer from './params-container'
-import FieldSet from '../form/fieldset'
+import styled from 'styled-components'
+
+const Animation = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0.6rem 1rem;
+`
 
 const AnimationParams = ({ animation, path }) => {
   const directions = ['left', 'right', 'top', 'bottom']
@@ -20,7 +26,7 @@ const AnimationParams = ({ animation, path }) => {
         defaultValue={animation.type}
       />
       <NumberInput name={`${path}.delay`} label='Delay' defaultValue={animation.delay} />
-      <FieldSet label='Direction'>
+      <Animation>
         {directions.map((direction, i) => {
           return (
             <SwitchInput
@@ -31,7 +37,7 @@ const AnimationParams = ({ animation, path }) => {
             />
           )
         })}
-      </FieldSet>
+      </Animation>
     </ParamsContainer>
   )
 }

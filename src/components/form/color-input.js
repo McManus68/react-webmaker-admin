@@ -32,11 +32,7 @@ const ColorInput = ({ label, name, defaultValue, rgba }) => {
   const inputRef = useRef()
 
   const selectColor = value => {
-    setColor(
-      rgba
-        ? `rgba(${value.rgb.r},${value.rgb.g},${value.rgb.b},${value.rgb.a})`
-        : value.hex
-    )
+    setColor(rgba ? `rgba(${value.rgb.r},${value.rgb.g},${value.rgb.b},${value.rgb.a})` : value.hex)
     setValue(name, color)
   }
 
@@ -47,6 +43,7 @@ const ColorInput = ({ label, name, defaultValue, rgba }) => {
           <TextField
             inputRef={inputRef}
             variant='outlined'
+            size='small'
             InputProps={{
               endAdornment: (
                 <InputAdornment>

@@ -11,7 +11,7 @@ const SelectInput = ({ label, name, values, variant, defaultValue }) => {
   return (
     <Controller
       as={
-        <TextField inputRef={inputRef} select>
+        <TextField inputRef={inputRef} size='small' select>
           {values.map(item => (
             <MenuItem key={item} value={item}>
               {item}

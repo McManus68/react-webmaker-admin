@@ -6,7 +6,7 @@ const StyledParamsContainer = styled.div`
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  margin-top: 1rem;
+  margin-bottom: 1rem;
   margin-right: 0.4rem;
 `
 
@@ -15,7 +15,7 @@ const Label = styled.label`
   font-size: 1.2rem;
   text-align: center;
   background-color: lightgrey;
-  margin: 0.7rem 0;
+  margin-bottom: 0.7rem;
   padding: 0.4rem;
 `
 

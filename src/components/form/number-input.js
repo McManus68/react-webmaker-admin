@@ -9,7 +9,7 @@ const NumberInput = ({ label, name, variant, defaultValue }) => {
 
   return (
     <Controller
-      as={<TextField inputRef={inputRef} type='number' />}
+      as={<TextField inputRef={inputRef} type='number' size='small' />}
       name={name}
       label={label}
       onFocus={() => inputRef.current.focus()}

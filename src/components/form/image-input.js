@@ -40,6 +40,7 @@ const ImageInput = ({ name, label, defaultValue, variant }) => {
       as={
         <TextField
           inputRef={inputRef}
+          size='small'
           variant={variant}
           InputProps={{
             readOnly: true,

@@ -9,7 +9,7 @@ const TextInput = ({ label, name, variant, defaultValue }) => {
 
   return (
     <Controller
-      as={<TextField inputRef={inputRef} variant={variant} />}
+      as={<TextField inputRef={inputRef} variant={variant} size='small' />}
       name={name}
       label={label}
       onFocus={() => inputRef.current.focus()}
