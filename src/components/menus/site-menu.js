@@ -35,7 +35,11 @@ const SiteMenu = () => {
           </ParamsDialog>
 
           <MenuControls>
-            <Button variant='contained' color='secondary' onClick={() => dispatch(updateSite)}>
+            <Button
+              variant='contained'
+              color='secondary'
+              onClick={() => dispatch(updateSite(site))}
+            >
               Save
             </Button>
           </MenuControls>

@@ -6,6 +6,8 @@ export {
   removeSection,
   addRow,
   removeRow,
+  addBlock,
+  removeBlock,
   savePageInfo,
   saveSiteInfo,
   saveFooter,

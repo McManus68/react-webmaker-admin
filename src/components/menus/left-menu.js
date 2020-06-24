@@ -5,21 +5,28 @@ import ComponentsMenu from './components-menu'
 import styled from 'styled-components'
 
 const StyledLeftMenu = styled.div`
+  position: fixed;
+  top: 60px;
+  left: 0;
   background-color: ${props => props.theme.color.bg};
+  overflow-x: hidden;
   padding: 1rem;
-  width: 300px;
+  height: 100%;
+  width: 250px;
 `
 
 const leftMenu = () => {
   return (
-    <StyledLeftMenu>
-      <ExpansionPanel title='Sites'>
-        <SitesMenu />
-      </ExpansionPanel>
-      <ExpansionPanel title='Components'>
-        <ComponentsMenu />
-      </ExpansionPanel>
-    </StyledLeftMenu>
+    <aside>
+      <StyledLeftMenu>
+        <ExpansionPanel title='Sites'>
+          <SitesMenu />
+        </ExpansionPanel>
+        <ExpansionPanel title='Components'>
+          <ComponentsMenu />
+        </ExpansionPanel>
+      </StyledLeftMenu>
+    </aside>
   )
 }
 

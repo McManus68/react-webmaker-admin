@@ -15,4 +15,7 @@ export const REMOVE_SECTION = 'REMOVE_SECTION'
 export const ADD_ROW = 'ADD_ROW'
 export const REMOVE_ROW = 'REMOVE_ROW'
 
+export const ADD_BLOCK = 'ADD_BLOCK'
+export const REMOVE_BLOCK = 'REMOVE_BLOCK'
+
 export const ADD_PAGE = 'ADD_PAGE'

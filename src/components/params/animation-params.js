@@ -12,18 +12,14 @@ const AnimationParams = ({ animation, path }) => {
   const animations = useSelector(state => state.config.animation)
 
   return (
-    <ParamsContainer>
+    <ParamsContainer label='Animation'>
       <SelectInput
         name={`${path}.type`}
         label='Type'
         values={animations}
         defaultValue={animation.type}
       />
-      <NumberInput
-        name={`${path}.delay`}
-        label='Delay'
-        defaultValue={animation.delay}
-      />
+      <NumberInput name={`${path}.delay`} label='Delay' defaultValue={animation.delay} />
       <FieldSet label='Direction'>
         {directions.map((direction, i) => {
           return (

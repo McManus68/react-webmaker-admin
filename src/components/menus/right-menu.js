@@ -8,22 +8,28 @@ import styled from 'styled-components'
 const StyledRightMenu = styled.div`
   background-color: ${props => props.theme.color.bg};
   padding: 1rem;
+  position: fixed;
+  overflow-x: hidden;
+  top: 60px;
+  height: 100%;
   width: 300px;
 `
 
 const RightMenu = () => {
   return (
-    <StyledRightMenu>
-      <ExpansionPanel title='Site'>
-        <SiteMenu />
-      </ExpansionPanel>
-      <ExpansionPanel title='Page'>
-        <PageMenu />
-      </ExpansionPanel>
-      <ExpansionPanel title='Library'>
-        <LibraryMenu />
-      </ExpansionPanel>
-    </StyledRightMenu>
+    <aside>
+      <StyledRightMenu>
+        <ExpansionPanel title='Site'>
+          <SiteMenu />
+        </ExpansionPanel>
+        <ExpansionPanel title='Page'>
+          <PageMenu />
+        </ExpansionPanel>
+        <ExpansionPanel title='Library'>
+          <LibraryMenu />
+        </ExpansionPanel>
+      </StyledRightMenu>
+    </aside>
   )
 }
 

@@ -11,22 +11,22 @@ import { useDrop } from 'react-dnd'
 import { getDefaultParams } from '../../utils/utils-params'
 import styled from 'styled-components'
 
-const SectionEditor = ({ section, path, index }) => {
+const SectionEditor = ({ section, path, index, hasNext }) => {
   const config = useSelector(state => state.config.section)
   const isStandAlone = section => config.find(item => item.type === section.type).standalone
   const dispatch = useDispatch()
 
   const newSection = type => ({
     type: type,
-    rows: [],
+    rows: type === 'SECTION_CUSTOM' ? [{ type: 'ROW', blocks: [] }] : [],
     params: getDefaultParams(config, type),
   })
 
   const [open, setOpen] = useState(false)
   const onClose = () => setOpen(false)
-  const onSave = data => dispatch(saveParams(`${path}[${index}].params`, data.params))
+  const onSave = data => dispatch(saveParams(`${path}[${index}]`, data))
 
-  const [{ isOver, canDrop, options }, drop] = useDrop({
+  const [{ isOver, canDrop }, drop] = useDrop({
     accept: ItemTypes.SECTION,
     canDrop: () => section.type === undefined,
     drop: item => dispatch(setSection(path, index, newSection(item.componentType))),
@@ -39,12 +39,11 @@ const SectionEditor = ({ section, path, index }) => {
   return (
     <>
       <GenericEditor type='section' ref={drop} canDrop={canDrop} isOver={isOver}>
-        <FactorySection section={section} recursive={false} />
-
-        {section.rows &&
-          section.rows.map((row, i) => (
+        <FactorySection section={section} recursive={false}>
+          {section.rows.map((row, i) => (
             <RowEditor key={i} index={i} row={row} path={`${path}[${index}].rows`} scope='PAGE' />
           ))}
+        </FactorySection>
 
         <AddBefore type='section' onClick={() => dispatch(addSection(path, index))} />
         <Remove type='section' onClick={() => dispatch(removeSection(path, index))} />

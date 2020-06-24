@@ -5,6 +5,8 @@ import {
   REMOVE_SECTION,
   ADD_ROW,
   REMOVE_ROW,
+  ADD_BLOCK,
+  REMOVE_BLOCK,
   SAVE_PAGE_INFO,
   SAVE_SITE_INFO,
   SAVE_FOOTER,
@@ -66,6 +68,26 @@ export const removeRow = (path, index) => {
   }
 }
 
+export const addBlock = (path, block) => {
+  return {
+    type: ADD_BLOCK,
+    payload: {
+      path: path,
+      block: block,
+    },
+  }
+}
+
+export const removeBlock = (path, index) => {
+  return {
+    type: REMOVE_BLOCK,
+    payload: {
+      path: path,
+      index: index,
+    },
+  }
+}
+
 export const savePageInfo = (path, page) => {
   return {
     type: SAVE_PAGE_INFO,
@@ -83,12 +105,12 @@ export const saveSiteInfo = site => {
   }
 }
 
-export const saveParams = (path, params) => {
+export const saveParams = (path, values) => {
   return {
     type: SAVE_PARAMS,
     payload: {
       path: path,
-      params: params,
+      values: values,
     },
   }
 }

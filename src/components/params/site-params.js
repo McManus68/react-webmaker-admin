@@ -7,7 +7,7 @@ import ParamsContainer from './params-container'
 const SiteParams = () => {
   const params = ['name', 'title', 'description']
   return (
-    <ParamsContainer>
+    <ParamsContainer label='Site'>
       {params.map((param, i) => (
         <TextInput key={i} name={param} label={param} />
       ))}

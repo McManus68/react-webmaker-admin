@@ -20,6 +20,7 @@ const Control = styled.div`
   position: absolute;
   padding: 2px;
   background-color: #fff;
+  border-radius: 50%;
   color: ${props => props.theme.color[props.type]};
   visibility: hidden;
   transition: 0.3s;

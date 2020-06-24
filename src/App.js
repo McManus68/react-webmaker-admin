@@ -10,7 +10,8 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 import styled from 'styled-components'
 
 const Main = styled.main`
-  display: flex;
+  display: grid;
+  grid-template-columns: 250px 1fr 300px;
 `
 
 function App() {

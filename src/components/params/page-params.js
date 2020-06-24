@@ -7,7 +7,7 @@ const PageParams = () => {
   const params = ['title', 'slug', 'description']
 
   return (
-    <ParamsContainer>
+    <ParamsContainer label='Page'>
       {params.map((param, i) => {
         return <TextInput key={i} name={param} label={param} />
       })}

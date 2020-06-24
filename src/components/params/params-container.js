@@ -10,10 +10,19 @@ const StyledParamsContainer = styled.div`
   margin-right: 0.4rem;
 `
 
+const Label = styled.label`
+  font-weight: 600;
+  font-size: 1.2rem;
+  text-align: center;
+  background-color: lightgrey;
+  margin: 0.7rem 0;
+  padding: 0.4rem;
+`
+
 const ParamsContainer = ({ label, children }) => {
   return (
     <StyledParamsContainer>
-      <label>{label}</label>
+      <Label>{label}</Label>
       {children}
     </StyledParamsContainer>
   )

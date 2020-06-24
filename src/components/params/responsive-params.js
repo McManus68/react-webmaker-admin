@@ -6,7 +6,7 @@ import ParamsContainer from './params-container'
 const ResponsiveParams = ({ responsive, path }) => {
   const breakpoints = ['sm', 'md', 'lg', 'xl']
   return (
-    <ParamsContainer>
+    <ParamsContainer label='Responsive'>
       {breakpoints.map((breakpoint, i) => (
         <NumberInput
           key={i}

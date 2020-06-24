@@ -6,6 +6,8 @@ import {
   REMOVE_SECTION,
   ADD_ROW,
   REMOVE_ROW,
+  ADD_BLOCK,
+  REMOVE_BLOCK,
   SAVE_PAGE_INFO,
   SAVE_SITE_INFO,
   SAVE_FOOTER,
@@ -148,11 +150,41 @@ const editorReducer = (state = initialState, action) => {
         site: newSite,
       }
 
+    case ADD_BLOCK:
+      var newSite = { ...state.site }
+      var { path, block } = { ...action.payload }
+      var blocks = get(newSite, path, [])
+      blocks.push(block)
+      blocks.forEach(block => {
+        block.responsive.md = 12 / blocks.length
+        block.responsive.lg = 12 / blocks.length
+        block.responsive.xl = 12 / blocks.length
+      })
+      set(newSite, path, blocks)
+      return {
+        ...state,
+        site: newSite,
+      }
+
+    case REMOVE_BLOCK:
+      var newSite = { ...state.site }
+      var blocks = get(newSite, action.payload.path, [])
+      blocks.splice(action.payload.index, 1)
+      set(newSite, action.payload.path, blocks)
+      return {
+        ...state,
+        site: newSite,
+      }
+
     case SAVE_PARAMS:
       var newSite = { ...state.site }
-      var params = get(newSite, action.payload.path, [])
-      params.forEach((param, i) => (param.value = action.payload.params[i].value))
-      set(newSite, action.payload.path, params)
+      var { path, values } = { ...action.payload }
+      var { params, responsive, animation } = { ...values }
+      var newParams = get(newSite, `${path}.params`, [])
+      newParams.forEach((param, i) => (param.value = params[i].value))
+      set(newSite, `${path}.params`, newParams)
+      if (responsive) set(newSite, `${path}.responsive`, responsive)
+      if (animation) set(newSite, `${path}.animation`, animation)
       return {
         ...state,
         site: newSite,

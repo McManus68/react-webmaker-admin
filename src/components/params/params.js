@@ -8,7 +8,7 @@ import ArrayParams from '../params/array-param'
 
 const Params = ({ config, component }) => {
   return (
-    <ParamsContainer>
+    <ParamsContainer label='Parameters'>
       {config.params.map((param, i) => {
         return (
           <div key={i}>
