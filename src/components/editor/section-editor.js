@@ -8,38 +8,28 @@ import FactorySection from '@bit/mcmanus68.webmaker.factory.factory-section'
 import ParamsDialog from '../params/params-dialog'
 import { ItemTypes } from '../../types/types'
 import { useDrop } from 'react-dnd'
+import { getDefaultParams } from '../../utils/utils-params'
 import styled from 'styled-components'
 
 const SectionEditor = ({ section, path, index }) => {
   const config = useSelector(state => state.config.section)
-  const defaultSection = useSelector(state => state.config.default.section)
   const isStandAlone = section => config.find(item => item.type === section.type).standalone
   const dispatch = useDispatch()
-
-  const getDefaultParams = type => {
-    return config
-      .find(item => item.type === type)
-      .params.map(item => ({
-        name: item.name,
-        type: item.type,
-        value: item.defaultValue,
-      }))
-  }
 
   const newSection = type => ({
     type: type,
     rows: [],
-    params: getDefaultParams(type),
+    params: getDefaultParams(config, type),
   })
 
   const [open, setOpen] = useState(false)
   const onClose = () => setOpen(false)
   const onSave = data => dispatch(saveParams(`${path}[${index}].params`, data.params))
 
-  const [{ isOver, canDrop }, drop] = useDrop({
+  const [{ isOver, canDrop, options }, drop] = useDrop({
     accept: ItemTypes.SECTION,
     canDrop: () => section.type === undefined,
-    drop: () => dispatch(setSection(path, index, newSection('SECTION_HERO'))),
+    drop: item => dispatch(setSection(path, index, newSection(item.componentType))),
     collect: mon => ({
       isOver: !!mon.isOver(),
       canDrop: !!mon.canDrop(),
