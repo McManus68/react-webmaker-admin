@@ -26,7 +26,7 @@ const DraggableItem = ({ type, component }) => {
   })
 
   return (
-    <Component isDragging={isDragging} ref={drag} type='section'>
+    <Component isDragging={isDragging} ref={drag} type={component.type}>
       {component.type}
     </Component>
   )

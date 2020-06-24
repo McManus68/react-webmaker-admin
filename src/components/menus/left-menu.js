@@ -13,6 +13,7 @@ const StyledLeftMenu = styled.div`
   padding: 1rem;
   height: 100%;
   width: 250px;
+  margin-bottom: 80px;
 `
 
 const leftMenu = () => {

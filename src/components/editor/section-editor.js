@@ -13,7 +13,7 @@ import styled from 'styled-components'
 
 const SectionEditor = ({ section, path, index, hasNext }) => {
   const config = useSelector(state => state.config.section)
-  const isStandAlone = section => config.find(item => item.type === section.type).standalone
+  const isStandAlone = config.find(item => item.type === section.type)?.standalone
   const dispatch = useDispatch()
 
   const newSection = type => ({
@@ -48,9 +48,9 @@ const SectionEditor = ({ section, path, index, hasNext }) => {
         <AddBefore type='section' onClick={() => dispatch(addSection(path, index))} />
         <Remove type='section' onClick={() => dispatch(removeSection(path, index))} />
         <AddAfter type='section' onClick={() => dispatch(addSection(path, index + 1))} />
-        <Settings type='section' onClick={() => setOpen(!open)} />
+        {isStandAlone && <Settings type='section' onClick={() => setOpen(!open)} />}
 
-        {section.type && isStandAlone(section) ? (
+        {section.type && isStandAlone ? (
           <ParamsDialog open={open} defaultValues={section} onClose={onClose} onSave={onSave}>
             <Params component={section} config={config.find(c => c.type === section.type)} />
           </ParamsDialog>

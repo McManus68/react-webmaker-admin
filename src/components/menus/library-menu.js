@@ -3,34 +3,37 @@ import { useSelector, useDispatch } from 'react-redux'
 import ImageUploader from 'react-images-upload'
 import { uploadImage, setSelectedImage } from '../../redux'
 import LinearProgress from '@material-ui/core/LinearProgress'
+import { ItemTypes } from '../../types/types'
+import { useDrag } from 'react-dnd'
+import { Menu } from '../../styles/mixin'
 import styled from 'styled-components'
 
-const Menu = styled.div`
-  border-top: 1px solid lightgrey;
-`
-const MenuHeader = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-`
-const Library = styled.div`
-  display: grid;
-  gap: 5px;
-  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
-  grid-auto-flow: dense;
-  align-self: center;
-`
 const Image = styled.img`
   box-sizing: border-box;
   max-width: 100%;
   max-height: 100%;
   border: 4px solid lightgray;
   cursor: pointer;
-  ${({ active }) =>
-    active &&
-    ` border-color: var(--primary-color);
-    z-index: 2;`}
+  opacity: ${props => (props.isDragging ? 0.5 : 1)};
+`
+
+const DraggableImage = ({ image }) => {
+  const [{ isDragging }, drag] = useDrag({
+    item: { type: ItemTypes.IMAGE, image: image },
+    collect: monitor => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  })
+
+  return <Image isDragging={isDragging} ref={drag} src={image.thumbnail}></Image>
+}
+
+const Library = styled.div`
+  display: grid;
+  gap: 5px;
+  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+  grid-auto-flow: dense;
+  align-self: center;
 `
 
 const StyledImageUploader = styled(ImageUploader)`
@@ -69,14 +72,7 @@ const LibraryMenu = () => {
 
       <Library>
         {images.map((image, i) => {
-          return (
-            <Image
-              key={i}
-              active={selectedImage.name == image.name}
-              src={image.thumbnail}
-              onClick={() => dispatch(setSelectedImage(image))}
-            ></Image>
-          )
+          return <DraggableImage key={i} image={image}></DraggableImage>
         })}
       </Library>
     </Menu>
