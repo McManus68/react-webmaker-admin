@@ -6,12 +6,13 @@ import RowEditor from './row-editor'
 import { AddBefore, AddAfter, Remove, Prepend, GenericEditor, Settings } from './controls'
 import FactorySection from '@bit/mcmanus68.webmaker.factory.factory-section'
 import ParamsDialog from '../params/params-dialog'
-import { ItemTypes } from '../../types/types'
+import { DnDTypes } from '../../types/types'
 import { useDrop } from 'react-dnd'
 import { getDefaultParams } from '../../utils/utils-params'
+import { ObjTypes } from '../../types/types'
 import styled from 'styled-components'
 
-const SectionEditor = ({ section, path, index, hasNext }) => {
+const SectionEditor = ({ section, path, index }) => {
   const config = useSelector(state => state.config.section)
   const isStandAlone = config.find(item => item.type === section.type)?.standalone
   const dispatch = useDispatch()
@@ -27,7 +28,7 @@ const SectionEditor = ({ section, path, index, hasNext }) => {
   const onSave = data => dispatch(saveParams(`${path}[${index}]`, data))
 
   const [{ isOver, canDrop }, drop] = useDrop({
-    accept: ItemTypes.SECTION,
+    accept: DnDTypes.SECTION,
     canDrop: () => section.type === undefined,
     drop: item => dispatch(setSection(path, index, newSection(item.componentType))),
     collect: mon => ({
@@ -41,7 +42,7 @@ const SectionEditor = ({ section, path, index, hasNext }) => {
       <GenericEditor type='section' ref={drop} canDrop={canDrop} isOver={isOver}>
         <FactorySection section={section} recursive={false}>
           {section.rows.map((row, i) => (
-            <RowEditor key={i} index={i} row={row} path={`${path}[${index}].rows`} scope='PAGE' />
+            <RowEditor key={i} index={i} row={row} path={`${path}[${index}].rows`} />
           ))}
         </FactorySection>
 
@@ -52,7 +53,7 @@ const SectionEditor = ({ section, path, index, hasNext }) => {
 
         {section.type && isStandAlone ? (
           <ParamsDialog open={open} defaultValues={section} onClose={onClose} onSave={onSave}>
-            <Params component={section} config={config.find(c => c.type === section.type)} />
+            <Params path='params' component={section} type='section' />
           </ParamsDialog>
         ) : null}
       </GenericEditor>

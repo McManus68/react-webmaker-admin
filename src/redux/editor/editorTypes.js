@@ -19,3 +19,4 @@ export const ADD_BLOCK = 'ADD_BLOCK'
 export const REMOVE_BLOCK = 'REMOVE_BLOCK'
 
 export const ADD_PAGE = 'ADD_PAGE'
+export const REMOVE_PAGE = 'REMOVE_PAGE'

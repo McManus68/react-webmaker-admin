@@ -1,26 +1,21 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
-import { useFormContext } from 'react-hook-form'
 import InputFactory from '../factories/input-factory'
 import ParamsContainer from './params-container'
-import TextInput from '../form/text-input'
 import ArrayParams from '../params/array-param'
 
-const Params = ({ config, component }) => {
+const Params = ({ path, component, type }) => {
+  const config = useSelector(state => state.config)[type].find(c => c.type === component.type)
   return (
     <ParamsContainer label='Parameters'>
       {config.params.map((param, i) => {
         return (
           <div key={i}>
             {param.isArray ? (
-              <ArrayParams
-                path={`params[${i}].value`}
-                param={param}
-                values={component.params.find(p => p.type === param.type).value}
-                component={component}
-              />
+              <ArrayParams path={`${path}][${i}].value`} param={param} />
             ) : (
-              <InputFactory param={param} name={`params[${i}].value`} />
+              <InputFactory param={param} name={`${path}[${i}].value`} />
             )}
           </div>
         )
@@ -32,13 +27,7 @@ const Params = ({ config, component }) => {
 export default Params
 
 Params.propTypes = {
-  config: PropTypes.object,
-  component: PropTypes.object,
   path: PropTypes.string,
-  configType: PropTypes.string,
-  row: PropTypes.bool,
-}
-
-Params.defaultProps = {
-  row: false,
+  component: PropTypes.object,
+  type: PropTypes.string,
 }

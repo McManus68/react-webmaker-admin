@@ -1,4 +1,4 @@
-export { fetchSites, fetchSite, createSite, updateSite } from './site/siteActions'
+export { fetchSites, fetchSite, createSite, updateSite, removeSite } from './site/siteActions'
 export { fetchConfig } from './config/configActions'
 export {
   addSection,
@@ -8,6 +8,7 @@ export {
   removeRow,
   addBlock,
   removeBlock,
+  removePage,
   savePageInfo,
   saveSiteInfo,
   saveFooter,

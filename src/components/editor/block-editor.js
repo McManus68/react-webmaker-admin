@@ -4,7 +4,6 @@ import { removeBlock, saveParams } from '../../redux'
 import ResponsiveParams from '../params/responsive-params'
 import AnimationParams from '../params/animation-params'
 import Params from '../params/params'
-
 import { Remove, Settings } from './controls'
 import FactoryBlock from '@bit/mcmanus68.webmaker.factory.factory-block'
 import ParamsDialog from '../params/params-dialog'
@@ -26,9 +25,9 @@ const BlockEditor = ({ path, block, index }) => {
       </FactoryBlock>
 
       <ParamsDialog open={open} defaultValues={block} onClose={onClose} onSave={onSave}>
-        <Params component={block} config={config.find(c => c.type === block.type)} />
-        <ResponsiveParams responsive={block.responsive} path='responsive' />
-        <AnimationParams animation={block.animation} path='animation' />
+        <Params path='params' component={block} type='block' />
+        <ResponsiveParams path='responsive' responsive={block.responsive} />
+        <AnimationParams path='animation' animation={block.animation} />
       </ParamsDialog>
     </>
   )

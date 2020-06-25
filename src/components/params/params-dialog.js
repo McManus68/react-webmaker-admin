@@ -16,7 +16,7 @@ const StyledDialogContent = styled(DialogContent)`
   grid-template-columns: 350px 500fr;
 `
 
-const ParamsDialog = ({ defaultValues, open, onSave, onClose, children }) => {
+const ParamsDialog = ({ title, defaultValues, open, onSave, onClose, children }) => {
   const methods = useForm({
     defaultValues: defaultValues,
   })
@@ -33,7 +33,7 @@ const ParamsDialog = ({ defaultValues, open, onSave, onClose, children }) => {
   return (
     <FormContext {...methods}>
       <Dialog open={open} onClose={onClose} aria-labelledby='form-dialog-title'>
-        <DialogTitle id='form-dialog-title'>Edit Parameters</DialogTitle>
+        <DialogTitle id='form-dialog-title'>{title}</DialogTitle>
         <StyledDialogContent>
           <div>{children}</div>
           <LibraryMenu />
@@ -55,4 +55,6 @@ export default ParamsDialog
 
 ParamsDialog.propTypes = {}
 
-ParamsDialog.defaultProps = {}
+ParamsDialog.defaultProps = {
+  title: 'Parameters',
+}

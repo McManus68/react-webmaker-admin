@@ -7,7 +7,6 @@ import Tab from '@material-ui/core/Tab'
 import PageEditor from './page-editor'
 import HeaderEditor from './header-editor'
 import FooterEditor from './footer-editor'
-import ThemeEditor from './theme-editor'
 import styled from 'styled-components'
 
 const StyledSiteEditor = styled.div`
@@ -44,7 +43,6 @@ const SiteEditor = () => {
               {site && site.pages.map((page, i) => <Tab key={i} label={page.title} />)}
               <Tab label='Footer' />
               <Tab label='Header' />
-              <Tab label='Theme' />
             </StyledTabs>
           </AppBar>
 
@@ -58,13 +56,12 @@ const SiteEditor = () => {
                 path={`pages[${i}]`}
               />
             ))}
-          <FooterEditor activeIndex={activeIndex} index={site.pages.length} />
+          <FooterEditor footer={site.footer} activeIndex={activeIndex} index={site.pages.length} />
           <HeaderEditor
             header={site.header}
             activeIndex={activeIndex}
             index={site.pages.length + 1}
           />
-          <ThemeEditor theme={site.theme} activeIndex={activeIndex} index={site.pages.length + 2} />
         </SiteEditorContent>
       )}
     </StyledSiteEditor>

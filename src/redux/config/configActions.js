@@ -1,4 +1,4 @@
-import axios from 'axios'
+import api from '../../utils/api'
 
 import { FETCH_CONFIG_REQUEST, FETCH_CONFIG_SUCCESS, FETCH_CONFIG_FAILURE } from './configTypes'
 
@@ -25,8 +25,8 @@ export const fetchConfigFailure = error => {
 export const fetchConfig = () => {
   return dispatch => {
     dispatch(fetchConfigRequest())
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/config`)
+    api
+      .get('config')
       .then(response => {
         const config = response.data
         dispatch(fetchConfigSuccess(config))

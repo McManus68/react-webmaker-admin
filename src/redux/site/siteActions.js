@@ -1,4 +1,4 @@
-import axios from 'axios'
+import api from '../../utils/api'
 
 import {
   FETCH_SITES_SUCCESS,
@@ -13,6 +13,9 @@ import {
   CREATE_SITE_SUCCESS,
   CREATE_SITE_REQUEST,
   CREATE_SITE_FAILURE,
+  REMOVE_SITE_SUCCESS,
+  REMOVE_SITE_REQUEST,
+  REMOVE_SITE_FAILURE,
 } from './siteTypes'
 
 export const fetchSitesRequest = () => {
@@ -95,11 +98,31 @@ export const updateSiteFailure = error => {
   }
 }
 
+export const removeSiteRequest = () => {
+  return {
+    type: REMOVE_SITE_REQUEST,
+  }
+}
+
+export const removeSiteSuccess = id => {
+  return {
+    type: REMOVE_SITE_SUCCESS,
+    payload: id,
+  }
+}
+
+export const removeSiteFailure = error => {
+  return {
+    type: REMOVE_SITE_FAILURE,
+    payload: error,
+  }
+}
+
 export const fetchSites = () => {
   return dispatch => {
     dispatch(fetchSitesRequest())
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/sites`)
+    api
+      .get('sites')
       .then(response => {
         const sites = response.data
         dispatch(fetchSitesSuccess(sites))
@@ -114,8 +137,8 @@ export const fetchSites = () => {
 export const fetchSite = id => {
   return dispatch => {
     dispatch(fetchSiteRequest())
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/sites/${id}`)
+    api
+      .get(`sites/${id}`)
       .then(response => {
         const site = response.data
         dispatch(fetchSiteSuccess(site))
@@ -130,8 +153,8 @@ export const fetchSite = id => {
 export const createSite = site => {
   return dispatch => {
     dispatch(createSiteRequest())
-    axios
-      .post(`${process.env.REACT_APP_API_URL}/sites/`, site)
+    api
+      .post(`sites`, site)
       .then(response => {
         const site = response.data
         dispatch(createSiteSuccess(site))
@@ -146,8 +169,8 @@ export const createSite = site => {
 export const updateSite = site => {
   return dispatch => {
     dispatch(updateSiteRequest())
-    axios
-      .post(`${process.env.REACT_APP_API_URL}/sites/`, site)
+    api
+      .put('sites', site)
       .then(response => {
         const site = response.data
         dispatch(updateSiteSuccess(site))
@@ -155,6 +178,21 @@ export const updateSite = site => {
       .catch(error => {
         const errorMsg = error.message
         dispatch(updateSiteFailure(errorMsg))
+      })
+  }
+}
+
+export const removeSite = id => {
+  return dispatch => {
+    dispatch(removeSiteRequest())
+    api
+      .delete(`sites/${id}`)
+      .then(response => {
+        dispatch(removeSiteSuccess(id))
+      })
+      .catch(error => {
+        const errorMsg = error.message
+        dispatch(removeSiteFailure(errorMsg))
       })
   }
 }

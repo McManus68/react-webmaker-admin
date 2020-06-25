@@ -13,7 +13,7 @@ const Animation = styled.div`
   padding: 0.6rem 1rem;
 `
 
-const AnimationParams = ({ animation, path }) => {
+const AnimationParams = ({ path, animation }) => {
   const directions = ['left', 'right', 'top', 'bottom']
   const animations = useSelector(state => state.config.animation)
 

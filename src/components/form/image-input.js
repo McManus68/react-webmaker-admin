@@ -6,7 +6,7 @@ import InputAdornment from '@material-ui/core/InputAdornment'
 import { TextField } from '@material-ui/core'
 import IconButton from '@material-ui/core/IconButton'
 import SwitchIcon from '@material-ui/icons/CompareArrows'
-import { ItemTypes } from '../../types/types'
+import { DnDTypes } from '../../types/types'
 import { useDrop } from 'react-dnd'
 import styled from 'styled-components'
 
@@ -47,7 +47,7 @@ const ImageInput = ({ name, label, defaultValue, variant }) => {
   }
 
   const [{ isOver, canDrop }, drop] = useDrop({
-    accept: ItemTypes.IMAGE,
+    accept: DnDTypes.IMAGE,
     canDrop: () => true,
     drop: item => dropImage(item.image),
     collect: mon => ({

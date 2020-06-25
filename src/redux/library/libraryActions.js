@@ -1,4 +1,4 @@
-import axios from 'axios'
+import api from '../../utils/api'
 
 import {
   FETCH_IMAGES_REQUEST,
@@ -78,8 +78,8 @@ export const uploadImage = (siteId, image) => {
     let fd = new FormData()
     fd.append('file', image)
     dispatch(uploadImageRequest())
-    axios
-      .post(`${process.env.REACT_APP_API_URL}/images/upload/${siteId}`, fd, config)
+    api
+      .post(`images/upload/${siteId}`, fd, config)
       .then(response => {
         const image = response.data
         dispatch(uploadImageSuccess(image))
@@ -94,8 +94,8 @@ export const uploadImage = (siteId, image) => {
 export const fetchImages = siteId => {
   return dispatch => {
     dispatch(fetchImagesRequest())
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/images/${siteId}`)
+    api
+      .get(`images/${siteId}`)
       .then(response => {
         const images = response.data
         dispatch(fetchImagesSuccess(images))

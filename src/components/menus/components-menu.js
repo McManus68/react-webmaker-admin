@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { ItemTypes } from '../../types/types'
+import { DnDTypes } from '../../types/types'
 import { useDrag } from 'react-dnd'
 import styled from 'styled-components'
 
@@ -47,14 +47,14 @@ const ComponentsMenu = () => {
       <h4>Sections</h4>
       <List>
         {sections.map((section, i) => (
-          <DraggableItem key={i} component={section} type={ItemTypes.SECTION} />
+          <DraggableItem key={i} component={section} type={DnDTypes.SECTION} />
         ))}
       </List>
 
       <h4>Blocks</h4>
       <List>
         {blocks.map((block, i) => (
-          <DraggableItem key={i} component={block} type={ItemTypes.BLOCK} />
+          <DraggableItem key={i} component={block} type={DnDTypes.BLOCK} />
         ))}
       </List>
     </div>

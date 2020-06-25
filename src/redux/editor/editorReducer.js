@@ -15,6 +15,7 @@ import {
   SAVE_THEME,
   SET_SITE,
   ADD_PAGE,
+  REMOVE_PAGE,
   SET_ACTIVE_INDEX,
   SAVE_PARAMS,
 } from './editorTypes'
@@ -88,6 +89,14 @@ const editorReducer = (state = initialState, action) => {
     case ADD_PAGE:
       var newSite = { ...state.site }
       newSite.pages.push({ title: action.payload })
+      return {
+        ...state,
+        site: newSite,
+      }
+
+    case REMOVE_PAGE:
+      var newSite = { ...state.site }
+      newSite.pages.splice(action.payload, 1)
       return {
         ...state,
         site: newSite,
@@ -170,6 +179,11 @@ const editorReducer = (state = initialState, action) => {
       var newSite = { ...state.site }
       var blocks = get(newSite, action.payload.path, [])
       blocks.splice(action.payload.index, 1)
+      blocks.forEach(block => {
+        block.responsive.md = 12 / blocks.length
+        block.responsive.lg = 12 / blocks.length
+        block.responsive.xl = 12 / blocks.length
+      })
       set(newSite, action.payload.path, blocks)
       return {
         ...state,

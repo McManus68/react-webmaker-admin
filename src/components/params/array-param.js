@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { useFormContext, useFieldArray } from 'react-hook-form'
 import TrashIcon from '@material-ui/icons/Delete'
@@ -14,7 +14,7 @@ const ParamArray = styled.div`
   align-items: center;
 `
 
-const ArrayParam = ({ path, param, values, component }) => {
+const ArrayParam = ({ path, param }) => {
   const { control } = useFormContext()
   const { fields, append, remove } = useFieldArray({
     control,

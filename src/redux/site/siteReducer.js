@@ -11,6 +11,9 @@ import {
   UPDATE_SITE_SUCCESS,
   UPDATE_SITE_REQUEST,
   UPDATE_SITE_FAILURE,
+  REMOVE_SITE_SUCCESS,
+  REMOVE_SITE_REQUEST,
+  REMOVE_SITE_FAILURE,
 } from './siteTypes'
 
 const initialState = {
@@ -99,6 +102,28 @@ const siteReducer = (state = initialState, action) => {
         error: '',
       }
     case UPDATE_SITE_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      }
+
+    // REMOVE SITE
+    case REMOVE_SITE_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      }
+    case REMOVE_SITE_SUCCESS:
+      var newSites = [...state.sites]
+      newSites = newSites.filter(site => site.id !== action.payload)
+      return {
+        ...state,
+        sites: newSites,
+        loading: false,
+        error: '',
+      }
+    case REMOVE_SITE_FAILURE:
       return {
         ...state,
         loading: false,

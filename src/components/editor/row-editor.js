@@ -4,17 +4,17 @@ import { addRow, removeRow, addBlock } from '../../redux'
 import BlockEditor from './block-editor'
 import { AddBefore, AddAfter, Remove, Prepend, GenericEditor } from './controls'
 import { useDrop } from 'react-dnd'
-import { ItemTypes } from '../../types/types'
+import { DnDTypes } from '../../types/types'
 import { getDefaultParams } from '../../utils/utils-params'
 import FactoryRow from '@bit/mcmanus68.webmaker.factory.factory-row'
 
-const RowEditor = ({ path, row, index, scope }) => {
+const RowEditor = ({ path, row, index }) => {
   const dispatch = useDispatch()
   const config = useSelector(state => state.config.block)
   const defaultBlock = useSelector(state => state.config.default.block)
 
   const [{ isOver, canDrop }, drop] = useDrop({
-    accept: ItemTypes.BLOCK,
+    accept: DnDTypes.BLOCK,
     canDrop: () => true,
     drop: item =>
       dispatch(
@@ -34,13 +34,7 @@ const RowEditor = ({ path, row, index, scope }) => {
     <GenericEditor type='row' ref={drop} canDrop={canDrop} isOver={isOver}>
       <FactoryRow row={row} recursive={false}>
         {row.blocks.map((block, i) => (
-          <BlockEditor
-            key={i}
-            index={i}
-            block={block}
-            path={`${path}[${index}].blocks`}
-            scope={scope}
-          />
+          <BlockEditor key={i} index={i} block={block} path={`${path}[${index}].blocks`} />
         ))}
       </FactoryRow>
 

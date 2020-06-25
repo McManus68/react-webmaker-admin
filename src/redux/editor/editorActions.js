@@ -14,6 +14,7 @@ import {
   SAVE_THEME,
   SET_SITE,
   ADD_PAGE,
+  REMOVE_PAGE,
   SAVE_PARAMS,
 } from './editorTypes'
 
@@ -147,6 +148,13 @@ export const addPage = name => {
   return {
     type: ADD_PAGE,
     payload: name,
+  }
+}
+
+export const removePage = index => {
+  return {
+    type: REMOVE_PAGE,
+    payload: index,
   }
 }
 

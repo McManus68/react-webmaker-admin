@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import NumberInput from '../form/number-input'
 import ParamsContainer from './params-container'
 
-const ResponsiveParams = ({ responsive, path }) => {
+const ResponsiveParams = ({ path, responsive }) => {
   const breakpoints = ['sm', 'md', 'lg', 'xl']
   return (
     <ParamsContainer label='Responsive'>

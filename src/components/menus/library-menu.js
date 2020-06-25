@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import ImageUploader from 'react-images-upload'
 import { uploadImage, setSelectedImage } from '../../redux'
 import LinearProgress from '@material-ui/core/LinearProgress'
-import { ItemTypes } from '../../types/types'
+import { DnDTypes } from '../../types/types'
 import { useDrag } from 'react-dnd'
 import { Menu } from '../../styles/mixin'
 import styled from 'styled-components'
@@ -19,7 +19,7 @@ const Image = styled.img`
 
 const DraggableImage = ({ image }) => {
   const [{ isDragging }, drag] = useDrag({
-    item: { type: ItemTypes.IMAGE, image: image },
+    item: { type: DnDTypes.IMAGE, image: image },
     collect: monitor => ({
       isDragging: !!monitor.isDragging(),
     }),
