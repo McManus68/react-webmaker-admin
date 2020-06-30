@@ -44,7 +44,7 @@ const SitesMenu = () => {
   }, [site])
 
   const onCreateSite = () => {
-    const newSite = { title: 'NEW_SITE', name: 'NEW_SITE', pages: [] }
+    const newSite = { title: 'NEW_SITE', name: 'NEW_SITE', pages: [], footer: { rows: [] } }
     dispatch(createSite(newSite))
   }
 

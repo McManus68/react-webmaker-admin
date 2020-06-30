@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { addSection, setSection, removeSection, saveParams } from '../../redux'
+import { addSection, addRow, setSection, removeSection, saveParams } from '../../redux'
 import Params from '../params/params'
 import RowEditor from './row-editor'
 import { AddBefore, AddAfter, Remove, Prepend, GenericEditor, Settings } from './controls'

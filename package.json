@@ -5,6 +5,7 @@
   "dependencies": {
     "@bit/mcmanus68.webmaker.factory.factory-block": "^1.0.42",
     "@bit/mcmanus68.webmaker.factory.factory-footer": "^1.0.43",
+    "@bit/mcmanus68.webmaker.factory.factory-header": "^1.0.18",
     "@bit/mcmanus68.webmaker.factory.factory-page": "^1.0.53",
     "@bit/mcmanus68.webmaker.factory.factory-row": "^1.0.43",
     "@bit/mcmanus68.webmaker.factory.factory-section": "^1.0.53",

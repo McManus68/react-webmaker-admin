@@ -88,7 +88,7 @@ const editorReducer = (state = initialState, action) => {
 
     case ADD_PAGE:
       var newSite = { ...state.site }
-      newSite.pages.push({ title: action.payload })
+      newSite.pages.push({ title: action.payload, sections: [] })
       return {
         ...state,
         site: newSite,

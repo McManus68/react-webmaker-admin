@@ -19,6 +19,7 @@ const Control = styled.div`
   cursor: pointer;
   position: absolute;
   padding: 2px;
+  z-index: 99;
   background-color: #fff;
   border-radius: 50%;
   color: ${props => props.theme.color[props.type]};
@@ -30,7 +31,9 @@ const Control = styled.div`
 `
 const StyledPrepend = styled.div`
   cursor: pointer;
-  text-align: center;
+  position: absolute;
+  left: 50%;
+  top: 50%;
   color: ${props => props.theme.color[props.type]};
   padding: 2px;
   background-color: #fff;

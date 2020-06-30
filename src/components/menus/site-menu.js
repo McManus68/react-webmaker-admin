@@ -8,6 +8,7 @@ import ThemeIcon from '@material-ui/icons/ColorLens'
 import SettingsIcon from '@material-ui/icons/Settings'
 import IconButton from '@material-ui/core/IconButton'
 import SiteParams from '../params/site-params'
+import HeaderParams from '../params/header-params'
 import ThemeParams from '../params/theme-params'
 import ParamsDialog from '../params/params-dialog'
 import ConfirmDialog from '../ui/confirm-dialog'
@@ -59,6 +60,7 @@ const SiteMenu = () => {
             onSave={onSaveParam}
           >
             <SiteParams site={site} />
+            <HeaderParams />
           </ParamsDialog>
 
           <ParamsDialog

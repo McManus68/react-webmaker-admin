@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { savePageInfo, removePage } from '../../redux'
+import { savePageInfo, removePage, addPage } from '../../redux'
 import TreeView from '@material-ui/lab/TreeView'
 import TreeItem from '@material-ui/lab/TreeItem'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import SettingsIcon from '@material-ui/icons/Settings'
 import DeleteIcon from '@material-ui/icons/Delete'
+import AddIcon from '@material-ui/icons/Add'
 import IconButton from '@material-ui/core/IconButton'
 import ParamsDialog from '../params/params-dialog'
 import ConfirmDialog from '../ui/confirm-dialog'
@@ -33,11 +34,14 @@ const PageMenu = () => {
 
   return (
     <Menu>
-      {page && (
+      {site && (
         <>
           <MenuHeader>
             <IconButton onClick={() => setOpenParamDialog(!openParamDialog)}>
               <SettingsIcon />
+            </IconButton>
+            <IconButton onClick={() => dispatch(addPage('NEW_PAGE'))}>
+              <AddIcon />
             </IconButton>
             <IconButton>
               <StyledDeleteIcon onClick={() => setOpenDeleteDialog(!openDeleteDialog)} />
@@ -57,22 +61,23 @@ const PageMenu = () => {
             defaultCollapseIcon={<ExpandMoreIcon />}
             defaultExpandIcon={<ChevronRightIcon />}
           >
-            <TreeItem nodeId='root' label={page.title}>
-              {page.sections.map((section, i) => {
-                return (
-                  <TreeItem nodeId={i} label={section.type}>
-                    {section.rows.map((row, i) => {
-                      return (
-                        <TreeItem nodeId={i} label={row.type}>
-                          {row.blocks.map((block, i) => (
-                            <TreeItem nodeId={i} label={block.type} />
-                          ))}
-                        </TreeItem>
-                      )
-                    })}
-                  </TreeItem>
-                )
-              })}
+            <TreeItem nodeId='root' label={page?.title}>
+              {page &&
+                page.sections.map((section, i) => {
+                  return (
+                    <TreeItem nodeId={i} label={section.type}>
+                      {section.rows.map((row, i) => {
+                        return (
+                          <TreeItem nodeId={i} label={row.type}>
+                            {row.blocks.map((block, i) => (
+                              <TreeItem nodeId={i} label={block.type} />
+                            ))}
+                          </TreeItem>
+                        )
+                      })}
+                    </TreeItem>
+                  )
+                })}
             </TreeItem>
           </TreeView>
         </>

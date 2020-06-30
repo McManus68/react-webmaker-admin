@@ -4,8 +4,8 @@ import { setActiveIndex } from '../../redux'
 import AppBar from '@material-ui/core/AppBar'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
+import FooterIcon from '@material-ui/icons/BorderBottom'
 import PageEditor from './page-editor'
-import HeaderEditor from './header-editor'
 import FooterEditor from './footer-editor'
 import styled from 'styled-components'
 
@@ -41,8 +41,7 @@ const SiteEditor = () => {
           <AppBar position='static'>
             <StyledTabs value={activeIndex} onChange={handleChangeTab}>
               {site && site.pages.map((page, i) => <Tab key={i} label={page.title} />)}
-              <Tab label='Footer' />
-              <Tab label='Header' />
+              <Tab icon={<FooterIcon />} />
             </StyledTabs>
           </AppBar>
 
@@ -57,11 +56,6 @@ const SiteEditor = () => {
               />
             ))}
           <FooterEditor footer={site.footer} activeIndex={activeIndex} index={site.pages.length} />
-          <HeaderEditor
-            header={site.header}
-            activeIndex={activeIndex}
-            index={site.pages.length + 1}
-          />
         </SiteEditorContent>
       )}
     </StyledSiteEditor>
